@@ -63,7 +63,7 @@ public class HouseGUI implements ActionListener{
         panelBottom = new JPanel();
         
         //Heading
-        lblHeading = new JLabel("!!!INSERT HEADING HERE!!!");
+        lblHeading = new JLabel("Rent a Blikkie");
         
         //Buttons
         btnAdd = new JButton("ADD");
@@ -74,7 +74,7 @@ public class HouseGUI implements ActionListener{
         btnExit = new JButton("EXIT");
         
         //ComboBox
-        cboUser = new JComboBox();  ////////////////////////////////////////////
+        cboUser = new JComboBox();
         
         //Table
         tblModel = new DefaultTableModel();
@@ -85,12 +85,13 @@ public class HouseGUI implements ActionListener{
     {
         //Apply font change
         lblHeading.setFont(Hft);
+        lblHeading.setForeground(new Color(0, 0, 0));
         
         //Add Top panel
         frame.add(panelTop, BorderLayout.NORTH);
         panelTop.setLayout(new GridLayout(1, 1));
         panelTop.setSize(300,300);
-        panelTop.setBackground(new Color(100, 60, 150));
+        panelTop.setBackground(new Color(55, 55, 55));
         
         //Add Center panel
         frame.add(panelCenter, BorderLayout.CENTER);
@@ -98,26 +99,66 @@ public class HouseGUI implements ActionListener{
         //Add Bottom panel
         frame.add(panelBottom, BorderLayout.SOUTH);
         panelBottom.setSize(300,300);
-        panelBottom.setBackground(new Color(100, 60, 150));
+        panelBottom.setBackground(new Color(55, 55, 55));
         
         //Heading
         panelTop.add(lblHeading);
         
+        //ComboBox
+        panelTop.add(cboUser);
+        cboUser.addItem("-no selection made-");
+        
         //Buttons
         btnAdd.setPreferredSize(new Dimension(90,40));
-        btnAdminAgent.setPreferredSize(new Dimension(90,40));
+        btnAdminAgent.setPreferredSize(new Dimension(110,40));
         btnHouses.setPreferredSize(new Dimension(90,40));
         btnCustomers.setPreferredSize(new Dimension(90,40));
         btnRentals.setPreferredSize(new Dimension(90,40));
         btnExit.setPreferredSize(new Dimension(150,50));
+        
+        //Button Colours
+        btnAdd.setBackground(new Color(102, 178, 255));
+        btnAdd.setBorderPainted(false);
+        btnAdd.setFocusPainted(false);
+        btnAdd.setForeground(new Color(0, 0, 0));
+        
+        btnAdminAgent.setBackground(new Color(102, 178, 255));
+        btnAdminAgent.setBorderPainted(false);
+        btnAdminAgent.setFocusPainted(false);
+        btnAdminAgent.setForeground(new Color(0, 0, 0));
+        
+        btnHouses.setBackground(new Color(102, 178, 255));
+        btnHouses.setBorderPainted(false);
+        btnHouses.setFocusPainted(false);
+        btnHouses.setForeground(new Color(0, 0, 0));
+        
+        btnCustomers.setBackground(new Color(102, 178, 255));
+        btnCustomers.setBorderPainted(false);
+        btnCustomers.setFocusPainted(false);
+        btnCustomers.setForeground(new Color(0, 0, 0));
+        
+        btnRentals.setBackground(new Color(102, 178, 255));
+        btnRentals.setBorderPainted(false);
+        btnRentals.setFocusPainted(false);
+        btnRentals.setForeground(new Color(0, 0, 0));
+        
+        btnExit.setBackground(new Color(102, 178, 255));
+        btnExit.setBorderPainted(false);
+        btnExit.setFocusPainted(false);
+        btnExit.setForeground(new Color(0, 0, 0));
         
         panelCenter.add(btnAdd);
         panelCenter.add(btnAdminAgent);
         panelCenter.add(btnHouses);
         panelCenter.add(btnCustomers);
         panelCenter.add(btnRentals);
-        
         panelBottom.add(btnExit);
+        
+        //Panels Colours
+        panelTop.setBackground(new Color(233, 160, 124));
+        panelCenter.setBackground(new Color(233, 160, 124));
+        panelBottom.setBackground(new Color(233, 160, 124));
+        
         
         //Add action listeners
         btnAdd.addActionListener(this);
@@ -136,8 +177,9 @@ public class HouseGUI implements ActionListener{
         panelCenter.add(new JScrollPane(tblDisplay));
         
         //Show on form
-        frame.setSize(950,500);
+        frame.setSize(900,500);
         frame.setLocationRelativeTo(null);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
         
     }
@@ -152,7 +194,9 @@ public class HouseGUI implements ActionListener{
         //ADD BUTTON
         if(e.getActionCommand().equals("ADD"))
         {
-        
+            btnAdminAgent.setBackground(Color.red);
+            tblModel.addColumn("other stuff??");
+            tblModel.addColumn("other stuff??");
         }
     }
     
