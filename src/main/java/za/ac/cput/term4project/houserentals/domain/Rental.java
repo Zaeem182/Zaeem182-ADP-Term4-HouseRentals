@@ -13,24 +13,42 @@ import java.sql.Date;
  */
 public class Rental {
     
-    private int rentId;
+    private int rentId, customerId, houseId;
     private Date date;
 
-    public Rental(int no, Date date) {
-        this.rentId = no;
+    public Rental(int rentId, int customerId, int houseId, Date date) {
+        this.rentId = rentId;
+        this.customerId = customerId;
+        this.houseId = houseId;
         this.date = date;
     }
 
-    public void setNo(int no) {
-        this.rentId = no;
+    public void setRentId(int rentId) {
+        this.rentId = rentId;
+    }
+
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
+    }
+
+    public void setHouseId(int houseId) {
+        this.houseId = houseId;
     }
 
     public void setDate(Date date) {
         this.date = date;
     }
 
-    public int getNo() {
+    public int getRentId() {
         return rentId;
+    }
+
+    public int getCustomerId() {
+        return customerId;
+    }
+
+    public int getHouseId() {
+        return houseId;
     }
 
     public Date getDate() {
@@ -39,7 +57,7 @@ public class Rental {
 
     @Override
     public String toString() {
-        return "Rental{" + "no=" + rentId + ", date=" + date + '}';
+        return "Rental{" + "rentId=" + rentId + ", customerId=" + customerId + ", houseId=" + houseId + ", date=" + date + '}';
     }
     
 }

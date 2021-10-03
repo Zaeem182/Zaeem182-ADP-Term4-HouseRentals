@@ -12,15 +12,15 @@ package za.ac.cput.term4project.houserentals.domain;
 public class Employers {
    
     private int employerId;
-    private String fName, lName, workType;
-    private boolean active;
+    private String fName, lName;
+    private boolean active, admin;
 
-    public Employers(int employerId, String fName, String lName, String workType, boolean active) {
+    public Employers(int employerId, String fName, String lName, boolean active, boolean admin) {
         this.employerId = employerId;
         this.fName = fName;
         this.lName = lName;
-        this.workType = workType;
         this.active = active;
+        this.admin = admin;
     }
 
     public void setEmployerId(int employerId) {
@@ -35,12 +35,12 @@ public class Employers {
         this.lName = lName;
     }
 
-    public void setWorkType(String workType) {
-        this.workType = workType;
-    }
-
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
     }
 
     public int getEmployerId() {
@@ -55,17 +55,17 @@ public class Employers {
         return lName;
     }
 
-    public String getWorkType() {
-        return workType;
-    }
-
     public boolean isActive() {
         return active;
     }
 
+    public boolean isAdmin() {
+        return admin;
+    }
+
     @Override
     public String toString() {
-        return "Employers{" + "employerId=" + employerId + ", fName=" + fName + ", lName=" + lName + ", workType=" + workType + ", active=" + active + '}';
+        return "Employers{" + "employerId=" + employerId + ", fName=" + fName + ", lName=" + lName + ", active=" + active + ", admin=" + admin + '}';
     }
     
 }
