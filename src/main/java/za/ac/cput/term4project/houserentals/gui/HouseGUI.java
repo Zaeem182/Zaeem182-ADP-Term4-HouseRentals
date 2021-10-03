@@ -17,13 +17,31 @@ import javax.swing.table.DefaultTableModel;
  */
 public class HouseGUI implements ActionListener{
     
+   
     //JPanels
     private JPanel panelTop;
     private JPanel panelCenter;
     private JPanel panelBottom;
+    private JPanel panelLeft;
     
     //JLabel Heading
     private JLabel lblHeading;
+    
+    // JLabel input
+    private JLabel lblId;
+    private JLabel lblFName;
+    private JLabel lblLName;
+    private JLabel lblPhoneNum;
+    private JLabel lblCanRent;
+    
+    //JTextFields input
+    private JTextField txtId;
+    private JTextField txtFName;
+    private JTextField txtLName;
+    private JTextField txtPhoneNum;
+    
+    //JCheckBox
+    private JCheckBox chkCanRent;
     
     //JButtons
     private JButton btnAdd;
@@ -62,8 +80,27 @@ public class HouseGUI implements ActionListener{
         //Bottom panel
         panelBottom = new JPanel();
         
+        //Left panel
+        panelLeft = new JPanel();
+        
         //Heading
         lblHeading = new JLabel("Rent a Blikkie");
+        
+        //Label input
+        lblId = new JLabel("ID: ");
+        lblFName = new JLabel("First Name: ");
+        lblLName = new JLabel("Last Name: ");
+        lblPhoneNum = new JLabel("Phone Number: ");
+        lblCanRent = new JLabel("Can Rent: ");
+        
+        //TextField input
+        txtId = new JTextField(10);
+        txtFName = new JTextField(10);
+        txtLName = new JTextField(10);
+        txtPhoneNum = new JTextField(10);
+        
+        //Checkbox input
+        chkCanRent = new JCheckBox();
         
         //Buttons
         btnAdd = new JButton("ADD");
@@ -91,7 +128,6 @@ public class HouseGUI implements ActionListener{
         frame.add(panelTop, BorderLayout.NORTH);
         panelTop.setLayout(new GridLayout(1, 1));
         panelTop.setSize(300,300);
-        panelTop.setBackground(new Color(55, 55, 55));
         
         //Add Center panel
         frame.add(panelCenter, BorderLayout.CENTER);
@@ -99,8 +135,28 @@ public class HouseGUI implements ActionListener{
         //Add Bottom panel
         frame.add(panelBottom, BorderLayout.SOUTH);
         panelBottom.setSize(300,300);
-        panelBottom.setBackground(new Color(55, 55, 55));
         
+        //Add Left panel
+        frame.add(panelLeft,BorderLayout.WEST);
+        panelLeft.setPreferredSize(new Dimension(300, 300));
+        panelLeft.setLayout(new GridLayout(6,2));
+        
+        //Add Labels
+        panelLeft.add(lblId);
+        panelLeft.add(txtId);
+        
+        panelLeft.add(lblFName);
+        panelLeft.add(txtFName);
+        
+        panelLeft.add(lblLName);
+        panelLeft.add(txtLName);
+        
+        panelLeft.add(lblPhoneNum);
+        panelLeft.add(txtPhoneNum);
+        
+        panelLeft.add(lblCanRent);
+        panelLeft.add(chkCanRent);
+      
         //Heading
         panelTop.add(lblHeading);
         
@@ -147,7 +203,7 @@ public class HouseGUI implements ActionListener{
         btnExit.setFocusPainted(false);
         btnExit.setForeground(new Color(0, 0, 0));
         
-        panelCenter.add(btnAdd);
+        panelLeft.add(btnAdd);
         panelCenter.add(btnAdminAgent);
         panelCenter.add(btnHouses);
         panelCenter.add(btnCustomers);
@@ -158,6 +214,9 @@ public class HouseGUI implements ActionListener{
         panelTop.setBackground(new Color(233, 160, 124));
         panelCenter.setBackground(new Color(233, 160, 124));
         panelBottom.setBackground(new Color(233, 160, 124));
+        panelLeft.setBackground(new Color(233, 160, 124));
+        
+        chkCanRent.setBackground(new Color(233, 160, 124));
         
         
         //Add action listeners
