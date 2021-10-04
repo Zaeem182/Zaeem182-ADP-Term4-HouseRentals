@@ -9,7 +9,7 @@ import java.sql.Date;
 
 /**
  *
- * @author Ali
+ * @author Ali Mohamed - 219113505
  */
 public class Rental {
     

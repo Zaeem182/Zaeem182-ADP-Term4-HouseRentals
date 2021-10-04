@@ -15,6 +15,7 @@ import za.ac.cput.term4project.houserentals.client.Client;
 /**
  *
  * @author Zaeem
+ * @author Ali Mohamed - 219113505
  */
 public class HouseGUI implements ActionListener{
     

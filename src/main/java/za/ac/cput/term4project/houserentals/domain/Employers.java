@@ -7,7 +7,7 @@ package za.ac.cput.term4project.houserentals.domain;
 
 /**
  *
- * @author Ali
+ * @author Ali Mohamed - 219113505
  */
 public class Employers {
    

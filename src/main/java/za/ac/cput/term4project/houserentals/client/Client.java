@@ -13,6 +13,7 @@ import java.net.Socket;
 /**
  *
  * @author Zaeem Petersen (219010145)
+ * @author Ali Mohamed - 219113505
  */
 public class Client 
 {
