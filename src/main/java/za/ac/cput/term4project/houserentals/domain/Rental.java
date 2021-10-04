@@ -9,6 +9,7 @@ import java.sql.Date;
 
 /**
  *
+ * @author Zaeem Petersen (219010145)
  * @author Ali Mohamed - 219113505
  */
 public class Rental {

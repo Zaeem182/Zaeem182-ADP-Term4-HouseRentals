@@ -7,6 +7,7 @@ package za.ac.cput.term4project.houserentals.domain;
 
 /**
  *
+ * @author Zaeem Petersen (219010145)
  * @author Ali Mohamed - 219113505
  */
 public class Employers {

@@ -11,7 +11,7 @@ import java.sql.SQLException;
 
 /**
  *
- * @author Zaeem
+ * @author Zaeem Petersen (219010145)
  */
 public class DbConnection {
         public static Connection derbyConnection() throws SQLException
