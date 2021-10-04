@@ -6,8 +6,11 @@
 package za.ac.cput.term4project.houserentals.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import za.ac.cput.term4project.houserentals.connection.DbConnection;
 import za.ac.cput.term4project.houserentals.domain.Rental;
 
@@ -40,5 +43,30 @@ public class RentalsDao {
             System.out.println("SQLException: " + ex.getMessage());
         }
         return rental;
+    }
+    
+    public ArrayList<Rental> getAll(){
+        String getAll_SQL = "SELECT * FROM rental";
+        ArrayList<Rental> rentalArray = new ArrayList<>();
+        
+        try{
+            PreparedStatement ps = this.con.prepareStatement(getAll_SQL);
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()){
+                int rentalId = rs.getInt("id");
+                Date date = rs.getDate("date");
+                int customerId = rs.getInt("customerid");
+                int houseId = rs.getInt("houseid");
+                
+                Rental rental =  new Rental(rentalId, customerId, houseId, date);
+                rentalArray.add(rental);
+            }
+            rs.close();
+        }
+        catch(SQLException ex){
+            System.out.println("SQLException: " + ex.getMessage());
+        }
+        return rentalArray;
     }
 }

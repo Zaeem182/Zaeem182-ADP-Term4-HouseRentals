@@ -7,8 +7,11 @@ package za.ac.cput.term4project.houserentals.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import za.ac.cput.term4project.houserentals.connection.DbConnection;
+import za.ac.cput.term4project.houserentals.domain.Customer;
 import za.ac.cput.term4project.houserentals.domain.Employers;
 
 /**
@@ -41,5 +44,31 @@ public class EmployersDao {
             System.out.println("SQLException: " + ex.getMessage());
         }
         return employer;
+    }
+    
+    public ArrayList<Employers> getAll(){
+        String getAll_SQL = "SELECT * FROM employers";
+        ArrayList<Employers> employerArray = new ArrayList<>();
+        
+        try{
+            PreparedStatement ps = this.con.prepareStatement(getAll_SQL);
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()){
+                int employerId = rs.getInt("id");
+                String fName = rs.getString("fname");
+                String lName = rs.getString("lname");
+                boolean isAdmin = rs.getBoolean("admin");
+                boolean isActive = rs.getBoolean("active");
+                
+                Employers employers =  new Employers(employerId, fName, lName, isActive, isAdmin);
+                employerArray.add(employers);
+            }
+            rs.close();
+        }
+        catch(SQLException ex){
+            System.out.println("SQLException: " + ex.getMessage());
+        }
+        return employerArray;
     }
 }
