@@ -19,6 +19,8 @@ import za.ac.cput.term4project.houserentals.client.Client;
  */
 public class HouseGUI implements ActionListener{
     
+    //Instantiate Client part 1
+    Client client;
    
     //JPanels
     private JPanel panelTop;
@@ -67,11 +69,11 @@ public class HouseGUI implements ActionListener{
     //JFrame
     JFrame frame = new JFrame();
     
-    //client
-    Client client;
     
     public HouseGUI()
     {
+        //Instatiate client class part 2
+        this.client = new Client();
         //Fonts
         Hft = new Font("Verdana", Font.BOLD, 25); 
         ft = new Font("Verdana", Font.PLAIN, 20);
@@ -122,8 +124,6 @@ public class HouseGUI implements ActionListener{
         tblModel = new DefaultTableModel();
         tblDisplay = new JTable(tblModel);
         
-        //client
-        client = new Client();
     }
     
     public void setGUI()
@@ -263,7 +263,10 @@ public class HouseGUI implements ActionListener{
         {
             btnAdminAgent.setBackground(Color.red);
             tblModel.addColumn("other stuff??");
-            tblModel.addColumn("other stuff??");
+            
+            //call client communicate method
+            client.communicate();
+            
         }
     }
     
