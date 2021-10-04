@@ -8,6 +8,7 @@ package za.ac.cput.term4project.houserentals.domain;
 /**
  *
  * @author Ali
+ * @author Zaeem Petersen (219010145)
  */
 public class House {
     
