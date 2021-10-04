@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import za.ac.cput.term4project.houserentals.client.Client;
 
 /**
  *
@@ -65,6 +66,9 @@ public class HouseGUI implements ActionListener{
     //JFrame
     JFrame frame = new JFrame();
     
+    //client
+    Client client;
+    
     public HouseGUI()
     {
         //Fonts
@@ -116,6 +120,9 @@ public class HouseGUI implements ActionListener{
         //Table
         tblModel = new DefaultTableModel();
         tblDisplay = new JTable(tblModel);
+        
+        //client
+        client = new Client();
     }
     
     public void setGUI()

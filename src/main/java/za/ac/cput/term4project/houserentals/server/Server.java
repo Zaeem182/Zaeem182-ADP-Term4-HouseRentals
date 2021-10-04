@@ -26,7 +26,7 @@ public class Server {
     //Client connection
     private Socket client;
     
-    public Server() throws SQLException
+    public Server()
     {
         
         //Create server socket
@@ -58,35 +58,35 @@ public class Server {
         {
             System.out.println("IOExeption: " + ex.getMessage());
         }
-        catch(SQLException ex)
-        {
-            System.out.println("SQLException: " + ex.getMessage());
-        }
+        
         
          
         }
-    public void processClient() throws SQLException
+    public void processClient(){
+        //communicate with the client 
+
+        //initiate channels
+        try
         {
-            //communicate with the client 
-            
-            //initiate channels
-            try
-            {
             ObjectOutputStream out = new ObjectOutputStream(client.getOutputStream());
             out.flush();
             ObjectInputStream in = new ObjectInputStream(client.getInputStream());
-            
-            
-            //communicate
-            
-            
-            }
-            catch(IOException ioe)
-            {
-            System.out.println("IOExeption: " + ioe.getMessage());
-            }
-           
+
+        //communicate (if statements to add data)
+
+
         }
+        catch(IOException ioe)
+        {
+            System.out.println("IOExeption: " + ioe.getMessage());
+        }
+    }
+    
+    public static void main(String[] args) {
+        //remove sqlException
+        Server server = new Server();
+        server.listen();
+    }
 }
 
 
