@@ -26,14 +26,15 @@ public class HousesDao {
     }
     
     public House add(House house){
-        String insertSQL = "INSERT INTO houses VALUES (?, ?, ?, ?)";
+        String insertSQL = "INSERT INTO houses VALUES (?, ?, ?, ?, ?)";
         
         try{
             PreparedStatement ps = con.prepareStatement(insertSQL);
             ps.setInt(1, house.getId());
             ps.setInt(2, house.getNumberOfRooms());
             ps.setString(3, house.getLocation());
-            ps.setDouble(4, house.getRent());
+            ps.setDouble(4, house.getPrice());
+            ps.setBoolean(5, house.isIsRented());
             
             ps.executeUpdate();
             ps.close();
@@ -56,9 +57,10 @@ public class HousesDao {
                 int houseId = rs.getInt("id");
                 int numberOfRooms = rs.getInt("noofrooms");
                 String location = rs.getString("location");
-                double rent = rs.getDouble("rent");
+                double price = rs.getDouble("rent");
+                boolean isRented = rs.getBoolean("isrented");
                 
-                House house =  new House(houseId, numberOfRooms, location, rent);
+                House house =  new House(houseId, numberOfRooms, location, price, isRented);
                 houseArray.add(house);
             }
             rs.close();

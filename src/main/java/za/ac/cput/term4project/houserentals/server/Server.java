@@ -10,11 +10,17 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import za.ac.cput.term4project.houserentals.dao.CustomerDao;
+import za.ac.cput.term4project.houserentals.dao.EmployersDao;
+import za.ac.cput.term4project.houserentals.dao.RentalsDao;
 import za.ac.cput.term4project.houserentals.domain.Customer;
+import za.ac.cput.term4project.houserentals.domain.Employers;
+import za.ac.cput.term4project.houserentals.domain.Rental;
 
 /**
  *
@@ -25,6 +31,8 @@ public class Server {
 
     //Instantiate DAO part 1
     CustomerDao customerDao;
+    EmployersDao employerDao;
+    RentalsDao rentalDao;
 
     //serversocket
     private ServerSocket listener;
@@ -37,6 +45,8 @@ public class Server {
         try {
             //instantiate DAO part 2
             this.customerDao = new CustomerDao();
+            this.employerDao = new EmployersDao();
+            this.rentalDao = new RentalsDao();
 
             //Create server socket
             //(port number, max amount that can connect to server)
@@ -75,23 +85,74 @@ public class Server {
             while (true) {
                 //communicate (if statements to add data)
                 String msg = (String) in.readObject();
-
-                if (msg.equals("ADD")) {
+                System.out.println("1");
+                if (msg.equals("Add Customer")) {
+                    System.out.println("2");
                     Integer id = (Integer) in.readInt();
+                    System.out.println("3");
                     String fName = (String) in.readObject();
+                    System.out.println("4");
                     String lName = (String) in.readObject();
+                    System.out.println("5");
                     String phoneNum = (String) in.readObject();
+                    System.out.println("6");
                     boolean canRent = (boolean) in.readBoolean();
+                    System.out.println("7");
 
                     //DAO Part
                     Customer customer = new Customer(id, fName, lName, phoneNum, canRent);
-
+                    System.out.println("8");
                     Customer cDaoAdd = customerDao.add(customer);
 
                     if (cDaoAdd.equals(customer)) {
                         out.writeObject("Data has been added!");
                     }
                 }
+                
+                if (msg.equals("Add Employee")){
+                    Integer id = (Integer) in.readInt();
+                    String fName = (String) in.readObject();
+                    String lName = (String) in.readObject();
+                    boolean isAdmin = (boolean) in.readBoolean();
+                    boolean isActive = (boolean) in.readBoolean();
+                    
+                    //Dao
+                    Employers employer = new Employers(id, fName, lName, isActive, isAdmin);
+                    
+                    Employers eDaoAdd = employerDao.add(employer);
+                    
+                    if(eDaoAdd.equals(employer)){
+                        out.writeObject("Data has been added!");
+                    }
+                    
+                }
+                System.out.println("1");
+                if (msg.equals("Add Rental")) {
+                    System.out.println("2");
+                    int id = (int) in.readInt();
+                    System.out.println("3");
+                    Date date = (Date) in.readObject();
+                    System.out.println("4");
+                    int customerId = (int) in.readInt();
+                    int houseId = (int) in.readInt();
+                    
+                    //Dao
+                    Rental rental = new Rental(id, customerId, houseId, date);
+                    
+                    Rental rDaoAdd = rentalDao.add(rental);
+                    
+                    if(rDaoAdd.equals(rental)){
+                        out.writeObject("Data has been added!");
+                    }
+                }
+                
+//                if (msg.equals("refreshCustomer")){
+//                    ArrayList<Customer> customerList = new ArrayList<>();
+//                    customerList = (ArrayList<Customer>) customerDao.getAll();
+//                    
+//                    out.writeObject(customerList);
+//                    
+//                }
             }
 
         } catch (IOException ioe) {

@@ -14,13 +14,15 @@ public class House {
     
     private int id, numberOfRooms;
     private String  location;
-    private double rent;
+    private double price;
+    private boolean isRented;
 
-    public House(int id, int numberOfRooms, String location, double rent) {
+    public House(int id, int numberOfRooms, String location, double price, boolean isRented) {
         this.id = id;
         this.numberOfRooms = numberOfRooms;
         this.location = location;
-        this.rent = rent;
+        this.price = price;
+        this.isRented = isRented;
     }
 
     public void setId(int id) {
@@ -35,8 +37,12 @@ public class House {
         this.location = location;
     }
 
-    public void setRent(double rent) {
-        this.rent = rent;
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public void setIsRented(boolean isRented) {
+        this.isRented = isRented;
     }
 
     public int getId() {
@@ -51,13 +57,17 @@ public class House {
         return location;
     }
 
-    public double getRent() {
-        return rent;
+    public double getPrice() {
+        return price;
+    }
+
+    public boolean isIsRented() {
+        return isRented;
     }
 
     @Override
     public String toString() {
-        return "House{" + "id=" + id + ", numberOfRooms=" + numberOfRooms + ", location=" + location + ", rent=" + rent + '}';
+        return "House{" + "id=" + id + ", numberOfRooms=" + numberOfRooms + ", location=" + location + ", price=" + price + ", isRented=" + isRented + '}';
     }
     
 }
