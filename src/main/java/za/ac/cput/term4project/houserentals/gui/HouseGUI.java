@@ -75,6 +75,8 @@ public class HouseGUI implements ActionListener{
     
     //JFrame 2
     JFrame frame2 = new JFrame();
+    ObjectOutputStream out;
+    ObjectInputStream in;
     
     
     public HouseGUI()
@@ -83,8 +85,11 @@ public class HouseGUI implements ActionListener{
         try 
         {
             //Create Socket
-
+             
             server = new Socket("127.0.0.1", 12345);
+            out = new ObjectOutputStream(server.getOutputStream());
+            out.flush();
+             in = new ObjectInputStream(server.getInputStream());
             
         }
         catch (IOException ioe) 
@@ -323,9 +328,7 @@ public class HouseGUI implements ActionListener{
             try
             {
                 
-            ObjectOutputStream out = new ObjectOutputStream(server.getOutputStream());
-            out.flush();
-            ObjectInputStream in = new ObjectInputStream(server.getInputStream());
+            
             out.writeObject("ADD");
             out.flush();
 

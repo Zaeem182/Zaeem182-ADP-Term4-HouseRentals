@@ -22,114 +22,88 @@ import za.ac.cput.term4project.houserentals.domain.Customer;
  * @author Ali Mohamed - 219113505
  */
 public class Server {
-    
+
     //Instantiate DAO part 1
     CustomerDao customerDao;
-    
-     //serversocket
+
+    //serversocket
     private ServerSocket listener;
-    
+
     //Client connection
     private Socket client;
-    
-    public Server()
-    {
 
-       
-        try
-        {
+    public Server() {
+
+        try {
             //instantiate DAO part 2
-         this.customerDao = new CustomerDao();
+            this.customerDao = new CustomerDao();
 
-          //Create server socket
-          
-           //(port number, max amount that can connect to server)
+            //Create server socket
+            //(port number, max amount that can connect to server)
             listener = new ServerSocket(12345, 10);
-        }
-         catch (IOException ex) {
-             System.out.println("IOExeption: " + ex.getMessage());
-        }
-        catch (SQLException sqle)
-        {
+        } catch (IOException ex) {
+            System.out.println("IOExeption: " + ex.getMessage());
+        } catch (SQLException sqle) {
             System.out.println("SQLException: " + sqle.getMessage());
         }
-    
+
     }
-    
-    public void listen() 
-    {
+
+    public void listen() {
         //Start listening for client connections
-        
-        try
-        {
+
+        try {
             System.out.println("Server is listening");
             client = listener.accept();
             System.out.println("Server moving to processClient");
-            
+
             processClient();
-        }
-        catch(IOException ex)
-        {
+        } catch (IOException ex) {
             System.out.println("IOExeption: " + ex.getMessage());
         }
-        
-        
-         
-        }
-    public void processClient(){
+
+    }
+
+    public void processClient() {
         //communicate with the client 
 
         //initiate channels
-        while(true){
-        try
-        {
+        try {
             ObjectOutputStream out = new ObjectOutputStream(client.getOutputStream());
             out.flush();
             ObjectInputStream in = new ObjectInputStream(client.getInputStream());
+            while (true) {
+                //communicate (if statements to add data)
+                String msg = (String) in.readObject();
 
-        //communicate (if statements to add data)
-        String msg =(String) in.readObject();
-        
-        if(msg.equals("ADD"))
-        {
-            Integer id = (Integer)in.readInt();
-            String fName = (String)in.readObject();
-            String lName= (String)in.readObject();
-            String phoneNum = (String)in.readObject();
-            boolean canRent = (boolean)in.readBoolean();
-            
-            //DAO Part
-            Customer customer = new Customer(id, fName, lName, phoneNum, canRent);
-            
-            Customer cDaoAdd = customerDao.add(customer);
-            
-            
+                if (msg.equals("ADD")) {
+                    Integer id = (Integer) in.readInt();
+                    String fName = (String) in.readObject();
+                    String lName = (String) in.readObject();
+                    String phoneNum = (String) in.readObject();
+                    boolean canRent = (boolean) in.readBoolean();
 
-           if(cDaoAdd.equals(customer))
-           {
-                out.writeObject("Data has been added!");
-           }
+                    //DAO Part
+                    Customer customer = new Customer(id, fName, lName, phoneNum, canRent);
 
-            break;
-        }
-        
+                    Customer cDaoAdd = customerDao.add(customer);
 
-        }
-        catch(IOException ioe)
-        {
+                    if (cDaoAdd.equals(customer)) {
+                        out.writeObject("Data has been added!");
+                    }
+                }
+            }
+
+        } catch (IOException ioe) {
             System.out.println("IOExeption: " + ioe.getMessage());
-        }
-        catch(ClassNotFoundException cnfe)
-        {
+        } catch (ClassNotFoundException cnfe) {
             System.out.println("ClassNotFoundException: " + cnfe.getMessage());
         }
-        }
+
     }
-    
+
     public static void main(String[] args) {
         Server server = new Server();
         server.listen();
     }
 }
-
-
