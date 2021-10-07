@@ -12,12 +12,12 @@ package za.ac.cput.term4project.houserentals.domain;
  */
 public class House {
     
-    private int id, numberOfRooms;
-    private String  location;
+    private int id;
+    private String  numberOfRooms, location;
     private double price;
     private boolean isRented;
 
-    public House(int id, int numberOfRooms, String location, double price, boolean isRented) {
+    public House(int id, String numberOfRooms, String location, double price, boolean isRented) {
         this.id = id;
         this.numberOfRooms = numberOfRooms;
         this.location = location;
@@ -29,7 +29,7 @@ public class House {
         this.id = id;
     }
 
-    public void setNumberOfRooms(int numberOfRooms) {
+    public void setNumberOfRooms(String numberOfRooms) {
         this.numberOfRooms = numberOfRooms;
     }
 
@@ -49,7 +49,7 @@ public class House {
         return id;
     }
 
-    public int getNumberOfRooms() {
+    public String getNumberOfRooms() {
         return numberOfRooms;
     }
 

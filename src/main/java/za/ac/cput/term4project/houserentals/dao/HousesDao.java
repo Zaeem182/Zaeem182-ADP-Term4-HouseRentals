@@ -31,7 +31,7 @@ public class HousesDao {
         try{
             PreparedStatement ps = con.prepareStatement(insertSQL);
             ps.setInt(1, house.getId());
-            ps.setInt(2, house.getNumberOfRooms());
+            ps.setString(2, house.getNumberOfRooms());
             ps.setString(3, house.getLocation());
             ps.setDouble(4, house.getPrice());
             ps.setBoolean(5, house.isIsRented());
@@ -55,7 +55,7 @@ public class HousesDao {
             
             while(rs.next()){
                 int houseId = rs.getInt("id");
-                int numberOfRooms = rs.getInt("noofrooms");
+                String numberOfRooms = rs.getString("noofrooms");
                 String location = rs.getString("location");
                 double price = rs.getDouble("rent");
                 boolean isRented = rs.getBoolean("isrented");
