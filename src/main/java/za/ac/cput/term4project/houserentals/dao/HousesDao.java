@@ -26,7 +26,7 @@ public class HousesDao {
     }
     
     public House add(House house){
-        String insertSQL = "INSERT INTO houses VALUES (?, ?, ?, ?, ?)";
+        String insertSQL = "INSERT INTO house VALUES (?, ?, ?, ?, ?)";
         
         try{
             PreparedStatement ps = con.prepareStatement(insertSQL);
@@ -46,7 +46,7 @@ public class HousesDao {
     }
     
     public ArrayList<House> getAll(){
-        String getAll_SQL = "SELECT * FROM houses";
+        String getAll_SQL = "SELECT * FROM house";
         ArrayList<House> houseArray = new ArrayList<>();
         
         try{
