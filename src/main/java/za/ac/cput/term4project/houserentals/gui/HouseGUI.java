@@ -65,21 +65,25 @@ public class HouseGUI implements ActionListener {
     private Font ft;
 
     //JFrame
-    JFrame frame = new JFrame();
+    JFrame frameC = new JFrame();
 
     /////////////////////////////////////////////////////
+        //Jpanel for house table
     
-    JFrame frame1 = new JFrame();
-    //Jpanel for house table
+    JFrame frameH = new JFrame();
+
     private JPanel panelHouseTop;
     private JPanel panelHouseCenter;
     private JPanel panelHouseBottom;
 
+    private JLabel lblHouseHeading;
+    private JComboBox cboHouseUser;
+        
     private JButton btnHouseAdd;
-    private JButton btnAdminAgent2;
-    private JButton btnHouses2;
-    private JButton btnCustomers2;
-    private JButton btnRentals2;
+    private JButton btnHAdminAgent;
+    private JButton btnHHouses;
+    private JButton btnHCustomers;
+    private JButton btnHRentals;
     private JButton btnHouseExit;
     
     private DefaultTableModel tblHouseModel;
@@ -87,16 +91,21 @@ public class HouseGUI implements ActionListener {
     
     /////////////////////////////////////////////////////
     //Jpanel for Rental table
-   JFrame frame2 = new JFrame();
+    
+   JFrame frameR = new JFrame();
+   
     private JPanel panelRentalTop;
     private JPanel panelRentalCenter;
     private JPanel panelRentalBottom;
 
+    private JLabel lblRentalHeading;
+    private JComboBox cboRentalUser;
+    
     private JButton btnRentalAdd;
-    private JButton btnAdminAgent3;
-    private JButton btnHouses3;
-    private JButton btnCustomers3;
-    private JButton btnRentals3;
+    private JButton btnRAdminAgent;
+    private JButton btnRHouses;
+    private JButton btnRCustomers;
+    private JButton btnRRentals;
     private JButton btnRentalExit;
     
     private DefaultTableModel tblRentalModel;
@@ -104,16 +113,21 @@ public class HouseGUI implements ActionListener {
 
     /////////////////////////////////////////////////////
     //Jpanel for Employee table
-    JFrame frame3 = new JFrame();
+    
+    JFrame frameE = new JFrame();
+    
     private JPanel panelEmployeeTop;
     private JPanel panelEmployeeCenter;
     private JPanel panelEmployeeBottom;
 
+    private JLabel lblEmployeeHeading;
+    private JComboBox cboEmployeeUser;
+    
     private JButton btnEmployeeAdd;
-    private JButton btnAdminAgent4;
-    private JButton btnHouses4;
-    private JButton btnCustomers4;
-    private JButton btnRentals4;
+    private JButton btnEAdminAgent;
+    private JButton btnEHouses;
+    private JButton btnECustomers;
+    private JButton btnERentals;
     private JButton btnEmployeeExit;
     
     private DefaultTableModel tblEmployeeModel;
@@ -170,26 +184,27 @@ public class HouseGUI implements ActionListener {
         tblModel = new DefaultTableModel();
         tblDisplay = new JTable(tblModel);
         
-        
-        
         /////////////////////////////////////////////////////
         //house panels
          panelHouseTop = new JPanel();
          panelHouseCenter = new JPanel();
          panelHouseBottom = new JPanel();
          
+        lblHouseHeading = new JLabel("ZA RENTALS");
+        cboHouseUser = new JComboBox();
+        
         btnHouseAdd = new JButton("Add House");
-        btnAdminAgent2 = new JButton("EMPLOYEES");
-        btnHouses2 = new JButton("HOUSES");
-        btnCustomers2 = new JButton("CUSTOMERS");
-        btnRentals2 = new JButton("RENTALS");
+        btnHAdminAgent = new JButton("EMPLOYEES");
+        btnHHouses = new JButton("HOUSES");
+        btnHCustomers = new JButton("CUSTOMERS");
+        btnHRentals = new JButton("RENTALS");
         btnHouseExit = new JButton("EXIT");
         
         btnHouseAdd.addActionListener(this);
-        btnAdminAgent2.addActionListener(this);
-        btnHouses2.addActionListener(this);
-        btnCustomers2.addActionListener(this);
-        btnRentals2.addActionListener(this);
+        btnHAdminAgent.addActionListener(this);
+        btnHHouses.addActionListener(this);
+        btnHCustomers.addActionListener(this);
+        btnHRentals.addActionListener(this);
         btnHouseExit.addActionListener(this);
         
         tblHouseModel = new DefaultTableModel();
@@ -201,18 +216,21 @@ public class HouseGUI implements ActionListener {
         panelRentalCenter = new JPanel();
         panelRentalBottom = new JPanel();
          
+        lblRentalHeading = new JLabel("ZA RENTALS");
+        cboRentalUser = new JComboBox();
+        
         btnRentalAdd = new JButton("Add Rental");
-        btnAdminAgent3 = new JButton("EMPLOYEES");
-        btnHouses3 = new JButton("HOUSES");
-        btnCustomers3 = new JButton("CUSTOMERS");
-        btnRentals3 = new JButton("RENTALS");
+        btnRAdminAgent = new JButton("EMPLOYEES");
+        btnRHouses = new JButton("HOUSES");
+        btnRCustomers = new JButton("CUSTOMERS");
+        btnRRentals = new JButton("RENTALS");
         btnRentalExit = new JButton("EXIT");
         
         btnRentalAdd.addActionListener(this);
-        btnAdminAgent3.addActionListener(this);
-        btnHouses3.addActionListener(this);
-        btnCustomers3.addActionListener(this);
-        btnRentals3.addActionListener(this);
+        btnRAdminAgent.addActionListener(this);
+        btnRHouses.addActionListener(this);
+        btnRCustomers.addActionListener(this);
+        btnRRentals.addActionListener(this);
         btnRentalExit.addActionListener(this);
         
         tblRentalModel = new DefaultTableModel();
@@ -224,18 +242,21 @@ public class HouseGUI implements ActionListener {
         panelEmployeeCenter = new JPanel();
         panelEmployeeBottom = new JPanel();
          
+        lblEmployeeHeading = new JLabel("ZA RENTALS");
+        cboEmployeeUser = new JComboBox();
+        
         btnEmployeeAdd = new JButton("Add Employee");
-        btnAdminAgent4 = new JButton("EMPLOYEES");
-        btnHouses4 = new JButton("HOUSES");
-        btnCustomers4 = new JButton("CUSTOMERS");
-        btnRentals4 = new JButton("RENTALS");
+        btnEAdminAgent = new JButton("EMPLOYEES");
+        btnEHouses = new JButton("HOUSES");
+        btnECustomers = new JButton("CUSTOMERS");
+        btnERentals = new JButton("RENTALS");
         btnEmployeeExit = new JButton("EXIT");
         
         btnEmployeeAdd.addActionListener(this);
-        btnAdminAgent4.addActionListener(this);
-        btnHouses4.addActionListener(this);
-        btnCustomers4.addActionListener(this);
-        btnRentals4.addActionListener(this);
+        btnEAdminAgent.addActionListener(this);
+        btnEHouses.addActionListener(this);
+        btnECustomers.addActionListener(this);
+        btnERentals.addActionListener(this);
         btnEmployeeExit.addActionListener(this);
         
         tblEmployeeModel = new DefaultTableModel();
@@ -243,120 +264,68 @@ public class HouseGUI implements ActionListener {
     }
     public void setHousePanels()
     {
-        frame1.setVisible(false);
-        frame.setVisible(false);
-        frame3.setVisible(false);
+        frameH.setVisible(false);
+        frameC.setVisible(false);
+        frameE.setVisible(false);
         
-         frame2.setVisible(true);
+        frameR.setVisible(true);
+
+        btnHHouses.setBackground(Color.WHITE);
         
-        
-//        panelBottom.setVisible(false);
-//        panelCenter.setVisible(false);
-//        panelLeft.setVisible(false);
-//        panelTop.setVisible(false);
-//        
-//        panelRentalCenter.setVisible(false);
-//        panelRentalBottom.setVisible(false);
-//        
-//        panelEmployeeCenter.setVisible(false);
-//        panelEmployeeBottom.setVisible(false);
-//                
-//        panelHouseCenter.setVisible(true);
-//        panelHouseBottom.setVisible(true);
     }
     
     public void setRentalPanels()
     {   
-        frame1.setVisible(false);
-        frame.setVisible(false);
-        frame2.setVisible(false);
+        frameH.setVisible(false);
+        frameC.setVisible(false);
+        frameR.setVisible(false);
         
-         frame3.setVisible(true);
+        frameE.setVisible(true);
         
-//        panelBottom.setVisible(false);
-//        panelCenter.setVisible(false);
-//        panelLeft.setVisible(false);
-//        panelTop.setVisible(false);
-//                
-//        panelHouseCenter.setVisible(false);
-//        panelHouseBottom.setVisible(false);
-//        
-//        panelEmployeeCenter.setVisible(false);
-//        panelEmployeeBottom.setVisible(false);
-//        
-//        panelRentalCenter.setVisible(true);
-//        panelRentalBottom.setVisible(true);
+        btnRRentals.setBackground(Color.WHITE);
+        
     }
     
      public void setEmployeePanels()
     {
-        frame.setVisible(false);
-        frame2.setVisible(false);
-        frame3.setVisible(false);
+        frameC.setVisible(false);
+        frameR.setVisible(false);
+        frameE.setVisible(false);
         
-         frame1.setVisible(true);
+        frameH.setVisible(true);
         
-        
-//        panelBottom.setVisible(false);
-//        panelCenter.setVisible(false);
-//        panelLeft.setVisible(false);
-//        panelTop.setVisible(false);
-//                
-//        panelHouseCenter.setVisible(false);
-//        panelHouseBottom.setVisible(false);
-//        
-//        panelRentalCenter.setVisible(false);
-//        panelRentalBottom.setVisible(false);
-//        
-//        panelEmployeeCenter.setVisible(true);
-//        panelEmployeeBottom.setVisible(true);
+        btnEAdminAgent.setBackground(Color.WHITE);
     }
     
     public void setCustomerPanels()
     {
        
-        frame1.setVisible(false);
-        frame2.setVisible(false);
-        frame3.setVisible(false);
+        frameH.setVisible(false);
+        frameR.setVisible(false);
+        frameE.setVisible(false);
         
-         frame.setVisible(true);
-        
-//        panelHouseCenter.setVisible(false);
-//        panelHouseBottom.setVisible(false);
-//        
-//        panelRentalCenter.setVisible(false);
-//        panelRentalBottom.setVisible(false);
-//        
-//        panelEmployeeCenter.setVisible(false);
-//        panelEmployeeBottom.setVisible(false);
-//        
-//        panelBottom.setVisible(true);
-//        panelCenter.setVisible(true);
-//        panelLeft.setVisible(true);
-//        panelTop.setVisible(true);
-                
-      
+        frameC.setVisible(true);
+
+        btnCustomers.setBackground(Color.WHITE);
     }
     public void setGUI() {
+        
         //Apply font change
         lblHeading.setFont(Hft);
         lblHeading.setForeground(new Color(0, 0, 0));
 
         //Add Top panel
-        frame.add(panelTop, BorderLayout.NORTH);
-        panelTop.setLayout(new GridLayout(1, 1));
+        frameC.add(panelTop, BorderLayout.NORTH);
+        panelTop.setLayout(new GridLayout(1, 2));
         panelTop.setSize(300, 300);
 
         //Add Center panel
-        frame.add(panelCenter, BorderLayout.CENTER);
+        frameC.add(panelCenter, BorderLayout.CENTER);
 
         //Add Bottom panel
-        frame.add(panelBottom, BorderLayout.SOUTH);
+        frameC.add(panelBottom, BorderLayout.SOUTH);
         panelBottom.setSize(300, 300);
 
-        //Add Left panel
-//        frame.add(panelLeft, BorderLayout.WEST);
-//        panelLeft.setPreferredSize(new Dimension(150, 150));
         //Heading
         panelTop.add(lblHeading);
 
@@ -366,61 +335,46 @@ public class HouseGUI implements ActionListener {
 
         //Buttons
         btnAdd.setPreferredSize(new Dimension(150, 50));
-        btnAdminAgent.setPreferredSize(new Dimension(90, 40));
-        btnHouses.setPreferredSize(new Dimension(90, 40));
-        btnCustomers.setPreferredSize(new Dimension(90, 40));
-        btnRentals.setPreferredSize(new Dimension(90, 40));
+        btnAdminAgent.setPreferredSize(new Dimension(120, 40));
+        btnHouses.setPreferredSize(new Dimension(120, 40));
+        btnCustomers.setPreferredSize(new Dimension(120, 40));
+        btnRentals.setPreferredSize(new Dimension(120, 40));
         btnExit.setPreferredSize(new Dimension(150, 50));
 
         //Button Colours
         btnAdd.setBackground(new Color(102, 178, 255));
-        btnAdd.setBorderPainted(false);
-        btnAdd.setFocusPainted(false);
         btnAdd.setForeground(new Color(0, 0, 0));
 
         btnAdminAgent.setBackground(new Color(102, 178, 255));
-        btnAdminAgent.setBorderPainted(false);
-        btnAdminAgent.setFocusPainted(false);
         btnAdminAgent.setForeground(new Color(0, 0, 0));
 
         btnHouses.setBackground(new Color(102, 178, 255));
-        btnHouses.setBorderPainted(false);
-        btnHouses.setFocusPainted(false);
         btnHouses.setForeground(new Color(0, 0, 0));
 
-        btnCustomers.setBackground(new Color(102, 178, 255));
-        btnCustomers.setBorderPainted(false);
-        btnCustomers.setFocusPainted(false);
+        btnCustomers.setBackground(Color.WHITE);
+//        btnCustomers.setBackground(new Color(102, 178, 255));
         btnCustomers.setForeground(new Color(0, 0, 0));
 
         btnRentals.setBackground(new Color(102, 178, 255));
-        btnRentals.setBorderPainted(false);
-        btnRentals.setFocusPainted(false);
         btnRentals.setForeground(new Color(0, 0, 0));
 
         btnExit.setBackground(new Color(102, 178, 255));
-        btnExit.setBorderPainted(false);
-        btnExit.setFocusPainted(false);
         btnExit.setForeground(new Color(0, 0, 0));
 
-        panelBottom.add(btnAdd);
-        panelCenter.add(btnAdminAgent);
-        panelCenter.add(btnHouses);
-        panelCenter.add(btnCustomers);
-        panelCenter.add(btnRentals);
-        panelBottom.add(btnExit);
-
-        
-  
-        
         //Panels Colours
         panelTop.setBackground(new Color(233, 160, 124));
         panelCenter.setBackground(new Color(233, 160, 124));
         panelBottom.setBackground(new Color(233, 160, 124));
         panelLeft.setBackground(new Color(233, 160, 124));
 
-        chkCanRent.setBackground(new Color(233, 160, 124));
 
+        panelBottom.add(btnAdd);
+        panelCenter.add(btnCustomers);
+        panelCenter.add(btnAdminAgent);
+        panelCenter.add(btnHouses);
+        panelCenter.add(btnRentals);
+        panelBottom.add(btnExit);
+        
         //Add action listeners
         btnAdd.addActionListener(this);
         btnAdminAgent.addActionListener(this);
@@ -440,18 +394,31 @@ public class HouseGUI implements ActionListener {
         panelCenter.add(new JScrollPane(tblDisplay));
 
         //Show on form
-        frame.setSize(850, 500);
-        frame.setLocationRelativeTo(null);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
+        frameC.setSize(850, 500);
+        frameC.setLocationRelativeTo(null);
+        frameC.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frameC.setVisible(true);
 
        
         
         ///////////////////////////////////////////////////////////////
         //Employee GUI
-        frame1.add(panelEmployeeCenter,BorderLayout.CENTER);
+        lblEmployeeHeading.setFont(Hft);
+        lblEmployeeHeading.setForeground(new Color(0, 0, 0));
         
-        frame1.add(panelEmployeeBottom,BorderLayout.SOUTH);
+        frameH.add(panelEmployeeTop,BorderLayout.NORTH);
+        panelEmployeeTop.setLayout(new GridLayout(1, 2));
+        panelEmployeeTop.setSize(300, 300);
+        
+        frameH.add(panelEmployeeCenter,BorderLayout.CENTER);
+        frameH.add(panelEmployeeBottom,BorderLayout.SOUTH);
+        
+        panelEmployeeBottom.add(btnEmployeeAdd);
+        panelEmployeeCenter.add(btnECustomers);
+        panelEmployeeCenter.add(btnEAdminAgent);
+        panelEmployeeCenter.add(btnEHouses);
+        panelEmployeeCenter.add(btnERentals);
+        panelEmployeeBottom.add(btnEmployeeExit);
         
         tblEmployeeDisplay.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         tblEmployeeModel.addColumn("ID");
@@ -462,29 +429,66 @@ public class HouseGUI implements ActionListener {
 
         panelEmployeeCenter.add(new JScrollPane(tblEmployeeDisplay));
         
-        panelEmployeeCenter.add(btnEmployeeAdd);
-        panelEmployeeCenter.add(btnAdminAgent4);
-        panelEmployeeCenter.add(btnHouses4);
-        panelEmployeeCenter.add(btnCustomers4);
-        panelEmployeeCenter.add(btnRentals4);
-        panelEmployeeBottom.add(btnEmployeeExit);
+        panelEmployeeTop.add(lblEmployeeHeading);
+
+        panelEmployeeTop.add(cboEmployeeUser);
+        cboEmployeeUser.addItem("-no selection made-");
         
-        frame1.setSize(900, 500);
-        frame1.setLocationRelativeTo(null);
-        frame1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame1.setVisible(false);
+        btnEmployeeAdd.setPreferredSize(new Dimension(150, 50));
+        btnEAdminAgent.setPreferredSize(new Dimension(120, 40));
+        btnEHouses.setPreferredSize(new Dimension(120, 40));
+        btnECustomers.setPreferredSize(new Dimension(120, 40));
+        btnERentals.setPreferredSize(new Dimension(120, 40));
+        btnEmployeeExit.setPreferredSize(new Dimension(150, 50));
+        
+        btnEmployeeAdd.setBackground(new Color(102, 178, 255));
+        btnEmployeeAdd.setForeground(new Color(0, 0, 0));
+
+        btnEAdminAgent.setBackground(new Color(102, 178, 255));
+        btnEAdminAgent.setForeground(new Color(0, 0, 0));
+
+        btnEHouses.setBackground(new Color(102, 178, 255));
+        btnEHouses.setForeground(new Color(0, 0, 0));
+
+        btnECustomers.setBackground(new Color(102, 178, 255));
+        btnECustomers.setForeground(new Color(0, 0, 0));
+
+        btnERentals.setBackground(new Color(102, 178, 255));
+        btnERentals.setForeground(new Color(0, 0, 0));
+
+        btnEmployeeExit.setBackground(new Color(102, 178, 255));
+        btnEmployeeExit.setForeground(new Color(0, 0, 0));
+        
+        panelEmployeeTop.setBackground(new Color(233, 160, 124));
+        panelEmployeeCenter.setBackground(new Color(233, 160, 124));
+        panelEmployeeBottom.setBackground(new Color(233, 160, 124));
+        
+        frameH.setSize(850, 500);
+        frameH.setLocationRelativeTo(null);
+        frameH.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frameH.setVisible(false);
         
 
-        
-//        panelEmployeeCenter.setVisible(false);
-//        panelEmployeeBottom.setVisible(false);
-        
          ////////////////////////////////////////////////////////////////
         //House GUI
-        frame2.add(panelHouseCenter,BorderLayout.CENTER);
+        lblHouseHeading.setFont(Hft);
+        lblHouseHeading.setForeground(new Color(0, 0, 0));
+        
+        frameR.add(panelHouseTop,BorderLayout.NORTH);
+        panelHouseTop.setLayout(new GridLayout(1, 2));
+        panelHouseTop.setSize(300, 300);
+        
+        frameR.add(panelHouseCenter,BorderLayout.CENTER);
         
         
-        frame2.add(panelHouseBottom,BorderLayout.SOUTH);
+        frameR.add(panelHouseBottom,BorderLayout.SOUTH);
+        
+        panelHouseBottom.add(btnHouseAdd);
+        panelHouseCenter.add(btnHCustomers);
+        panelHouseCenter.add(btnHAdminAgent);
+        panelHouseCenter.add(btnHHouses);
+        panelHouseCenter.add(btnHRentals);
+        panelHouseBottom.add(btnHouseExit);
         
         tblHouseDisplay.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         tblHouseModel.addColumn("ID");
@@ -494,26 +498,66 @@ public class HouseGUI implements ActionListener {
 
         panelHouseCenter.add(new JScrollPane(tblHouseDisplay));
         
-        panelHouseCenter.add(btnHouseAdd);
-        panelHouseCenter.add(btnAdminAgent2);
-        panelHouseCenter.add(btnHouses2);
-        panelHouseCenter.add(btnCustomers2);
-        panelHouseCenter.add(btnRentals2);
-        panelHouseBottom.add(btnHouseExit);
+        panelHouseTop.add(lblHouseHeading);
+
+        panelHouseTop.add(cboHouseUser);
+        cboHouseUser.addItem("-no selection made-");
+        //
+        btnHouseAdd.setPreferredSize(new Dimension(150, 50));
+        btnHAdminAgent.setPreferredSize(new Dimension(120, 40));
+        btnHHouses.setPreferredSize(new Dimension(120, 40));
+        btnHCustomers.setPreferredSize(new Dimension(120, 40));
+        btnHRentals.setPreferredSize(new Dimension(120, 40));
+        btnHouseExit.setPreferredSize(new Dimension(150, 50));
         
-        frame2.setSize(900, 500);
-        frame2.setLocationRelativeTo(null);
-        frame2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame2.setVisible(false);
+        btnHouseAdd.setBackground(new Color(102, 178, 255));
+        btnHouseAdd.setForeground(new Color(0, 0, 0));
+
+        btnHAdminAgent.setBackground(new Color(102, 178, 255));
+        btnHAdminAgent.setForeground(new Color(0, 0, 0));
+
+        btnHHouses.setBackground(new Color(102, 178, 255));
+        btnHHouses.setForeground(new Color(0, 0, 0));
+
+        btnHCustomers.setBackground(new Color(102, 178, 255));
+        btnHCustomers.setForeground(new Color(0, 0, 0));
+
+        btnHRentals.setBackground(new Color(102, 178, 255));
+        btnHRentals.setForeground(new Color(0, 0, 0));
+
+        btnHouseExit.setBackground(new Color(102, 178, 255));
+        btnHouseExit.setForeground(new Color(0, 0, 0));
         
-//        panelHouseCenter.setVisible(false);
-//        panelHouseBottom.setVisible(false);
+        panelHouseTop.setBackground(new Color(233, 160, 124));
+        panelHouseCenter.setBackground(new Color(233, 160, 124));
+        panelHouseBottom.setBackground(new Color(233, 160, 124));
+        //
+        
+        frameR.setSize(850, 500);
+        frameR.setLocationRelativeTo(null);
+        frameR.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frameR.setVisible(false);
+        
         
         ///////////////////////////////////////////////////////////////
         //Rental GUI
-        frame3.add(panelRentalCenter,BorderLayout.CENTER);
+        lblRentalHeading.setFont(Hft);
+        lblRentalHeading.setForeground(new Color(0, 0, 0));
         
-        frame3.add(panelRentalBottom,BorderLayout.SOUTH);
+        frameE.add(panelRentalTop,BorderLayout.NORTH);
+        panelRentalTop.setLayout(new GridLayout(1, 2));
+        panelRentalTop.setSize(300, 300);
+        
+        frameE.add(panelRentalCenter,BorderLayout.CENTER);
+        
+        frameE.add(panelRentalBottom,BorderLayout.SOUTH);
+        
+        panelRentalBottom.add(btnRentalAdd);
+        panelRentalCenter.add(btnRCustomers);
+        panelRentalCenter.add(btnRAdminAgent);
+        panelRentalCenter.add(btnRHouses);
+        panelRentalCenter.add(btnRRentals);
+        panelRentalBottom.add(btnRentalExit);
         
         tblRentalDisplay.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         tblRentalModel.addColumn("ID");
@@ -523,20 +567,47 @@ public class HouseGUI implements ActionListener {
 
         panelRentalCenter.add(new JScrollPane(tblRentalDisplay));
         
-        panelRentalCenter.add(btnRentalAdd);
-        panelRentalCenter.add(btnAdminAgent3);
-        panelRentalCenter.add(btnHouses3);
-        panelRentalCenter.add(btnCustomers3);
-        panelRentalCenter.add(btnRentals3);
-        panelRentalBottom.add(btnRentalExit);
+        panelRentalTop.add(lblRentalHeading);
+
+        panelRentalTop.add(cboRentalUser);
+        cboRentalUser.addItem("-no selection made-");
         
-        frame3.setSize(900, 500);
-        frame3.setLocationRelativeTo(null);
-        frame3.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame3.setVisible(false);
+                //
+        btnRentalAdd.setPreferredSize(new Dimension(150, 50));
+        btnRAdminAgent.setPreferredSize(new Dimension(120, 40));
+        btnRHouses.setPreferredSize(new Dimension(120, 40));
+        btnRCustomers.setPreferredSize(new Dimension(120, 40));
+        btnRRentals.setPreferredSize(new Dimension(120, 40));
+        btnRentalExit.setPreferredSize(new Dimension(150, 50));
         
-//        panelRentalCenter.setVisible(false);
-//        panelRentalBottom.setVisible(false);
+        btnRentalAdd.setBackground(new Color(102, 178, 255));
+        btnRentalAdd.setForeground(new Color(0, 0, 0));
+
+        btnRAdminAgent.setBackground(new Color(102, 178, 255));
+        btnRAdminAgent.setForeground(new Color(0, 0, 0));
+
+        btnRHouses.setBackground(new Color(102, 178, 255));
+        btnRHouses.setForeground(new Color(0, 0, 0));
+
+        btnRCustomers.setBackground(new Color(102, 178, 255));
+        btnRCustomers.setForeground(new Color(0, 0, 0));
+
+        btnRRentals.setBackground(new Color(102, 178, 255));
+        btnRRentals.setForeground(new Color(0, 0, 0));
+
+        btnRentalExit.setBackground(new Color(102, 178, 255));
+        btnRentalExit.setForeground(new Color(0, 0, 0));
+        
+        panelRentalTop.setBackground(new Color(233, 160, 124));
+        panelRentalCenter.setBackground(new Color(233, 160, 124));
+        panelRentalBottom.setBackground(new Color(233, 160, 124));
+        //
+        
+        frameE.setSize(850, 500);
+        frameE.setLocationRelativeTo(null);
+        frameE.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frameE.setVisible(false);
+
     }
 
     @Override
@@ -748,6 +819,8 @@ public class HouseGUI implements ActionListener {
 
     public static void main(String[] args) {
         new HouseGUI().setGUI();
+
+        
 
     }
 
