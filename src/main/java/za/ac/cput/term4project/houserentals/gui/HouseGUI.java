@@ -73,9 +73,58 @@ public class HouseGUI implements ActionListener {
     //JFrame
     JFrame frame = new JFrame();
 
-    //JFrame 2
-    JFrame frame2 = new JFrame();
+    /////////////////////////////////////////////////////
+    
+    JFrame frame1 = new JFrame();
+    //Jpanel for house table
+    private JPanel panelHouseTop;
+    private JPanel panelHouseCenter;
+    private JPanel panelHouseBottom;
 
+    private JButton btnHouseAdd;
+    private JButton btnAdminAgent2;
+    private JButton btnHouses2;
+    private JButton btnCustomers2;
+    private JButton btnRentals2;
+    private JButton btnHouseExit;
+    
+    private DefaultTableModel tblHouseModel;
+    private JTable tblHouseDisplay;
+    
+    /////////////////////////////////////////////////////
+    //Jpanel for Rental table
+   JFrame frame2 = new JFrame();
+    private JPanel panelRentalTop;
+    private JPanel panelRentalCenter;
+    private JPanel panelRentalBottom;
+
+    private JButton btnRentalAdd;
+    private JButton btnAdminAgent3;
+    private JButton btnHouses3;
+    private JButton btnCustomers3;
+    private JButton btnRentals3;
+    private JButton btnRentalExit;
+    
+    private DefaultTableModel tblRentalModel;
+    private JTable tblRentalDisplay;
+
+    /////////////////////////////////////////////////////
+    //Jpanel for Employee table
+    JFrame frame3 = new JFrame();
+    private JPanel panelEmployeeTop;
+    private JPanel panelEmployeeCenter;
+    private JPanel panelEmployeeBottom;
+
+    private JButton btnEmployeeAdd;
+    private JButton btnAdminAgent4;
+    private JButton btnHouses4;
+    private JButton btnCustomers4;
+    private JButton btnRentals4;
+    private JButton btnEmployeeExit;
+    
+    private DefaultTableModel tblEmployeeModel;
+    private JTable tblEmployeeDisplay;
+    
     public HouseGUI() {
         //Establish connection
         try {
@@ -107,7 +156,7 @@ public class HouseGUI implements ActionListener {
         panelLeft = new JPanel();
 
         //Heading
-        lblHeading = new JLabel("Rent a Blikkie");
+        lblHeading = new JLabel("ZA RENTALS");
 
         //TextField input
         txtId = new JTextField(10);
@@ -120,10 +169,10 @@ public class HouseGUI implements ActionListener {
 
         //Buttons
         btnAdd = new JButton("Add Customer");
-        btnAdminAgent = new JButton("Add Employee");
+        btnAdminAgent = new JButton("EMPLOYEES");
         btnHouses = new JButton("HOUSES");
         btnCustomers = new JButton("CUSTOMERS");
-        btnRentals = new JButton("Add Rental");
+        btnRentals = new JButton("RENTALS");
         btnExit = new JButton("EXIT");
 
         //ComboBox
@@ -132,9 +181,174 @@ public class HouseGUI implements ActionListener {
         //Table
         tblModel = new DefaultTableModel();
         tblDisplay = new JTable(tblModel);
-
+        
+        
+        
+        /////////////////////////////////////////////////////
+        //house panels
+         panelHouseTop = new JPanel();
+         panelHouseCenter = new JPanel();
+         panelHouseBottom = new JPanel();
+         
+        btnHouseAdd = new JButton("Add House");
+        btnAdminAgent2 = new JButton("EMPLOYEES");
+        btnHouses2 = new JButton("HOUSES");
+        btnCustomers2 = new JButton("CUSTOMERS");
+        btnRentals2 = new JButton("RENTALS");
+        btnHouseExit = new JButton("EXIT");
+        
+        btnHouseAdd.addActionListener(this);
+        btnAdminAgent2.addActionListener(this);
+        btnHouses2.addActionListener(this);
+        btnCustomers2.addActionListener(this);
+        btnRentals2.addActionListener(this);
+        btnHouseExit.addActionListener(this);
+        
+        tblHouseModel = new DefaultTableModel();
+        tblHouseDisplay = new JTable(tblHouseModel);
+        
+        /////////////////////////////////////////////////////
+        //Rental panels
+        panelRentalTop = new JPanel();
+        panelRentalCenter = new JPanel();
+        panelRentalBottom = new JPanel();
+         
+        btnRentalAdd = new JButton("Add Rental");
+        btnAdminAgent3 = new JButton("EMPLOYEES");
+        btnHouses3 = new JButton("HOUSES");
+        btnCustomers3 = new JButton("CUSTOMERS");
+        btnRentals3 = new JButton("RENTALS");
+        btnRentalExit = new JButton("EXIT");
+        
+        btnRentalAdd.addActionListener(this);
+        btnAdminAgent3.addActionListener(this);
+        btnHouses3.addActionListener(this);
+        btnCustomers3.addActionListener(this);
+        btnRentals3.addActionListener(this);
+        btnRentalExit.addActionListener(this);
+        
+        tblRentalModel = new DefaultTableModel();
+        tblRentalDisplay = new JTable(tblRentalModel);
+    
+        /////////////////////////////////////////////////////
+        //Employee panels
+        panelEmployeeTop = new JPanel();
+        panelEmployeeCenter = new JPanel();
+        panelEmployeeBottom = new JPanel();
+         
+        btnEmployeeAdd = new JButton("Add Employee");
+        btnAdminAgent4 = new JButton("EMPLOYEES");
+        btnHouses4 = new JButton("HOUSES");
+        btnCustomers4 = new JButton("CUSTOMERS");
+        btnRentals4 = new JButton("RENTALS");
+        btnEmployeeExit = new JButton("EXIT");
+        
+        btnEmployeeAdd.addActionListener(this);
+        btnAdminAgent4.addActionListener(this);
+        btnHouses4.addActionListener(this);
+        btnCustomers4.addActionListener(this);
+        btnRentals4.addActionListener(this);
+        btnEmployeeExit.addActionListener(this);
+        
+        tblEmployeeModel = new DefaultTableModel();
+        tblEmployeeDisplay = new JTable(tblEmployeeModel);
     }
-
+    public void setHousePanels()
+    {
+        frame1.setVisible(false);
+        frame.setVisible(false);
+        frame3.setVisible(false);
+        
+         frame2.setVisible(true);
+        
+        
+//        panelBottom.setVisible(false);
+//        panelCenter.setVisible(false);
+//        panelLeft.setVisible(false);
+//        panelTop.setVisible(false);
+//        
+//        panelRentalCenter.setVisible(false);
+//        panelRentalBottom.setVisible(false);
+//        
+//        panelEmployeeCenter.setVisible(false);
+//        panelEmployeeBottom.setVisible(false);
+//                
+//        panelHouseCenter.setVisible(true);
+//        panelHouseBottom.setVisible(true);
+    }
+    
+    public void setRentalPanels()
+    {   
+        frame1.setVisible(false);
+        frame.setVisible(false);
+        frame2.setVisible(false);
+        
+         frame3.setVisible(true);
+        
+//        panelBottom.setVisible(false);
+//        panelCenter.setVisible(false);
+//        panelLeft.setVisible(false);
+//        panelTop.setVisible(false);
+//                
+//        panelHouseCenter.setVisible(false);
+//        panelHouseBottom.setVisible(false);
+//        
+//        panelEmployeeCenter.setVisible(false);
+//        panelEmployeeBottom.setVisible(false);
+//        
+//        panelRentalCenter.setVisible(true);
+//        panelRentalBottom.setVisible(true);
+    }
+    
+     public void setEmployeePanels()
+    {
+        frame.setVisible(false);
+        frame2.setVisible(false);
+        frame3.setVisible(false);
+        
+         frame1.setVisible(true);
+        
+        
+//        panelBottom.setVisible(false);
+//        panelCenter.setVisible(false);
+//        panelLeft.setVisible(false);
+//        panelTop.setVisible(false);
+//                
+//        panelHouseCenter.setVisible(false);
+//        panelHouseBottom.setVisible(false);
+//        
+//        panelRentalCenter.setVisible(false);
+//        panelRentalBottom.setVisible(false);
+//        
+//        panelEmployeeCenter.setVisible(true);
+//        panelEmployeeBottom.setVisible(true);
+    }
+    
+    public void setCustomerPanels()
+    {
+       
+        frame1.setVisible(false);
+        frame2.setVisible(false);
+        frame3.setVisible(false);
+        
+         frame.setVisible(true);
+        
+//        panelHouseCenter.setVisible(false);
+//        panelHouseBottom.setVisible(false);
+//        
+//        panelRentalCenter.setVisible(false);
+//        panelRentalBottom.setVisible(false);
+//        
+//        panelEmployeeCenter.setVisible(false);
+//        panelEmployeeBottom.setVisible(false);
+//        
+//        panelBottom.setVisible(true);
+//        panelCenter.setVisible(true);
+//        panelLeft.setVisible(true);
+//        panelTop.setVisible(true);
+                
+      
+    }
     public void setGUI() {
         //Apply font change
         lblHeading.setFont(Hft);
@@ -258,6 +472,98 @@ public class HouseGUI implements ActionListener {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
 
+       
+        
+        ///////////////////////////////////////////////////////////////
+        //Employee GUI
+        frame1.add(panelEmployeeCenter,BorderLayout.CENTER);
+        
+        frame1.add(panelEmployeeBottom,BorderLayout.SOUTH);
+        
+        tblEmployeeDisplay.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tblEmployeeModel.addColumn("ID");
+        tblEmployeeModel.addColumn("First Name");
+        tblEmployeeModel.addColumn("Last Name");
+        tblEmployeeModel.addColumn("Admin");
+        tblEmployeeModel.addColumn("Active");
+
+        panelEmployeeCenter.add(new JScrollPane(tblEmployeeDisplay));
+        
+        panelEmployeeCenter.add(btnEmployeeAdd);
+        panelEmployeeCenter.add(btnAdminAgent4);
+        panelEmployeeCenter.add(btnHouses4);
+        panelEmployeeCenter.add(btnCustomers4);
+        panelEmployeeCenter.add(btnRentals4);
+        panelEmployeeBottom.add(btnEmployeeExit);
+        
+        frame1.setSize(900, 500);
+        frame1.setLocationRelativeTo(null);
+        frame1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame1.setVisible(false);
+        
+
+        
+//        panelEmployeeCenter.setVisible(false);
+//        panelEmployeeBottom.setVisible(false);
+        
+         ////////////////////////////////////////////////////////////////
+        //House GUI
+        frame2.add(panelHouseCenter,BorderLayout.CENTER);
+        
+        
+        frame2.add(panelHouseBottom,BorderLayout.SOUTH);
+        
+        tblHouseDisplay.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tblHouseModel.addColumn("ID");
+        tblHouseModel.addColumn("No. of Rooms");
+        tblHouseModel.addColumn("Location");
+        tblHouseModel.addColumn("Rent");
+
+        panelHouseCenter.add(new JScrollPane(tblHouseDisplay));
+        
+        panelHouseCenter.add(btnHouseAdd);
+        panelHouseCenter.add(btnAdminAgent2);
+        panelHouseCenter.add(btnHouses2);
+        panelHouseCenter.add(btnCustomers2);
+        panelHouseCenter.add(btnRentals2);
+        panelHouseBottom.add(btnHouseExit);
+        
+        frame2.setSize(900, 500);
+        frame2.setLocationRelativeTo(null);
+        frame2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame2.setVisible(false);
+        
+//        panelHouseCenter.setVisible(false);
+//        panelHouseBottom.setVisible(false);
+        
+        ///////////////////////////////////////////////////////////////
+        //Rental GUI
+        frame3.add(panelRentalCenter,BorderLayout.CENTER);
+        
+        frame3.add(panelRentalBottom,BorderLayout.SOUTH);
+        
+        tblRentalDisplay.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tblRentalModel.addColumn("ID");
+        tblRentalModel.addColumn("Date");
+        tblRentalModel.addColumn("CustomerID");
+        tblRentalModel.addColumn("HouseID");
+
+        panelRentalCenter.add(new JScrollPane(tblRentalDisplay));
+        
+        panelRentalCenter.add(btnRentalAdd);
+        panelRentalCenter.add(btnAdminAgent3);
+        panelRentalCenter.add(btnHouses3);
+        panelRentalCenter.add(btnCustomers3);
+        panelRentalCenter.add(btnRentals3);
+        panelRentalBottom.add(btnRentalExit);
+        
+        frame3.setSize(900, 500);
+        frame3.setLocationRelativeTo(null);
+        frame3.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame3.setVisible(false);
+        
+//        panelRentalCenter.setVisible(false);
+//        panelRentalBottom.setVisible(false);
     }
 
     @Override
@@ -267,62 +573,42 @@ public class HouseGUI implements ActionListener {
             System.exit(0);
 
         }
-        //Button Admin Agent
-        if (e.getActionCommand().equals("")) {
+        //EMPLOYEES Button
+        if (e.getActionCommand().equals("EMPLOYEES")) 
+        {
+            setEmployeePanels();
         }
 
-        //Button Houses
+        //Houses Button 
         if (e.getActionCommand().equals("HOUSES")) {
-
+            
+            setHousePanels();
         }
-        //ADD BUTTON
+        
+        //Customers Button
+        if(e.getActionCommand().equals("CUSTOMERS"))
+        {
+            setCustomerPanels();
+        }
+        
+        //Rental Button
+        if(e.getActionCommand().equals("RENTALS"))
+        {
+            setRentalPanels();
+        }
+        
+        //ADD Customer Button
         if (e.getActionCommand().equals("Add Customer")) {
             clientAddCustomerDetails();
         }
-
+        //ADD Employee Button
         if (e.getActionCommand().equals("Add Employee")) {
             clientAddEmployeeDetails();
         }
-
+        //ADD Rental Button
         if (e.getActionCommand().equals("Add Rental")) {
-            JTextField id = new JTextField();
-            long millis = System.currentTimeMillis();
-            Date date = new Date(millis);
-            JTextField customerId = new JTextField();
-            JTextField houseId = new JTextField();
+            clientAddRentalDetails();
 
-            Object[] addFields
-                    = {
-                        "ID:", id,
-                        "Customer ID:", customerId,
-                        "House ID:", houseId
-                    };
-
-            JOptionPane.showConfirmDialog(null, addFields, "Add details", JOptionPane.OK_CANCEL_OPTION);
-
-            try {
-                out.writeObject("Add Rental");
-                out.flush();
-
-                out.writeInt(Integer.parseInt(id.getText()));
-
-                out.writeObject(date);
-                out.flush();
-
-                out.writeInt(Integer.parseInt(customerId.getText()));
-                out.flush();
-
-                out.writeInt(Integer.parseInt(houseId.getText()));
-                out.flush();
-
-                String response = (String) in.readObject();
-                JOptionPane.showMessageDialog(null, response);
-
-            } catch (IOException ex) {
-                System.out.println("IOExeption: " + ex.getMessage());
-            } catch (ClassNotFoundException ex) {
-                System.out.println("ClassNotFoundException: " + ex.getMessage());
-            }
         }
     }
 
@@ -431,6 +717,47 @@ public class HouseGUI implements ActionListener {
         }
     }
     
+    public void clientAddRentalDetails()
+    {
+        JTextField id = new JTextField();
+            long millis = System.currentTimeMillis();
+            Date date = new Date(millis);
+            JTextField customerId = new JTextField();
+            JTextField houseId = new JTextField();
+
+            Object[] addFields
+                    = {
+                        "ID:", id,
+                        "Customer ID:", customerId,
+                        "House ID:", houseId
+                    };
+
+            JOptionPane.showConfirmDialog(null, addFields, "Add details", JOptionPane.OK_CANCEL_OPTION);
+
+            try {
+                out.writeObject("Add Rental");
+                out.flush();
+
+                out.writeInt(Integer.parseInt(id.getText()));
+
+                out.writeObject(date);
+                out.flush();
+
+                out.writeInt(Integer.parseInt(customerId.getText()));
+                out.flush();
+
+                out.writeInt(Integer.parseInt(houseId.getText()));
+                out.flush();
+
+                String response = (String) in.readObject();
+                JOptionPane.showMessageDialog(null, response);
+
+            } catch (IOException ex) {
+                System.out.println("IOExeption: " + ex.getMessage());
+            } catch (ClassNotFoundException ex) {
+                System.out.println("ClassNotFoundException: " + ex.getMessage());
+            }
+    }
 //    public ArrayList<Customer> refreshCustomer() throws ClassNotFoundException{
 //        try{
 //            //client side
