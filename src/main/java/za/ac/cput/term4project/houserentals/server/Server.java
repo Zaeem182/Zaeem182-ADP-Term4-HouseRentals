@@ -17,9 +17,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import za.ac.cput.term4project.houserentals.dao.CustomerDao;
 import za.ac.cput.term4project.houserentals.dao.EmployersDao;
+import za.ac.cput.term4project.houserentals.dao.HousesDao;
 import za.ac.cput.term4project.houserentals.dao.RentalsDao;
 import za.ac.cput.term4project.houserentals.domain.Customer;
 import za.ac.cput.term4project.houserentals.domain.Employers;
+import za.ac.cput.term4project.houserentals.domain.House;
 import za.ac.cput.term4project.houserentals.domain.Rental;
 
 /**
@@ -32,6 +34,7 @@ public class Server {
     //Instantiate DAO part 1
     CustomerDao customerDao;
     EmployersDao employerDao;
+    HousesDao houseDao;
     RentalsDao rentalDao;
 
     //serversocket
@@ -46,6 +49,7 @@ public class Server {
             //instantiate DAO part 2
             this.customerDao = new CustomerDao();
             this.employerDao = new EmployersDao();
+            this.houseDao = new HousesDao();
             this.rentalDao = new RentalsDao();
 
             //Create server socket
@@ -126,6 +130,24 @@ public class Server {
                     }
                     
                 }
+                
+                if (msg.equals("Add House")) {
+                    Integer id = (Integer) in.readInt();
+                    String noOfRooms = (String) in.readObject();
+                    String location = (String) in.readObject();
+                    Double price = (Double) in.readDouble();
+                    boolean isRent = (boolean) in.readBoolean();
+                    
+                    //Dao
+                    House house = new House(id, noOfRooms, location, price, isRent);
+                    
+                    House hDaoAdd = houseDao.add(house);
+                    
+                    if(hDaoAdd.equals(house)){
+                        out.writeObject("Data has been added!");
+                    }
+                }
+                
                 System.out.println("1");
                 if (msg.equals("Add Rental")) {
                     System.out.println("2");

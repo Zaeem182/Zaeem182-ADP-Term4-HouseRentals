@@ -651,6 +651,11 @@ public class HouseGUI implements ActionListener {
         if (e.getActionCommand().equals("Add Employee")) {
             clientAddEmployeeDetails();
         }
+        //Add House Button
+        if (e.getActionCommand().equals("Add House")){
+            clientAddHouseDetails();
+        }
+        
         //ADD Rental Button
         if (e.getActionCommand().equals("Add Rental")) {
             clientAddRentalDetails();
@@ -784,6 +789,65 @@ public class HouseGUI implements ActionListener {
         
     }
     
+    public void clientAddHouseDetails(){
+        JTextField id = new JTextField();
+        JTextField noOfRooms = new JTextField();
+        JTextField location = new JTextField();
+        JTextField price = new JTextField();
+        JCheckBox isRented = new JCheckBox();
+        
+        Object[] addFields 
+                = {
+                    "ID:", id,
+                    "Number of Rooms:", noOfRooms,
+                    "Location:", location,
+                    "Price:", price,
+                    "Is Rented:", isRented
+                };
+        
+        int option;
+        option = JOptionPane.showConfirmDialog(null, addFields, "Add details", JOptionPane.OK_CANCEL_OPTION);
+        
+        if(option == JOptionPane.OK_OPTION){
+            if (id.getText().isEmpty() || noOfRooms.getText().isEmpty() || location.getText().isEmpty() || price.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Error, please fill in all text boxes!");
+            }
+            if(option == JOptionPane.CANCEL_OPTION)
+            {
+                
+            }
+            else
+            try{
+                out.writeObject("Add House");
+                out.flush();
+                
+                out.writeInt(Integer.parseInt(id.getText()));
+                out.flush();
+                
+                out.writeObject(noOfRooms.getText());
+                out.flush();
+                
+                out.writeObject(location.getText());
+                out.flush();
+                
+                out.writeDouble(Double.parseDouble(price.getText()));
+                out.flush();
+                
+                out.writeBoolean(isRented.isSelected());
+                out.flush();
+                
+                String response = (String) in.readObject();
+                JOptionPane.showMessageDialog(null, response);
+            } catch(IOException ex){
+                System.out.println("IOException: " + ex.getMessage());
+            } catch(ClassNotFoundException ex){
+                System.out.println("ClassNotFoundException: " + ex.getMessage());
+            } catch(NumberFormatException ex){
+                System.out.println("NumberFormatException: " + ex.getMessage());
+            }
+        }
+    }
+    
     public void clientAddRentalDetails()
     {
         JTextField id = new JTextField();
@@ -838,7 +902,6 @@ public class HouseGUI implements ActionListener {
             }
         }
     }
-
     //Arraylist for displaying database
       ArrayList<Customer> custRefresh = new ArrayList<>();
       

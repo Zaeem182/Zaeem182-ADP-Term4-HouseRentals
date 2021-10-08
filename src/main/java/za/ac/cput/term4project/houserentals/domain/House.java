@@ -5,12 +5,14 @@
  */
 package za.ac.cput.term4project.houserentals.domain;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Zaeem Petersen (219010145)
  * @author Ali Mohamed - 219113505
  */
-public class House {
+public class House implements Serializable{
     
     private int id;
     private String  numberOfRooms, location;
