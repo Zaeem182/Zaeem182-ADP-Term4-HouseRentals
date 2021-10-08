@@ -146,13 +146,13 @@ public class Server {
                     }
                 }
                 
-//                if (msg.equals("refreshCustomer")){
-//                    ArrayList<Customer> customerList = new ArrayList<>();
-//                    customerList = (ArrayList<Customer>) customerDao.getAll();
-//                    
-//                    out.writeObject(customerList);
-//                    
-//                }
+                if (msg.equals("refreshCustomer")){
+                    ArrayList<Customer> customerList = new ArrayList<>();
+                    customerList = (ArrayList<Customer>) customerDao.getAll();
+                    
+                    out.writeObject(customerList);
+                    
+                }
             }
 
         } catch (IOException ioe) {

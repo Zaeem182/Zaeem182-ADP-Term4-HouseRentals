@@ -28,6 +28,7 @@ import za.ac.cput.term4project.houserentals.domain.Customer;
  */
 public class HouseGUI implements ActionListener {
 
+
     //client socket
     private Socket server;
     ObjectOutputStream out;
@@ -644,6 +645,7 @@ public class HouseGUI implements ActionListener {
         //ADD Customer Button
         if (e.getActionCommand().equals("Add Customer")) {
             clientAddCustomerDetails();
+//            refreshCustomer();
         }
         //ADD Employee Button
         if (e.getActionCommand().equals("Add Employee")) {
@@ -671,8 +673,20 @@ public class HouseGUI implements ActionListener {
                     "Check if employer is a Admin", isAdmin,
                     "Check if employer is active", isActive
                 };
-        JOptionPane.showConfirmDialog(null, addFields, "Add details", JOptionPane.OK_CANCEL_OPTION);
+        
+        int option;
+        option = JOptionPane.showConfirmDialog(null, addFields, "Add details", JOptionPane.OK_CANCEL_OPTION);
 
+        if (option == JOptionPane.OK_OPTION) {
+
+            if (id.getText().isEmpty() || fName.getText().isEmpty() || lName.getText().isEmpty() ) {
+                JOptionPane.showMessageDialog(null, "Error, please fill in all text boxes!");
+            }
+            if(option == JOptionPane.CANCEL_OPTION)
+            {
+                
+            }
+        else
         try {
             out.writeObject("Add Employee");
             out.flush();
@@ -694,11 +708,14 @@ public class HouseGUI implements ActionListener {
 
             String response = (String) in.readObject();
             JOptionPane.showMessageDialog(null, response);
+            
+            
 
         } catch (IOException ex) {
             System.out.println("IOExeption: " + ex.getMessage());
         } catch (ClassNotFoundException ex) {
             System.out.println("ClassNotFoundException: " + ex.getMessage());
+        }
         }
     }
 
@@ -725,10 +742,12 @@ public class HouseGUI implements ActionListener {
 
             if (id.getText().isEmpty() || fName.getText().isEmpty() || lName.getText().isEmpty() || phoneNum.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Error, please fill in all text boxes!");
-
             }
-        }
-
+            if(option == JOptionPane.CANCEL_OPTION)
+            {
+                
+            }
+        else
         try {
 
             out.writeObject("Add Customer");
@@ -751,6 +770,8 @@ public class HouseGUI implements ActionListener {
 
             String response = (String) in.readObject();
             JOptionPane.showMessageDialog(null, response);
+            
+
 
         } catch (IOException ex) {
             System.out.println("IOExeption: " + ex.getMessage());
@@ -759,6 +780,8 @@ public class HouseGUI implements ActionListener {
         } catch (NumberFormatException ex) {
             System.out.println("NumberFormatException: " + ex.getMessage());
         }
+        }
+        
     }
     
     public void clientAddRentalDetails()
@@ -776,7 +799,19 @@ public class HouseGUI implements ActionListener {
                         "House ID:", houseId
                     };
 
-            JOptionPane.showConfirmDialog(null, addFields, "Add details", JOptionPane.OK_CANCEL_OPTION);
+        int option;
+        option = JOptionPane.showConfirmDialog(null, addFields, "Add details", JOptionPane.OK_CANCEL_OPTION);
+
+        if (option == JOptionPane.OK_OPTION) {
+
+            if (id.getText().isEmpty() || customerId.getText().isEmpty() || houseId.getText().isEmpty() ) {
+                JOptionPane.showMessageDialog(null, "Error, please fill in all text boxes!");
+            }
+            if(option == JOptionPane.CANCEL_OPTION)
+            {
+                
+            }
+        else
 
             try {
                 out.writeObject("Add Rental");
@@ -801,22 +836,46 @@ public class HouseGUI implements ActionListener {
             } catch (ClassNotFoundException ex) {
                 System.out.println("ClassNotFoundException: " + ex.getMessage());
             }
+        }
     }
-//    public ArrayList<Customer> refreshCustomer() throws ClassNotFoundException{
-//        try{
-//            //client side
-//            out.writeObject("refreshCustomer");
-//            out.flush();
-//            return (ArrayList<Customer>) in.readObject();
-//            
-//            
-//            
-//        } catch (IOException ex) {
-//            System.out.println("IOException: " + ex.getMessage());
-//            return new ArrayList<>();
-//        } 
-//    }
 
+    //Arraylist for displaying database
+      ArrayList<Customer> custRefresh = new ArrayList<>();
+      
+    public void refreshCustomer()
+    {
+        try
+        {
+        //client side
+            out.writeObject("refreshCustomer");
+            out.flush();
+            
+            //recieve from server
+            custRefresh = (ArrayList)in.readObject();
+            
+            tblDisplay.setModel(tblModel);
+            tblModel = (DefaultTableModel) tblDisplay.getModel();
+            tblModel.setRowCount(0);
+            
+            //add values from arraylist to gui JTable
+            for(int i = 0; i<custRefresh.size(); i++)
+            {
+                int id = custRefresh.get(i).getCustomerId();
+                String fName = custRefresh.get(i).getfName();
+                String lName = custRefresh.get(i).getlName();
+                String cellNo = custRefresh.get(i).getCell();
+//                Boolean canRent = custRefresh.get(i).get
+                Object[] CustomerData = {id,fName,lName,cellNo};
+                tblModel.addRow(CustomerData);
+            }
+            
+            
+        } catch (IOException ex) {
+            System.out.println("IO Exception: " + ex.getMessage());
+        } catch (ClassNotFoundException ex) {
+            System.out.println("ClassNotFoundException: " + ex.getMessage());
+        }
+    }
     public static void main(String[] args) {
         new HouseGUI().setGUI();
 
