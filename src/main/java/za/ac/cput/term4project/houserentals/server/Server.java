@@ -110,6 +110,7 @@ public class Server {
 
                     if (cDaoAdd.equals(customer)) {
                         out.writeObject("Data has been added!");
+                        out.flush();
                     }
                 }
                 
@@ -127,6 +128,7 @@ public class Server {
                     
                     if(eDaoAdd.equals(employer)){
                         out.writeObject("Data has been added!");
+                        out.flush();
                     }
                     
                 }
@@ -145,6 +147,7 @@ public class Server {
                     
                     if(hDaoAdd.equals(house)){
                         out.writeObject("Data has been added!");
+                        out.flush();
                     }
                 }
                 
@@ -165,6 +168,7 @@ public class Server {
                     
                     if(rDaoAdd.equals(rental)){
                         out.writeObject("Data has been added!");
+                        out.flush();
                     }
                 }
                 
@@ -173,7 +177,32 @@ public class Server {
                     customerList = (ArrayList<Customer>) customerDao.getAll();
                     
                     out.writeObject(customerList);
+                    out.flush();
                     
+                }
+                
+                if(msg.equals("refreshEmployee")){
+                    ArrayList<Employers> employeeList = new ArrayList<>();
+                    employeeList = (ArrayList<Employers>) employerDao.getAll();
+                    
+                    out.writeObject(employeeList);
+                    out.flush();
+                }
+                
+                if(msg.equals("refreshHouse")){
+                    ArrayList<House> houseList = new ArrayList<>();
+                    houseList = (ArrayList<House>) houseDao.getAll();
+                    
+                    out.writeObject(houseList);
+                    out.flush();
+                }
+                
+                if(msg.equals("refreshRental")){
+                    ArrayList<Rental> rentalList = new ArrayList<>();
+                    rentalList = (ArrayList<Rental>) rentalDao.getAll();
+                    
+                    out.writeObject(rentalList);
+                    out.flush();
                 }
             }
 

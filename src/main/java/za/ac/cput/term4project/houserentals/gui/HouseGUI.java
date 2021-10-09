@@ -20,6 +20,9 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import za.ac.cput.term4project.houserentals.client.Client;
 import za.ac.cput.term4project.houserentals.domain.Customer;
+import za.ac.cput.term4project.houserentals.domain.Employers;
+import za.ac.cput.term4project.houserentals.domain.House;
+import za.ac.cput.term4project.houserentals.domain.Rental;
 
 /**
  *
@@ -608,6 +611,12 @@ public class HouseGUI implements ActionListener {
         frameE.setLocationRelativeTo(null);
         frameE.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frameE.setVisible(false);
+        
+        //Read on startup
+        refreshCustomer();
+        refreshEmployee();
+        refreshHouse();
+        refreshRental();
 
     }
 
@@ -645,20 +654,23 @@ public class HouseGUI implements ActionListener {
         //ADD Customer Button
         if (e.getActionCommand().equals("Add Customer")) {
             clientAddCustomerDetails();
-//            refreshCustomer();
+            refreshCustomer();
         }
         //ADD Employee Button
         if (e.getActionCommand().equals("Add Employee")) {
             clientAddEmployeeDetails();
+            refreshEmployee();
         }
         //Add House Button
         if (e.getActionCommand().equals("Add House")){
             clientAddHouseDetails();
+            refreshHouse();
         }
         
         //ADD Rental Button
         if (e.getActionCommand().equals("Add Rental")) {
             clientAddRentalDetails();
+            refreshRental();
 
         }
     }
@@ -904,6 +916,9 @@ public class HouseGUI implements ActionListener {
     }
     //Arraylist for displaying database
       ArrayList<Customer> custRefresh = new ArrayList<>();
+      ArrayList<Employers> employeeRefresh = new ArrayList<>();
+      ArrayList<House> houseRefresh = new ArrayList<>();
+      ArrayList<Rental> rentalRefresh = new ArrayList<>();
       
     public void refreshCustomer()
     {
@@ -927,8 +942,8 @@ public class HouseGUI implements ActionListener {
                 String fName = custRefresh.get(i).getfName();
                 String lName = custRefresh.get(i).getlName();
                 String cellNo = custRefresh.get(i).getCell();
-//                Boolean canRent = custRefresh.get(i).get
-                Object[] CustomerData = {id,fName,lName,cellNo};
+                Boolean canRent = custRefresh.get(i).isCanRent();
+                Object[] CustomerData = {id, fName, lName, cellNo, canRent};
                 tblModel.addRow(CustomerData);
             }
             
@@ -939,6 +954,105 @@ public class HouseGUI implements ActionListener {
             System.out.println("ClassNotFoundException: " + ex.getMessage());
         }
     }
+    
+    public void refreshEmployee(){
+        try{
+            //client side
+            out.writeObject("refreshEmployee");
+            out.flush();
+            
+            //recieve from server
+            employeeRefresh = (ArrayList) in.readObject();
+            
+            tblEmployeeDisplay.setModel(tblEmployeeModel);
+            tblEmployeeModel = (DefaultTableModel) tblEmployeeDisplay.getModel();
+            tblEmployeeModel.setRowCount(0);
+            
+            //add values from arraylist to gui JTable
+            for (int i = 0; i < employeeRefresh.size(); i++) {
+                int id = employeeRefresh.get(i).getEmployerId();
+                String fName = employeeRefresh.get(i).getfName();
+                String lName = employeeRefresh.get(i).getlName();
+                boolean isAdmin = employeeRefresh.get(i).isAdmin();
+                boolean isActive = employeeRefresh.get(i).isActive();
+                
+                Object[] employeeData = {id, fName, lName, isAdmin, isActive};
+                tblEmployeeModel.addRow(employeeData);
+            }
+        } 
+        catch(IOException ex){
+            System.out.println("IOException: " + ex.getMessage());
+        } 
+        catch(ClassNotFoundException ex){
+            System.out.println("ClassNotFoundException: " + ex.getMessage());
+        }
+    }
+    
+    public void refreshHouse(){
+        try{
+            //client side
+            out.writeObject("refreshHouse");
+            out.flush();
+            
+            //recieve from server
+            houseRefresh = (ArrayList) in.readObject();
+            
+            tblHouseDisplay.setModel(tblHouseModel);
+            tblHouseModel = (DefaultTableModel) tblHouseDisplay.getModel();
+            tblHouseModel.setRowCount(0);
+            
+            //add values from arraylist to gui JTable
+            for (int i = 0; i < houseRefresh.size(); i++) {
+                int id = houseRefresh.get(i).getId();
+                String noOfRooms = houseRefresh.get(i).getNumberOfRooms();
+                String location = houseRefresh.get(i).getLocation();
+                double price = houseRefresh.get(i).getPrice();
+                boolean isRented = houseRefresh.get(i).isIsRented();
+                
+                Object[] houseData = {id, noOfRooms, location, price, isRented};
+                tblHouseModel.addRow(houseData);
+            }
+        }
+        catch(IOException ex){
+            System.out.println("IOException: " + ex.getMessage());
+        }
+        catch(ClassNotFoundException ex){
+            System.out.println("ClassNotFoundException: " + ex.getMessage());
+        }
+    }
+    
+    public void refreshRental(){
+        try{
+            //client side
+            out.writeObject("refreshRental");
+            out.flush();
+            
+            //recieve from server
+            rentalRefresh = (ArrayList) in.readObject();
+            
+            tblRentalDisplay.setModel(tblRentalModel);
+            tblRentalModel = (DefaultTableModel) tblRentalDisplay.getModel();
+            tblRentalModel.setRowCount(0);
+            
+            //add values from arraylist to gui JTable
+            for (int i = 0; i < rentalRefresh.size(); i++) {
+                int id = rentalRefresh.get(i).getRentId();
+                Date date = rentalRefresh.get(i).getDate();
+                int customerId = rentalRefresh.get(i).getCustomerId();
+                int houseId = rentalRefresh.get(i).getHouseId();
+                
+                Object[] rentalData = {id, date, customerId, houseId};
+                tblRentalModel.addRow(rentalData);
+            }
+        }
+        catch(IOException ex){
+            System.out.println("IOException: " + ex.getMessage());
+        }
+        catch(ClassNotFoundException ex){
+            System.out.println("ClassNotFoundException: " + ex.getMessage());
+        }
+    }
+    
     public static void main(String[] args) {
         new HouseGUI().setGUI();
 

@@ -57,7 +57,7 @@ public class HousesDao {
                 int houseId = rs.getInt("id");
                 String numberOfRooms = rs.getString("noofrooms");
                 String location = rs.getString("location");
-                double price = rs.getDouble("rent");
+                double price = rs.getDouble("price");
                 boolean isRented = rs.getBoolean("isrented");
                 
                 House house =  new House(houseId, numberOfRooms, location, price, isRented);
