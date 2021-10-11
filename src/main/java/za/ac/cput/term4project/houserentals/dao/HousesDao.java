@@ -71,6 +71,33 @@ public class HousesDao {
         return houseArray;
     }
     
+    //Get true values when click on button
+    public ArrayList<House> getTrueAll(){
+        String getAll_SQL = "SELECT * FROM house Where isrented = true";
+        ArrayList<House> houseArray = new ArrayList<>();
+        
+        try{
+            PreparedStatement ps = this.con.prepareStatement(getAll_SQL);
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()){
+                int houseId = rs.getInt("id");
+                String numberOfRooms = rs.getString("noofrooms");
+                String location = rs.getString("location");
+                double price = rs.getDouble("price");
+                boolean isRented = rs.getBoolean("isrented");
+                
+                House house =  new House(houseId, numberOfRooms, location, price, isRented);
+                houseArray.add(house);
+            }
+            rs.close();
+        }
+        catch(SQLException ex){
+            System.out.println("SQLException: " + ex.getMessage());
+        }
+        return houseArray;
+    }
+    
     public House update(House house){
         try {
             String updateSQL = "UPDATE house Set isrented = ? WHERE id = ?";

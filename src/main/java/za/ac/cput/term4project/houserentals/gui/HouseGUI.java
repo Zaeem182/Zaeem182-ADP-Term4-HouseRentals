@@ -428,6 +428,8 @@ public class HouseGUI implements ActionListener {
         tblModel.addColumn("Can Rent");
 
         panelCenter.add(new JScrollPane(tblDisplay));
+        
+        tblDisplay.setAutoCreateRowSorter(true);
 
         //Show on form
         frameC.setSize(850, 500);
@@ -519,6 +521,8 @@ public class HouseGUI implements ActionListener {
 
         panelEmployeeCenter.add(new JScrollPane(tblEmployeeDisplay));
         
+        tblEmployeeDisplay.setAutoCreateRowSorter(true);
+        
         panelEmployeeTop.add(lblEmployeeHeading);
         
         btnEmployeeAdd.setPreferredSize(new Dimension(150, 50));
@@ -586,6 +590,8 @@ public class HouseGUI implements ActionListener {
 
         panelHouseCenter.add(new JScrollPane(tblHouseDisplay));
         
+        tblHouseDisplay.setAutoCreateRowSorter(true);
+        
         panelHouseTop.add(lblHouseHeading);
         
         //
@@ -652,6 +658,8 @@ public class HouseGUI implements ActionListener {
         tblRentalModel.addColumn("HouseID");
 
         panelRentalCenter.add(new JScrollPane(tblRentalDisplay));
+        
+        tblRentalDisplay.setAutoCreateRowSorter(true);
         
         panelRentalTop.add(lblRentalHeading);
         
