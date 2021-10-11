@@ -17,7 +17,7 @@ import java.sql.SQLException;
 public class DbConnection {
         public static Connection derbyConnection() throws SQLException
     {
-        String DATABASE_URL = "jdbc:derby://localhost:1527//ZaRentalsDB";
+        String DATABASE_URL = "jdbc:derby://localhost:1527/ZaRentalsDB";
         String username = "Administrator";
         String password = "password";
         

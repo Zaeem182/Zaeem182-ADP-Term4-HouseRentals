@@ -91,4 +91,21 @@ public class EmployersDao {
         }
         return valid;
     }
+    
+    public Employers update(Employers employee){
+        try {
+            String updateSQL = "UPDATE employers Set active = ? WHERE id = ?";
+            PreparedStatement ps = con.prepareStatement(updateSQL);
+            
+            ps.setBoolean(1, employee.isActive());
+            ps.setInt(2, employee.getEmployerId());
+            
+            ps.executeUpdate();
+            ps.close();
+            
+        } catch (SQLException ex){
+            System.out.println("SQLException: " + ex.getMessage());
+        }
+        return employee;
+    }
 }

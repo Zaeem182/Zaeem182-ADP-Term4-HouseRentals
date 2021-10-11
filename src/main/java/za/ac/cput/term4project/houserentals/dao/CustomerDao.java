@@ -71,4 +71,21 @@ public class CustomerDao {
         }
         return customerArray;
     }
+    
+    public Customer update(Customer customer){
+        try {
+            String updateSQL = "UPDATE customer Set canrent = ? WHERE id = ?";
+            PreparedStatement ps = con.prepareStatement(updateSQL);
+            
+            ps.setBoolean(1, customer.isCanRent());
+            ps.setInt(2, customer.getCustomerId());
+            
+            ps.executeUpdate();
+            ps.close();
+            
+        } catch(SQLException ex){
+            System.out.println("SQLException: " + ex.getMessage());
+        }
+        return customer;
+    }
 }

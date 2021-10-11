@@ -70,4 +70,21 @@ public class HousesDao {
         }
         return houseArray;
     }
+    
+    public House update(House house){
+        try {
+            String updateSQL = "UPDATE house Set isrented = ? WHERE id = ?";
+            PreparedStatement ps = con.prepareStatement(updateSQL);
+            
+            ps.setBoolean(1, house.isIsRented());
+            ps.setInt(2, house.getId());
+            
+            ps.executeUpdate();
+            ps.close();
+            
+        } catch(SQLException ex){
+            System.out.println("SQLException: " + ex.getMessage());
+        }
+        return house;
+    }
 }

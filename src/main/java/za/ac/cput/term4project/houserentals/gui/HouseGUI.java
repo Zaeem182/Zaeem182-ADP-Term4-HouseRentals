@@ -18,7 +18,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import za.ac.cput.term4project.houserentals.client.Client;
 import za.ac.cput.term4project.houserentals.domain.Customer;
 import za.ac.cput.term4project.houserentals.domain.Employers;
 import za.ac.cput.term4project.houserentals.domain.House;
@@ -711,7 +710,17 @@ public class HouseGUI implements ActionListener {
         //EXIT BUTTON
         if (e.getActionCommand().equals("EXIT")) {
             System.exit(0);
-
+            
+            //Close server
+            try {
+                out.close();
+                in.close();
+                server.close();
+            } catch (IOException ex) {
+                System.out.println("IOException: " + ex.getMessage());
+            }
+            
+            
         }
         //EMPLOYEES Button
         if (e.getActionCommand().equals("EMPLOYEES")) 
@@ -761,23 +770,18 @@ public class HouseGUI implements ActionListener {
         }
     }
     public void LoginConfirm() {
-        
-try {
+
+        try {
             int ID = Integer.parseInt(txtLoginId.getText());
             String LastName = txtLoginLastname.getText();
-            
-            
-            if (txtLoginId.getText().equals("")|| txtLoginLastname.getText().equals("")) {
+
+            if (txtLoginId.getText().equals("") || txtLoginLastname.getText().equals("")) {
                 JOptionPane.showMessageDialog(null, "Error, please fill in all text boxes!");
-                
+
                 frameC.setVisible(false);
                 frameLog.setVisible(true);
-            }
-            
-            else
-
-            
-            
+            } else 
+               
             out.writeObject("Login");
             out.flush();
 
@@ -786,23 +790,29 @@ try {
 
             out.writeObject(LastName);
             out.flush();
-            
+
             String response = (String) in.readObject();
             JOptionPane.showMessageDialog(null, response);
-             if(response.equals("Wrong credidentials! try again"))
-            {
-                
+            if (response.equals("Wrong credidentials! try again")) {
+
                 frameLog.setVisible(true);
                 frameC.setVisible(false);
+            } else {
+                setLoginPage();
             }
-             else
-                 setLoginPage();
-                 
 
         } catch (IOException ex) {
             System.out.println("IOExeption: " + ex.getMessage());
         } catch (ClassNotFoundException ex) {
             System.out.println("ClassNotFoundException: " + ex.getMessage());
+        } catch (NumberFormatException ex) {
+            System.out.println("NumberFormatException: " + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Error, please fill in all text boxes!");
+        } catch (HeadlessException ex) {
+            System.out.println("HeadlessException: " + ex.getMessage());
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            System.out.println("Exception: " + ex.getMessage());
         }
 
     }
@@ -893,44 +903,41 @@ try {
             if (id.getText().isEmpty() || fName.getText().isEmpty() || lName.getText().isEmpty() || phoneNum.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Error, please fill in all text boxes!");
             }
-            if(option == JOptionPane.CANCEL_OPTION)
-            {
-                
-            }
-        else
+            if (option == JOptionPane.CANCEL_OPTION) {
+
+            } else
         try {
 
-            out.writeObject("Add Customer");
-            out.flush();
+                out.writeObject("Add Customer");
+                out.flush();
 
-            out.writeInt(Integer.parseInt(id.getText()));
-            out.flush();
+                out.writeInt(Integer.parseInt(id.getText()));
+                out.flush();
 
-            out.writeObject(fName.getText());
-            out.flush();
+                out.writeObject(fName.getText());
+                out.flush();
 
-            out.writeObject(lName.getText());
-            out.flush();
+                out.writeObject(lName.getText());
+                out.flush();
 
-            out.writeObject(phoneNum.getText());
-            out.flush();
+                out.writeObject(phoneNum.getText());
+                out.flush();
 
-            out.writeBoolean(canRent.isSelected());
-            out.flush();
+                out.writeBoolean(canRent.isSelected());
+                out.flush();
 
-            String response = (String) in.readObject();
-            JOptionPane.showMessageDialog(null, response);
-            
+                String response = (String) in.readObject();
+                JOptionPane.showMessageDialog(null, response);
 
-        } catch (IOException ex) {
-            System.out.println("IOExeption: " + ex.getMessage());
-        } catch (ClassNotFoundException ex) {
-            System.out.println("ClassNotFoundException: " + ex.getMessage());
-        } catch (NumberFormatException ex) {
-            System.out.println("NumberFormatException: " + ex.getMessage());
+            } catch (IOException ex) {
+                System.out.println("IOExeption: " + ex.getMessage());
+            } catch (ClassNotFoundException ex) {
+                System.out.println("ClassNotFoundException: " + ex.getMessage());
+            } catch (NumberFormatException ex) {
+                System.out.println("NumberFormatException: " + ex.getMessage());
+            }
         }
-        }
-        
+
     }
     
     public void clientAddHouseDetails(){
@@ -1187,9 +1194,6 @@ try {
     
     public static void main(String[] args) {
         new HouseGUI().setGUI();
-
-        
-
     }
 
 }
