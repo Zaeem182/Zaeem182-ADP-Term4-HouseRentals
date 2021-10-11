@@ -46,9 +46,6 @@ public class HouseGUI implements ActionListener {
     //JLabel Heading
     private JLabel lblHeading;
 
-    //JCheckBox
-    private JCheckBox chkCanRent;
-
     //JButtons
     private JButton btnAdd;
     private JButton btnAdminAgent;
@@ -56,9 +53,6 @@ public class HouseGUI implements ActionListener {
     private JButton btnCustomers;
     private JButton btnRentals;
     private JButton btnExit;
-
-    //JComboboxes
-    private JComboBox cboUser;
 
     //JTable
     private DefaultTableModel tblModel;
@@ -71,6 +65,28 @@ public class HouseGUI implements ActionListener {
     //JFrame
     JFrame frameC = new JFrame();
 
+    ///////////////////////////////////////////////////////////////
+    //Login
+    JFrame frameLog = new JFrame();
+    
+   
+    private JPanel panelLoginTop;
+    private JPanel panelLoginCenter;
+    private JPanel panelLoginBottom;
+    private JPanel panelLoginLeft;
+    private JPanel panelLoginRight;
+    
+    private JLabel lblLoginHeading;
+    
+    private JLabel lblLoginId;
+    private JLabel lblLoginLastname;
+    
+    private JTextField txtLoginId;
+    private JTextField txtLoginLastname;
+    
+    private JButton btnLogin;
+    private JButton btnLoginExit;
+    
     /////////////////////////////////////////////////////
         //Jpanel for house table
     
@@ -81,7 +97,6 @@ public class HouseGUI implements ActionListener {
     private JPanel panelHouseBottom;
 
     private JLabel lblHouseHeading;
-    private JComboBox cboHouseUser;
         
     private JButton btnHouseAdd;
     private JButton btnHAdminAgent;
@@ -103,7 +118,6 @@ public class HouseGUI implements ActionListener {
     private JPanel panelRentalBottom;
 
     private JLabel lblRentalHeading;
-    private JComboBox cboRentalUser;
     
     private JButton btnRentalAdd;
     private JButton btnRAdminAgent;
@@ -125,7 +139,6 @@ public class HouseGUI implements ActionListener {
     private JPanel panelEmployeeBottom;
 
     private JLabel lblEmployeeHeading;
-    private JComboBox cboEmployeeUser;
     
     private JButton btnEmployeeAdd;
     private JButton btnEAdminAgent;
@@ -170,8 +183,6 @@ public class HouseGUI implements ActionListener {
         //Heading
         lblHeading = new JLabel("ZA RENTALS");
 
-        //Checkbox input
-        chkCanRent = new JCheckBox();
 
         //Buttons
         btnAdd = new JButton("Add Customer");
@@ -181,13 +192,29 @@ public class HouseGUI implements ActionListener {
         btnRentals = new JButton("RENTALS");
         btnExit = new JButton("EXIT");
 
-        //ComboBox
-        cboUser = new JComboBox();
 
         //Table
         tblModel = new DefaultTableModel();
         tblDisplay = new JTable(tblModel);
+        ///////////////////////////////////////////////////////////////
+        //Login
+        panelLoginTop = new JPanel();
+        panelLoginCenter = new JPanel();
+        panelLoginBottom = new JPanel();
+        panelLoginLeft = new JPanel();
+        panelLoginRight = new JPanel();
         
+        lblLoginHeading = new JLabel("ZA RENTALS LOGIN");
+        lblLoginId = new JLabel("Enter ID Number: ") ;
+        txtLoginId = new JTextField(12);
+        lblLoginLastname = new JLabel("Enter Last Name: ");
+        txtLoginLastname = new JTextField(12);
+        
+        btnLogin = new JButton("LOGIN");
+        btnLoginExit = new JButton("EXIT");
+        
+        btnLogin.addActionListener(this);
+        btnLoginExit.addActionListener(this);       
         /////////////////////////////////////////////////////
         //house panels
          panelHouseTop = new JPanel();
@@ -195,7 +222,6 @@ public class HouseGUI implements ActionListener {
          panelHouseBottom = new JPanel();
          
         lblHouseHeading = new JLabel("ZA RENTALS");
-        cboHouseUser = new JComboBox();
         
         btnHouseAdd = new JButton("Add House");
         btnHAdminAgent = new JButton("EMPLOYEES");
@@ -221,7 +247,6 @@ public class HouseGUI implements ActionListener {
         panelRentalBottom = new JPanel();
          
         lblRentalHeading = new JLabel("ZA RENTALS");
-        cboRentalUser = new JComboBox();
         
         btnRentalAdd = new JButton("Add Rental");
         btnRAdminAgent = new JButton("EMPLOYEES");
@@ -247,7 +272,6 @@ public class HouseGUI implements ActionListener {
         panelEmployeeBottom = new JPanel();
          
         lblEmployeeHeading = new JLabel("ZA RENTALS");
-        cboEmployeeUser = new JComboBox();
         
         btnEmployeeAdd = new JButton("Add Employee");
         btnEAdminAgent = new JButton("EMPLOYEES");
@@ -266,8 +290,19 @@ public class HouseGUI implements ActionListener {
         tblEmployeeModel = new DefaultTableModel();
         tblEmployeeDisplay = new JTable(tblEmployeeModel);
     }
+    public void setLoginPage()
+    {
+        frameC.setVisible(true);
+        frameH.setVisible(false);
+        frameE.setVisible(false);
+        frameR.setVisible(false);
+        
+        frameLog.setVisible(false);
+    }
+
     public void setHousePanels()
     {
+        frameLog.setVisible(false);
         frameH.setVisible(false);
         frameC.setVisible(false);
         frameE.setVisible(false);
@@ -280,6 +315,7 @@ public class HouseGUI implements ActionListener {
     
     public void setRentalPanels()
     {   
+        frameLog.setVisible(false);
         frameH.setVisible(false);
         frameC.setVisible(false);
         frameR.setVisible(false);
@@ -292,6 +328,7 @@ public class HouseGUI implements ActionListener {
     
      public void setEmployeePanels()
     {
+        frameLog.setVisible(false);
         frameC.setVisible(false);
         frameR.setVisible(false);
         frameE.setVisible(false);
@@ -303,7 +340,7 @@ public class HouseGUI implements ActionListener {
     
     public void setCustomerPanels()
     {
-       
+        frameLog.setVisible(false);
         frameH.setVisible(false);
         frameR.setVisible(false);
         frameE.setVisible(false);
@@ -332,10 +369,6 @@ public class HouseGUI implements ActionListener {
 
         //Heading
         panelTop.add(lblHeading);
-
-        //ComboBox
-        panelTop.add(cboUser);
-        cboUser.addItem("-no selection made-");
 
         //Buttons
         btnAdd.setPreferredSize(new Dimension(150, 50));
@@ -401,9 +434,63 @@ public class HouseGUI implements ActionListener {
         frameC.setSize(850, 500);
         frameC.setLocationRelativeTo(null);
         frameC.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frameC.setVisible(true);
+        frameC.setVisible(false);
 
-       
+       ///////////////////////////////////////////////////////////////
+        //Login GUI
+        lblLoginHeading.setFont(Hft);
+        lblLoginHeading.setForeground(new Color(0, 0, 0));
+        
+        lblLoginId.setFont(Hft);
+        lblLoginId.setForeground(new Color(0, 0, 0));
+        
+        lblLoginLastname.setFont(Hft);
+        lblLoginLastname.setForeground(new Color(0, 0, 0));
+        
+        frameLog.add(panelLoginLeft,BorderLayout.WEST);
+        panelLoginLeft.setPreferredSize(new Dimension(50, 50));
+        
+        frameLog.add(panelLoginRight,BorderLayout.EAST);
+        panelLoginRight.setPreferredSize(new Dimension(50, 50));
+        
+        frameLog.add(panelLoginTop,BorderLayout.NORTH);
+        panelLoginTop.setLayout(new GridLayout(1, 1));
+        panelLoginTop.setPreferredSize(new Dimension(50, 100));
+        
+        frameLog.add(panelLoginCenter,BorderLayout.CENTER);
+        panelLoginCenter.setPreferredSize(new Dimension(150, 50));
+
+        frameLog.add(panelLoginBottom,BorderLayout.SOUTH);
+        
+        panelLoginBottom.add(btnLogin);
+        panelLoginBottom.add(btnLoginExit);
+        
+        panelLoginCenter.add(lblLoginId);
+        panelLoginCenter.add(txtLoginId);
+        panelLoginCenter.add(lblLoginLastname);
+        panelLoginCenter.add(txtLoginLastname);
+        
+        panelLoginTop.add(lblLoginHeading);
+        
+        btnLogin.setPreferredSize(new Dimension(150, 50));
+        btnLoginExit.setPreferredSize(new Dimension(150, 50));
+        
+        panelLoginTop.setBackground(new Color(233, 160, 124));
+        panelLoginCenter.setBackground(new Color(233, 160, 124));
+        panelLoginBottom.setBackground(new Color(233, 160, 124));
+        panelLoginLeft.setBackground(new Color(233, 160, 124));
+        panelLoginRight.setBackground(new Color(233, 160, 124));
+        
+        btnLogin.setBackground(new Color(102, 178, 255));
+        btnLogin.setForeground(new Color(0, 0, 0));
+
+        btnLoginExit.setBackground(new Color(102, 178, 255));
+        btnLoginExit.setForeground(new Color(0, 0, 0));
+        
+        frameLog.setSize(400, 450);
+        frameLog.setLocationRelativeTo(null);
+        frameLog.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frameLog.setVisible(true);
         
         ///////////////////////////////////////////////////////////////
         //Employee GUI
@@ -434,9 +521,6 @@ public class HouseGUI implements ActionListener {
         panelEmployeeCenter.add(new JScrollPane(tblEmployeeDisplay));
         
         panelEmployeeTop.add(lblEmployeeHeading);
-
-        panelEmployeeTop.add(cboEmployeeUser);
-        cboEmployeeUser.addItem("-no selection made-");
         
         btnEmployeeAdd.setPreferredSize(new Dimension(150, 50));
         btnEAdminAgent.setPreferredSize(new Dimension(120, 40));
@@ -498,14 +582,13 @@ public class HouseGUI implements ActionListener {
         tblHouseModel.addColumn("ID");
         tblHouseModel.addColumn("No. of Rooms");
         tblHouseModel.addColumn("Location");
-        tblHouseModel.addColumn("Rent");
+        tblHouseModel.addColumn("Price");
+        tblHouseModel.addColumn("Is Rented");
 
         panelHouseCenter.add(new JScrollPane(tblHouseDisplay));
         
         panelHouseTop.add(lblHouseHeading);
-
-        panelHouseTop.add(cboHouseUser);
-        cboHouseUser.addItem("-no selection made-");
+        
         //
         btnHouseAdd.setPreferredSize(new Dimension(150, 50));
         btnHAdminAgent.setPreferredSize(new Dimension(120, 40));
@@ -572,9 +655,6 @@ public class HouseGUI implements ActionListener {
         panelRentalCenter.add(new JScrollPane(tblRentalDisplay));
         
         panelRentalTop.add(lblRentalHeading);
-
-        panelRentalTop.add(cboRentalUser);
-        cboRentalUser.addItem("-no selection made-");
         
                 //
         btnRentalAdd.setPreferredSize(new Dimension(150, 50));
@@ -619,9 +699,15 @@ public class HouseGUI implements ActionListener {
         refreshRental();
 
     }
-
+    
     @Override
     public void actionPerformed(ActionEvent e) {
+        if(e.getActionCommand().equals("LOGIN"))
+        {
+            LoginConfirm();
+            
+            
+        }
         //EXIT BUTTON
         if (e.getActionCommand().equals("EXIT")) {
             System.exit(0);
@@ -673,6 +759,52 @@ public class HouseGUI implements ActionListener {
             refreshRental();
 
         }
+    }
+    public void LoginConfirm() {
+        
+try {
+            int ID = Integer.parseInt(txtLoginId.getText());
+            String LastName = txtLoginLastname.getText();
+            
+            
+            if (txtLoginId.getText().equals("")|| txtLoginLastname.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Error, please fill in all text boxes!");
+                
+                frameC.setVisible(false);
+                frameLog.setVisible(true);
+            }
+            
+            else
+
+            
+            
+            out.writeObject("Login");
+            out.flush();
+
+            out.writeInt(ID);
+            out.flush();
+
+            out.writeObject(LastName);
+            out.flush();
+            
+            String response = (String) in.readObject();
+            JOptionPane.showMessageDialog(null, response);
+             if(response.equals("Wrong credidentials! try again"))
+            {
+                
+                frameLog.setVisible(true);
+                frameC.setVisible(false);
+            }
+             else
+                 setLoginPage();
+                 
+
+        } catch (IOException ex) {
+            System.out.println("IOExeption: " + ex.getMessage());
+        } catch (ClassNotFoundException ex) {
+            System.out.println("ClassNotFoundException: " + ex.getMessage());
+        }
+
     }
 
     public void clientAddEmployeeDetails() throws NumberFormatException, HeadlessException {
@@ -726,6 +858,7 @@ public class HouseGUI implements ActionListener {
             String response = (String) in.readObject();
             JOptionPane.showMessageDialog(null, response);
             
+           
             
 
         } catch (IOException ex) {
@@ -788,7 +921,6 @@ public class HouseGUI implements ActionListener {
             String response = (String) in.readObject();
             JOptionPane.showMessageDialog(null, response);
             
-
 
         } catch (IOException ex) {
             System.out.println("IOExeption: " + ex.getMessage());

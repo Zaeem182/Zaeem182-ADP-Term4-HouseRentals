@@ -25,7 +25,11 @@ public class Employers implements Serializable{
         this.active = active;
         this.admin = admin;
     }
-
+public Employers(int employerId, String lName)
+{
+    this.employerId = employerId;
+    this.lName = lName;
+}
     public void setEmployerId(int employerId) {
         this.employerId = employerId;
     }

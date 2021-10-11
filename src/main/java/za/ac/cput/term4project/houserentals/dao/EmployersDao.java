@@ -72,21 +72,23 @@ public class EmployersDao {
         return employerArray;
     }
     
-    public Employers employeeLogin(Employers employee){
-        String login_SQL = "SELECT * FROM employers WHERE id = ? AND lname = ?";
+    public Boolean employeeLogin(Employers employee){
+        String login_SQL = "SELECT * FROM employers WHERE id=? AND lname=?";
         
+        Boolean valid = false;
         try{
             PreparedStatement ps = this.con.prepareStatement(login_SQL);
             
             ps.setInt(1, employee.getEmployerId());
             ps.setString(2, employee.getlName());
             
-            ps.executeUpdate();
+            ResultSet rs = ps.executeQuery();
+            valid = rs.next();
             ps.close();
         }
         catch(SQLException ex){
             System.out.println("SQLException: " + ex.getMessage());
         }
-        return employee;
+        return valid;
     }
 }

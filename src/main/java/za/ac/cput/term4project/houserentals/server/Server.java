@@ -89,29 +89,24 @@ public class Server {
             while (true) {
                 //communicate (if statements to add data)
                 String msg = (String) in.readObject();
-                System.out.println("1");
                 if (msg.equals("Add Customer")) {
-                    System.out.println("2");
                     Integer id = (Integer) in.readInt();
-                    System.out.println("3");
                     String fName = (String) in.readObject();
-                    System.out.println("4");
                     String lName = (String) in.readObject();
-                    System.out.println("5");
                     String phoneNum = (String) in.readObject();
-                    System.out.println("6");
                     boolean canRent = (boolean) in.readBoolean();
-                    System.out.println("7");
 
                     //DAO Part
                     Customer customer = new Customer(id, fName, lName, phoneNum, canRent);
-                    System.out.println("8");
                     Customer cDaoAdd = customerDao.add(customer);
 
                     if (cDaoAdd.equals(customer)) {
                         out.writeObject("Data has been added!");
                         out.flush();
+                        
                     }
+                    else
+                        out.writeObject("Data has not been added :(");
                 }
                 
                 if (msg.equals("Add Employee")){
@@ -130,6 +125,8 @@ public class Server {
                         out.writeObject("Data has been added!");
                         out.flush();
                     }
+                    else
+                        out.writeObject("Data has not been added :(");
                     
                 }
                 
@@ -149,15 +146,13 @@ public class Server {
                         out.writeObject("Data has been added!");
                         out.flush();
                     }
+                    else
+                        out.writeObject("Data has not been added :(");
                 }
-                
-                System.out.println("1");
+
                 if (msg.equals("Add Rental")) {
-                    System.out.println("2");
                     int id = (int) in.readInt();
-                    System.out.println("3");
                     Date date = (Date) in.readObject();
-                    System.out.println("4");
                     int customerId = (int) in.readInt();
                     int houseId = (int) in.readInt();
                     
@@ -170,7 +165,34 @@ public class Server {
                         out.writeObject("Data has been added!");
                         out.flush();
                     }
+                    else
+                        out.writeObject("Data has not been added :(");
                 }
+                                
+                if(msg.equals("Login")){
+                
+                    Integer id = (Integer) in.readInt();
+                    String LastName =(String) in.readObject();
+                    
+                    //Dao
+                    Employers employee = new Employers(id, LastName);
+                    
+                    Boolean eDaoCheckLogin = employerDao.employeeLogin(employee);
+                    
+                    if(eDaoCheckLogin == true)
+                    {
+                        out.writeObject("Login Successful!");
+                    }
+                    else
+                    {
+                    out.writeObject("Wrong credidentials! try again");
+                    
+                    }
+                }
+                
+                
+                
+                
                 
                 if (msg.equals("refreshCustomer")){
                     ArrayList<Customer> customerList = new ArrayList<>();
