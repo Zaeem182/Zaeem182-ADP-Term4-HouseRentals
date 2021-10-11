@@ -815,7 +815,7 @@ public class HouseGUI implements ActionListener {
             System.out.println("ClassNotFoundException: " + ex.getMessage());
         } catch (NumberFormatException ex) {
             System.out.println("NumberFormatException: " + ex.getMessage());
-            JOptionPane.showMessageDialog(null, "Error, please fill in all text boxes!");
+            JOptionPane.showMessageDialog(null, "Error, please fill in all text boxes with correct credentials!");
         } catch (HeadlessException ex) {
             System.out.println("HeadlessException: " + ex.getMessage());
         } catch (Exception ex) {
