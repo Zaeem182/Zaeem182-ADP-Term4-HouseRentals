@@ -98,6 +98,7 @@ public class HouseGUI implements ActionListener, ItemListener {
     private JPanel panelHouseTop;
     private JPanel panelHouseCenter;
     private JPanel panelHouseBottom;
+    private JPanel panelHouseLeft;
 
     private JLabel lblHouseHeading;
     
@@ -111,6 +112,8 @@ public class HouseGUI implements ActionListener, ItemListener {
     private JButton btnHRentals;
     private JButton btnHouseExit;
     private JButton btnHouseSignOut;
+    private JButton btnAvailable;
+    private JButton btnNotAvailable;
     
     private DefaultTableModel tblHouseModel;
     private JTable tblHouseDisplay;
@@ -234,6 +237,7 @@ public class HouseGUI implements ActionListener, ItemListener {
          panelHouseTop = new JPanel();
          panelHouseCenter = new JPanel();
          panelHouseBottom = new JPanel();
+         panelHouseLeft = new JPanel();
          
         lblHouseHeading = new JLabel("ZA RENTALS");
         
@@ -248,6 +252,8 @@ public class HouseGUI implements ActionListener, ItemListener {
         btnHRentals = new JButton("RENTALS");
         btnHouseExit = new JButton("EXIT");
         btnHouseSignOut = new JButton("Sign Out");
+        btnAvailable = new JButton("Available");
+        btnNotAvailable = new JButton("Not Available");
         
         btnHouseAdd.addActionListener(this);
         btnHAdminAgent.addActionListener(this);
@@ -256,6 +262,8 @@ public class HouseGUI implements ActionListener, ItemListener {
         btnHRentals.addActionListener(this);
         btnHouseExit.addActionListener(this);
         btnHouseSignOut.addActionListener(this);
+        btnAvailable.addActionListener(this);
+        btnNotAvailable.addActionListener(this);
         
         cboFilter.addItemListener(this);
         
@@ -329,6 +337,8 @@ public class HouseGUI implements ActionListener, ItemListener {
 
     public void setHousePanels()
     {
+        refreshHouse();
+        
         frameLog.setVisible(false);
         frameH.setVisible(false);
         frameC.setVisible(false);
@@ -629,6 +639,9 @@ public class HouseGUI implements ActionListener, ItemListener {
         panelHouseTop.setLayout(new GridLayout(3, 2));
         panelHouseTop.setSize(300, 300);
         
+        frameR.add(panelHouseLeft,BorderLayout.WEST);
+        panelHouseLeft.setPreferredSize(new Dimension(120,300));
+        
         frameR.add(panelHouseCenter,BorderLayout.CENTER);
         
         
@@ -643,6 +656,9 @@ public class HouseGUI implements ActionListener, ItemListener {
         panelHouseCenter.add(btnHHouses);
         panelHouseCenter.add(btnHRentals);
         panelHouseBottom.add(btnHouseExit);
+        panelHouseLeft.add(btnAvailable);
+        panelHouseLeft.add(btnNotAvailable);
+       
         
         tblHouseDisplay.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         tblHouseModel.addColumn("ID");
@@ -665,6 +681,15 @@ public class HouseGUI implements ActionListener, ItemListener {
         btnHRentals.setPreferredSize(new Dimension(120, 40));
         btnHouseExit.setPreferredSize(new Dimension(150, 50));
         btnHouseSignOut.setPreferredSize(new Dimension(150, 50));
+        btnAvailable.setPreferredSize(new Dimension(115, 40));
+        btnNotAvailable.setPreferredSize(new Dimension(115, 40));
+
+        
+        btnAvailable.setBackground(new Color(102, 178, 255));
+        btnAvailable.setForeground(new Color(0, 0, 0));
+        
+        btnNotAvailable.setBackground(new Color(102, 178, 255));
+        btnNotAvailable.setForeground(new Color(0, 0, 0));
         
         btnHouseAdd.setBackground(new Color(102, 178, 255));
         btnHouseAdd.setForeground(new Color(0, 0, 0));
@@ -690,6 +715,7 @@ public class HouseGUI implements ActionListener, ItemListener {
         panelHouseTop.setBackground(new Color(233, 160, 124));
         panelHouseCenter.setBackground(new Color(233, 160, 124));
         panelHouseBottom.setBackground(new Color(233, 160, 124));
+        panelHouseLeft.setBackground(new Color(233, 160, 124));
         //
         
         frameR.setSize(850, 500);
@@ -782,6 +808,7 @@ public class HouseGUI implements ActionListener, ItemListener {
     
     @Override
     public void actionPerformed(ActionEvent e) {
+        
         //Login Button
         if(e.getActionCommand().equals("AGENT LOGIN"))
         {
@@ -823,7 +850,6 @@ public class HouseGUI implements ActionListener, ItemListener {
 
         //Houses Button 
         if (e.getActionCommand().equals("HOUSES")) {
-            
             setHousePanels();
         }
         
@@ -852,7 +878,20 @@ public class HouseGUI implements ActionListener, ItemListener {
         //Add House Button
         if (e.getActionCommand().equals("Add House")){
             clientAddHouseDetails();
+            refreshCboHouse();
+            
             refreshHouse();
+        }
+        //House Availability Buttons
+         if(e.getActionCommand().equals("Available"))
+        {
+            houseAvailable();
+            
+        }
+          if(e.getActionCommand().equals("Not Available"))
+        {
+            houseNotAvailable();
+            
         }
         
         //ADD Rental Button
@@ -868,18 +907,26 @@ public class HouseGUI implements ActionListener, ItemListener {
         try{
             if(e.getStateChange() == ItemEvent.SELECTED){
                 if(!cboFilter.getSelectedItem().equals("Select a location to filter the list")){
+
                     if(e.getSource() == cboFilter){
+                        
                         if (cboFilter.getSelectedItem().equals("Camps Bay")) {
                             cboCampsBay();
                         }
                         if (cboFilter.getSelectedItem().equals("Clifton")) {
-                            
+                            cboClifton();
                         }
                         if (cboFilter.getSelectedItem().equals("Sea Point")) {
-                            
+                            cboSeaPoint();
                         }
                         if (cboFilter.getSelectedItem().equals("Constantia")) {
-                            
+                            cboConstantia();
+                        }
+                        if (cboFilter.getSelectedItem().equals("Athlone")) {
+                            cboAthlone();
+                        }
+                        if (cboFilter.getSelectedItem().equals("Wynberg")) {
+                            cboWynberg();
                         }
                     }
                 }
@@ -1273,19 +1320,19 @@ public class HouseGUI implements ActionListener, ItemListener {
         }
     }
     
-    public void refreshEmployee(){
-        try{
+    public void refreshEmployee() {
+        try {
             //client side
             out.writeObject("refreshEmployee");
             out.flush();
-            
+
             //recieve from server
             employeeRefresh = (ArrayList) in.readObject();
-            
+
             tblEmployeeDisplay.setModel(tblEmployeeModel);
             tblEmployeeModel = (DefaultTableModel) tblEmployeeDisplay.getModel();
             tblEmployeeModel.setRowCount(0);
-            
+
             //add values from arraylist to gui JTable
             for (int i = 0; i < employeeRefresh.size(); i++) {
                 int id = employeeRefresh.get(i).getEmployerId();
@@ -1293,32 +1340,30 @@ public class HouseGUI implements ActionListener, ItemListener {
                 String lName = employeeRefresh.get(i).getlName();
                 boolean isAdmin = employeeRefresh.get(i).isAdmin();
                 boolean isActive = employeeRefresh.get(i).isActive();
-                
+
                 Object[] employeeData = {id, fName, lName, isAdmin, isActive};
                 tblEmployeeModel.addRow(employeeData);
             }
-        } 
-        catch(IOException ex){
+        } catch (IOException ex) {
             System.out.println("IOException: " + ex.getMessage());
-        } 
-        catch(ClassNotFoundException ex){
+        } catch (ClassNotFoundException ex) {
             System.out.println("ClassNotFoundException: " + ex.getMessage());
         }
     }
-    
-    public void refreshHouse(){
-        try{
+
+    public void refreshHouse() {
+        try {
             //client side
             out.writeObject("refreshHouse");
             out.flush();
-            
+
             //recieve from server
             houseRefresh = (ArrayList) in.readObject();
-            
+
             tblHouseDisplay.setModel(tblHouseModel);
             tblHouseModel = (DefaultTableModel) tblHouseDisplay.getModel();
             tblHouseModel.setRowCount(0);
-            
+
             //add values from arraylist to gui JTable
             for (int i = 0; i < houseRefresh.size(); i++) {
                 int id = houseRefresh.get(i).getId();
@@ -1326,73 +1371,131 @@ public class HouseGUI implements ActionListener, ItemListener {
                 String location = houseRefresh.get(i).getLocation();
                 double price = houseRefresh.get(i).getPrice();
                 boolean isRented = houseRefresh.get(i).isIsRented();
-                
+
                 Object[] houseData = {id, noOfRooms, location, price, isRented};
                 tblHouseModel.addRow(houseData);
             }
-        }
-        catch(IOException ex){
+        } catch (IOException ex) {
             System.out.println("IOException: " + ex.getMessage());
-        }
-        catch(ClassNotFoundException ex){
+        } catch (ClassNotFoundException ex) {
             System.out.println("ClassNotFoundException: " + ex.getMessage());
         }
     }
-    
-    public void refreshCboHouse(){
-        try{
+
+    public void refreshCboHouse() {
+        try {
             //client side
             out.writeObject("refreshCboHouse");
             out.flush();
-            
+
             //recieve from server
             houseRefresh = (ArrayList) in.readObject();
-            
+
             for (int i = 0; i < houseRefresh.size(); i++) {
                 String location = houseRefresh.get(i).getLocation();
                 cboFilter.addItem(location);
             }
-            
-        }catch(IOException ex){
+
+        } catch (IOException ex) {
             System.out.println("IOException: " + ex.getMessage());
-        }catch(ClassNotFoundException ex){
+        } catch (ClassNotFoundException ex) {
             System.out.println("ClassNotFoundException: " + ex.getMessage());
         }
     }
-    
-    public void refreshRental(){
-        try{
+
+    public void refreshRental() {
+        try {
             //client side
             out.writeObject("refreshRental");
             out.flush();
-            
+
             //recieve from server
             rentalRefresh = (ArrayList) in.readObject();
-            
+
             tblRentalDisplay.setModel(tblRentalModel);
             tblRentalModel = (DefaultTableModel) tblRentalDisplay.getModel();
             tblRentalModel.setRowCount(0);
-            
+
             //add values from arraylist to gui JTable
             for (int i = 0; i < rentalRefresh.size(); i++) {
                 int id = rentalRefresh.get(i).getRentId();
                 Date date = rentalRefresh.get(i).getDate();
                 int customerId = rentalRefresh.get(i).getCustomerId();
                 int houseId = rentalRefresh.get(i).getHouseId();
-                
+
                 Object[] rentalData = {id, date, customerId, houseId};
                 tblRentalModel.addRow(rentalData);
             }
-        }
-        catch(IOException ex){
+        } catch (IOException ex) {
             System.out.println("IOException: " + ex.getMessage());
-        }
-        catch(ClassNotFoundException ex){
+        } catch (ClassNotFoundException ex) {
             System.out.println("ClassNotFoundException: " + ex.getMessage());
         }
     }
 
-    public void cboCampsBay(){
+    public void houseAvailable()
+    {
+       try {
+            //client side
+            out.writeObject("Available");
+            out.flush();
+
+            //recieve from server
+            houseRefresh = (ArrayList) in.readObject();
+
+            tblHouseDisplay.setModel(tblHouseModel);
+            tblHouseModel = (DefaultTableModel) tblHouseDisplay.getModel();
+            tblHouseModel.setRowCount(0);
+
+            //add values from arraylist to gui JTable
+            for (int i = 0; i < houseRefresh.size(); i++) {
+                int id = houseRefresh.get(i).getId();
+                String noOfRooms = houseRefresh.get(i).getNumberOfRooms();
+                String location = houseRefresh.get(i).getLocation();
+                double price = houseRefresh.get(i).getPrice();
+                boolean isRented = houseRefresh.get(i).isIsRented();
+
+                Object[] houseData = {id, noOfRooms, location, price, isRented};
+                tblHouseModel.addRow(houseData);
+            }
+        } catch (IOException ex) {
+            System.out.println("IOException: " + ex.getMessage());
+        } catch (ClassNotFoundException ex) {
+            System.out.println("ClassNotFoundException: " + ex.getMessage());
+        } 
+    }
+    public void houseNotAvailable()
+    {
+         try {
+            //client side
+            out.writeObject("Not Available");
+            out.flush();
+
+            //recieve from server
+            houseRefresh = (ArrayList) in.readObject();
+
+            tblHouseDisplay.setModel(tblHouseModel);
+            tblHouseModel = (DefaultTableModel) tblHouseDisplay.getModel();
+            tblHouseModel.setRowCount(0);
+
+            //add values from arraylist to gui JTable
+            for (int i = 0; i < houseRefresh.size(); i++) {
+                int id = houseRefresh.get(i).getId();
+                String noOfRooms = houseRefresh.get(i).getNumberOfRooms();
+                String location = houseRefresh.get(i).getLocation();
+                double price = houseRefresh.get(i).getPrice();
+                boolean isRented = houseRefresh.get(i).isIsRented();
+
+                Object[] houseData = {id, noOfRooms, location, price, isRented};
+                tblHouseModel.addRow(houseData);
+            }
+        } catch (IOException ex) {
+            System.out.println("IOException: " + ex.getMessage());
+        } catch (ClassNotFoundException ex) {
+            System.out.println("ClassNotFoundException: " + ex.getMessage());
+        } 
+    }
+    public void cboCampsBay() {
         try {
             out.writeObject("Camps Bay");
             out.flush();
@@ -1415,14 +1518,169 @@ public class HouseGUI implements ActionListener, ItemListener {
                 Object[] houseData = {id, noOfRooms, location, price, isRented};
                 tblHouseModel.addRow(houseData);
             }
-        } catch(IOException ex){
+        } catch (IOException ex) {
             System.out.println("IOException: " + ex.getMessage());
-        } catch(ClassNotFoundException ex){
+        } catch (ClassNotFoundException ex) {
             System.out.println("ClassNotFoundException: " + ex.getMessage());
         }
-        
+
     }
-    
+
+    public void cboConstantia() {
+        try {
+            out.writeObject("Constantia");
+            out.flush();
+
+            //recieve from server
+            houseRefresh = (ArrayList) in.readObject();
+
+            tblHouseDisplay.setModel(tblHouseModel);
+            tblHouseModel = (DefaultTableModel) tblHouseDisplay.getModel();
+            tblHouseModel.setRowCount(0);
+
+            //add values from arraylist to gui JTable
+            for (int i = 0; i < houseRefresh.size(); i++) {
+                int id = houseRefresh.get(i).getId();
+                String noOfRooms = houseRefresh.get(i).getNumberOfRooms();
+                String location = houseRefresh.get(i).getLocation();
+                double price = houseRefresh.get(i).getPrice();
+                boolean isRented = houseRefresh.get(i).isIsRented();
+
+                Object[] houseData = {id, noOfRooms, location, price, isRented};
+                tblHouseModel.addRow(houseData);
+            }
+        } catch (IOException ex) {
+            System.out.println("IOException: " + ex.getMessage());
+        } catch (ClassNotFoundException ex) {
+            System.out.println("ClassNotFoundException: " + ex.getMessage());
+        }
+
+    }
+
+    public void cboSeaPoint() {
+        try {
+            out.writeObject("Sea Point");
+            out.flush();
+
+            //recieve from server
+            houseRefresh = (ArrayList) in.readObject();
+
+            tblHouseDisplay.setModel(tblHouseModel);
+            tblHouseModel = (DefaultTableModel) tblHouseDisplay.getModel();
+            tblHouseModel.setRowCount(0);
+
+            //add values from arraylist to gui JTable
+            for (int i = 0; i < houseRefresh.size(); i++) {
+                int id = houseRefresh.get(i).getId();
+                String noOfRooms = houseRefresh.get(i).getNumberOfRooms();
+                String location = houseRefresh.get(i).getLocation();
+                double price = houseRefresh.get(i).getPrice();
+                boolean isRented = houseRefresh.get(i).isIsRented();
+
+                Object[] houseData = {id, noOfRooms, location, price, isRented};
+                tblHouseModel.addRow(houseData);
+            }
+        } catch (IOException ex) {
+            System.out.println("IOException: " + ex.getMessage());
+        } catch (ClassNotFoundException ex) {
+            System.out.println("ClassNotFoundException: " + ex.getMessage());
+        }
+
+    }
+
+    public void cboClifton() {
+        try {
+            out.writeObject("Clifton");
+            out.flush();
+
+            //recieve from server
+            houseRefresh = (ArrayList) in.readObject();
+
+            tblHouseDisplay.setModel(tblHouseModel);
+            tblHouseModel = (DefaultTableModel) tblHouseDisplay.getModel();
+            tblHouseModel.setRowCount(0);
+
+            //add values from arraylist to gui JTable
+            for (int i = 0; i < houseRefresh.size(); i++) {
+                int id = houseRefresh.get(i).getId();
+                String noOfRooms = houseRefresh.get(i).getNumberOfRooms();
+                String location = houseRefresh.get(i).getLocation();
+                double price = houseRefresh.get(i).getPrice();
+                boolean isRented = houseRefresh.get(i).isIsRented();
+
+                Object[] houseData = {id, noOfRooms, location, price, isRented};
+                tblHouseModel.addRow(houseData);
+            }
+        } catch (IOException ex) {
+            System.out.println("IOException: " + ex.getMessage());
+        } catch (ClassNotFoundException ex) {
+            System.out.println("ClassNotFoundException: " + ex.getMessage());
+        }
+
+    }
+
+    public void cboAthlone() {
+        try {
+            out.writeObject("Athlone");
+            out.flush();
+
+            //recieve from server
+            houseRefresh = (ArrayList) in.readObject();
+
+            tblHouseDisplay.setModel(tblHouseModel);
+            tblHouseModel = (DefaultTableModel) tblHouseDisplay.getModel();
+            tblHouseModel.setRowCount(0);
+
+            //add values from arraylist to gui JTable
+            for (int i = 0; i < houseRefresh.size(); i++) {
+                int id = houseRefresh.get(i).getId();
+                String noOfRooms = houseRefresh.get(i).getNumberOfRooms();
+                String location = houseRefresh.get(i).getLocation();
+                double price = houseRefresh.get(i).getPrice();
+                boolean isRented = houseRefresh.get(i).isIsRented();
+
+                Object[] houseData = {id, noOfRooms, location, price, isRented};
+                tblHouseModel.addRow(houseData);
+            }
+        } catch (IOException ex) {
+            System.out.println("IOException: " + ex.getMessage());
+        } catch (ClassNotFoundException ex) {
+            System.out.println("ClassNotFoundException: " + ex.getMessage());
+        }
+
+    }
+
+    public void cboWynberg() {
+        try {
+            out.writeObject("Wynberg");
+            out.flush();
+
+            //recieve from server
+            houseRefresh = (ArrayList) in.readObject();
+
+            tblHouseDisplay.setModel(tblHouseModel);
+            tblHouseModel = (DefaultTableModel) tblHouseDisplay.getModel();
+            tblHouseModel.setRowCount(0);
+
+            //add values from arraylist to gui JTable
+            for (int i = 0; i < houseRefresh.size(); i++) {
+                int id = houseRefresh.get(i).getId();
+                String noOfRooms = houseRefresh.get(i).getNumberOfRooms();
+                String location = houseRefresh.get(i).getLocation();
+                double price = houseRefresh.get(i).getPrice();
+                boolean isRented = houseRefresh.get(i).isIsRented();
+
+                Object[] houseData = {id, noOfRooms, location, price, isRented};
+                tblHouseModel.addRow(houseData);
+            }
+        } catch (IOException ex) {
+            System.out.println("IOException: " + ex.getMessage());
+        } catch (ClassNotFoundException ex) {
+            System.out.println("ClassNotFoundException: " + ex.getMessage());
+        }
+
+    }
+
     public static void main(String[] args) {
         new HouseGUI().setGUI();
     }

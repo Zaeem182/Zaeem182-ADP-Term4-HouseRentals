@@ -211,7 +211,6 @@ public class Server {
                     }
                 }
                 
-                
                 if (msg.equals("refreshCustomer")){
                     ArrayList<Customer> customerList = new ArrayList<>();
                     customerList = (ArrayList<Customer>) customerDao.getAll();
@@ -252,12 +251,64 @@ public class Server {
                     out.writeObject(houseList);
                     out.flush();
                 }
+                 if(msg.equals("Constantia")){
+                    ArrayList<House> houseList = new ArrayList<>();
+                    houseList = (ArrayList<House>) houseDao.getConstantiaAll();
+                    
+                    out.writeObject(houseList);
+                    out.flush();
+                }
+                  if(msg.equals("Clifton")){
+                    ArrayList<House> houseList = new ArrayList<>();
+                    houseList = (ArrayList<House>) houseDao.getCliftonAll();
+                    
+                    out.writeObject(houseList);
+                    out.flush();
+                }
+                   if(msg.equals("Sea Point")){
+                    ArrayList<House> houseList = new ArrayList<>();
+                    houseList = (ArrayList<House>) houseDao.getSeaPointAll();
+                    
+                    out.writeObject(houseList);
+                    out.flush();
+                }
+                   
+                    if(msg.equals("Athlone")){
+                    ArrayList<House> houseList = new ArrayList<>();
+                    houseList = (ArrayList<House>) houseDao.getAthloneAll();
+                    
+                    out.writeObject(houseList);
+                    out.flush();
+                }
+                       if(msg.equals("Wynberg")){
+                    ArrayList<House> houseList = new ArrayList<>();
+                    houseList = (ArrayList<House>) houseDao.getWynbergAll();
+                    
+                    out.writeObject(houseList);
+                    out.flush();
+                }
                 
                 if(msg.equals("refreshRental")){
                     ArrayList<Rental> rentalList = new ArrayList<>();
                     rentalList = (ArrayList<Rental>) rentalDao.getAll();
                     
                     out.writeObject(rentalList);
+                    out.flush();
+                }
+                
+                if(msg.equals("Available")){
+                    ArrayList<House> houseList = new ArrayList<>();
+                    houseList = (ArrayList<House>) houseDao.getFalseAll();
+                    
+                    out.writeObject(houseList);
+                    out.flush();
+                }
+                
+                if(msg.equals("Not Available")){
+                    ArrayList<House> houseList = new ArrayList<>();
+                    houseList = (ArrayList<House>) houseDao.getTrueAll();
+                    
+                    out.writeObject(houseList);
                     out.flush();
                 }
                 

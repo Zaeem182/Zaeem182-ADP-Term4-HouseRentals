@@ -251,6 +251,57 @@ public class HousesDao {
         return houseArray;
     }
     
+    public ArrayList<House> getAthloneAll(){
+        String getAll_SQL = "SELECT * FROM house Where location = 'Athlone'";
+        ArrayList<House> houseArray = new ArrayList<>();
+        
+        try{
+            PreparedStatement ps = this.con.prepareStatement(getAll_SQL);
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()){
+                int houseId = rs.getInt("id");
+                String numberOfRooms = rs.getString("noofrooms");
+                String location = rs.getString("location");
+                double price = rs.getDouble("price");
+                boolean isRented = rs.getBoolean("isrented");
+                
+                House house =  new House(houseId, numberOfRooms, location, price, isRented);
+                houseArray.add(house);
+            }
+            rs.close();
+        }
+        catch(SQLException ex){
+            System.out.println("SQLException: " + ex.getMessage());
+        }
+        return houseArray;
+    }
+    
+    public ArrayList<House> getWynbergAll(){
+        String getAll_SQL = "SELECT * FROM house Where location = 'Wynberg'";
+        ArrayList<House> houseArray = new ArrayList<>();
+        
+        try{
+            PreparedStatement ps = this.con.prepareStatement(getAll_SQL);
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()){
+                int houseId = rs.getInt("id");
+                String numberOfRooms = rs.getString("noofrooms");
+                String location = rs.getString("location");
+                double price = rs.getDouble("price");
+                boolean isRented = rs.getBoolean("isrented");
+                
+                House house =  new House(houseId, numberOfRooms, location, price, isRented);
+                houseArray.add(house);
+            }
+            rs.close();
+        }
+        catch(SQLException ex){
+            System.out.println("SQLException: " + ex.getMessage());
+        }
+        return houseArray;
+    }
     public House update(House house){
         try {
             String updateSQL = "UPDATE house Set isrented = ? WHERE id = ?";
