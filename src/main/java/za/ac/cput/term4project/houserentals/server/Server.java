@@ -181,7 +181,7 @@ public class Server {
                     
                     if(eDaoCheckLogin == true)
                     {
-                        out.writeObject("Login Successful!");
+                        out.writeObject("Login as agent Successful!");
                     }
                     else
                     {
@@ -190,8 +190,26 @@ public class Server {
                     }
                 }
                 
+                if(msg.equals("Admin Login")){
                 
-                
+                    Integer id = (Integer) in.readInt();
+                    String LastName =(String) in.readObject();
+                    
+                    //Dao
+                    Employers employee = new Employers(id, LastName);
+                    
+                    Boolean eDaoCheckLogin = employerDao.employeeAdminLogin(employee);
+                    
+                    if(eDaoCheckLogin == true)
+                    {
+                        out.writeObject("Login as Admin Successful!");
+                    }
+                    else
+                    {
+                    out.writeObject("Wrong credidentials! try again");
+                    
+                    }
+                }
                 
                 
                 if (msg.equals("refreshCustomer")){

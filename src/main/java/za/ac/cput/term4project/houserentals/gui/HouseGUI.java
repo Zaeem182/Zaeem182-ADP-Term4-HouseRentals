@@ -52,6 +52,7 @@ public class HouseGUI implements ActionListener {
     private JButton btnCustomers;
     private JButton btnRentals;
     private JButton btnExit;
+    private JButton btnCustomerBack;
 
     //JTable
     private DefaultTableModel tblModel;
@@ -84,6 +85,7 @@ public class HouseGUI implements ActionListener {
     private JTextField txtLoginLastname;
     
     private JButton btnLogin;
+    private JButton btnAdminLogin;
     private JButton btnLoginExit;
     
     /////////////////////////////////////////////////////
@@ -190,6 +192,7 @@ public class HouseGUI implements ActionListener {
         btnCustomers = new JButton("CUSTOMERS");
         btnRentals = new JButton("RENTALS");
         btnExit = new JButton("EXIT");
+        btnCustomerBack = new JButton("Back");
 
 
         //Table
@@ -210,9 +213,11 @@ public class HouseGUI implements ActionListener {
         txtLoginLastname = new JTextField(12);
         
         btnLogin = new JButton("LOGIN");
+        btnAdminLogin = new JButton("ADMIN LOGIN");
         btnLoginExit = new JButton("EXIT");
         
         btnLogin.addActionListener(this);
+        btnAdminLogin.addActionListener(this);
         btnLoginExit.addActionListener(this);       
         /////////////////////////////////////////////////////
         //house panels
@@ -348,6 +353,17 @@ public class HouseGUI implements ActionListener {
 
         btnCustomers.setBackground(Color.WHITE);
     }
+    
+    public void setBackToLogin(){
+        frameLog.setVisible(true);
+        frameH.setVisible(false);
+        frameR.setVisible(false);
+        frameE.setVisible(false);
+        
+        frameC.setVisible(false);
+        txtLoginId.setText("");
+        txtLoginLastname.setText("");
+    }
     public void setGUI() {
         
         //Apply font change
@@ -376,6 +392,7 @@ public class HouseGUI implements ActionListener {
         btnCustomers.setPreferredSize(new Dimension(120, 40));
         btnRentals.setPreferredSize(new Dimension(120, 40));
         btnExit.setPreferredSize(new Dimension(150, 50));
+        btnCustomerBack.setPreferredSize(new Dimension(150, 50));
 
         //Button Colours
         btnAdd.setBackground(new Color(102, 178, 255));
@@ -397,13 +414,17 @@ public class HouseGUI implements ActionListener {
         btnExit.setBackground(new Color(102, 178, 255));
         btnExit.setForeground(new Color(0, 0, 0));
 
+        btnCustomerBack.setBackground(new Color(102, 178, 255));
+        btnCustomerBack.setForeground(new Color(0, 0, 0));
+
         //Panels Colours
         panelTop.setBackground(new Color(233, 160, 124));
         panelCenter.setBackground(new Color(233, 160, 124));
         panelBottom.setBackground(new Color(233, 160, 124));
         panelLeft.setBackground(new Color(233, 160, 124));
-
-
+        
+        //Customer Panel Buttons
+        panelBottom.add(btnCustomerBack);
         panelBottom.add(btnAdd);
         panelCenter.add(btnCustomers);
         panelCenter.add(btnAdminAgent);
@@ -418,6 +439,7 @@ public class HouseGUI implements ActionListener {
         btnCustomers.addActionListener(this);
         btnRentals.addActionListener(this);
         btnExit.addActionListener(this);
+        btnCustomerBack.addActionListener(this);
 
         //Add Table
         tblDisplay.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
@@ -464,6 +486,7 @@ public class HouseGUI implements ActionListener {
         frameLog.add(panelLoginBottom,BorderLayout.SOUTH);
         
         panelLoginBottom.add(btnLogin);
+        panelLoginBottom.add(btnAdminLogin);
         panelLoginBottom.add(btnLoginExit);
         
         panelLoginCenter.add(lblLoginId);
@@ -474,6 +497,7 @@ public class HouseGUI implements ActionListener {
         panelLoginTop.add(lblLoginHeading);
         
         btnLogin.setPreferredSize(new Dimension(150, 50));
+        btnAdminLogin.setPreferredSize(new Dimension(150, 50));
         btnLoginExit.setPreferredSize(new Dimension(150, 50));
         
         panelLoginTop.setBackground(new Color(233, 160, 124));
@@ -484,11 +508,13 @@ public class HouseGUI implements ActionListener {
         
         btnLogin.setBackground(new Color(102, 178, 255));
         btnLogin.setForeground(new Color(0, 0, 0));
+        btnAdminLogin.setBackground(new Color(102, 178, 255));
+        btnAdminLogin.setForeground(new Color(0, 0, 0));
 
         btnLoginExit.setBackground(new Color(102, 178, 255));
         btnLoginExit.setForeground(new Color(0, 0, 0));
         
-        frameLog.setSize(400, 450);
+        frameLog.setSize(505, 450);
         frameLog.setLocationRelativeTo(null);
         frameLog.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frameLog.setVisible(true);
@@ -713,6 +739,10 @@ public class HouseGUI implements ActionListener {
         {
             LoginConfirm();
             
+        }
+        if(e.getActionCommand().equals("ADMIN LOGIN"))
+        {
+            LoginAdminConfirm();
             
         }
         //EXIT BUTTON
@@ -726,9 +756,11 @@ public class HouseGUI implements ActionListener {
                 server.close();
             } catch (IOException ex) {
                 System.out.println("IOException: " + ex.getMessage());
-            }
-            
-            
+            }  
+        }
+        //Back Button
+        if(e.getActionCommand().equals("Back")){
+            setBackToLogin();
         }
         //EMPLOYEES Button
         if (e.getActionCommand().equals("EMPLOYEES")) 
@@ -791,6 +823,59 @@ public class HouseGUI implements ActionListener {
             } else 
                
             out.writeObject("Login");
+            out.flush();
+
+            out.writeInt(ID);
+            out.flush();
+
+            out.writeObject(LastName);
+            out.flush();
+
+            String response = (String) in.readObject();
+            JOptionPane.showMessageDialog(null, response);
+            
+            btnAdminAgent.setEnabled(false);
+            btnHouses.setEnabled(false);
+            btnRHouses.setEnabled(false);
+            btnRAdminAgent.setEnabled(false);
+            
+            if (response.equals("Wrong credidentials! try again")) {
+
+                frameLog.setVisible(true);
+                frameC.setVisible(false);
+            } else {
+                setLoginPage();
+            }
+
+        } catch (IOException ex) {
+            System.out.println("IOExeption: " + ex.getMessage());
+        } catch (ClassNotFoundException ex) {
+            System.out.println("ClassNotFoundException: " + ex.getMessage());
+        } catch (NumberFormatException ex) {
+            System.out.println("NumberFormatException: " + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Error, please fill in all text boxes with correct credentials!");
+        } catch (HeadlessException ex) {
+            System.out.println("HeadlessException: " + ex.getMessage());
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            System.out.println("Exception: " + ex.getMessage());
+        }
+
+    }
+    public void LoginAdminConfirm() {
+
+        try {
+            int ID = Integer.parseInt(txtLoginId.getText());
+            String LastName = txtLoginLastname.getText();
+
+            if (txtLoginId.getText().equals("") || txtLoginLastname.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Error, please fill in all text boxes!");
+
+                frameC.setVisible(false);
+                frameLog.setVisible(true);
+            } else 
+               
+            out.writeObject("Admin Login");
             out.flush();
 
             out.writeInt(ID);

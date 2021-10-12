@@ -73,7 +73,27 @@ public class EmployersDao {
     }
     
     public Boolean employeeLogin(Employers employee){
-        String login_SQL = "SELECT * FROM employers WHERE id=? AND lname=?";
+        String login_SQL = "SELECT * FROM employers WHERE id=? AND lname=? AND admin = false";
+        
+        Boolean valid = false;
+        try{
+            PreparedStatement ps = this.con.prepareStatement(login_SQL);
+            
+            ps.setInt(1, employee.getEmployerId());
+            ps.setString(2, employee.getlName());
+            
+            ResultSet rs = ps.executeQuery();
+            valid = rs.next();
+            ps.close();
+        }
+        catch(SQLException ex){
+            System.out.println("SQLException: " + ex.getMessage());
+        }
+        return valid;
+    }
+    
+    public Boolean employeeAdminLogin(Employers employee){
+        String login_SQL = "SELECT * FROM employers WHERE id=? AND lname=? AND admin = true";
         
         Boolean valid = false;
         try{
