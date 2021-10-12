@@ -89,7 +89,7 @@ public class HouseGUI implements ActionListener {
     private JButton btnLoginExit;
     
     /////////////////////////////////////////////////////
-        //Jpanel for house table
+    //Jpanel for house table
     
     JFrame frameH = new JFrame();
 
@@ -98,6 +98,9 @@ public class HouseGUI implements ActionListener {
     private JPanel panelHouseBottom;
 
     private JLabel lblHouseHeading;
+    
+    private JLabel lblFilter;
+    private JComboBox cboFilter;
         
     private JButton btnHouseAdd;
     private JButton btnHAdminAgent;
@@ -229,6 +232,9 @@ public class HouseGUI implements ActionListener {
          panelHouseBottom = new JPanel();
          
         lblHouseHeading = new JLabel("ZA RENTALS");
+        
+        lblFilter = new JLabel("Filter: ");
+        cboFilter = new JComboBox();
         
         btnHouseAdd = new JButton("Add House");
         btnHAdminAgent = new JButton("EMPLOYEES");
@@ -604,17 +610,20 @@ public class HouseGUI implements ActionListener {
          ////////////////////////////////////////////////////////////////
         //House GUI
         lblHouseHeading.setFont(Hft);
+        lblFilter.setFont(ft);
         lblHouseHeading.setForeground(new Color(0, 0, 0));
         
         frameR.add(panelHouseTop,BorderLayout.NORTH);
-        panelHouseTop.setLayout(new GridLayout(1, 2));
+        panelHouseTop.setLayout(new GridLayout(3, 2));
         panelHouseTop.setSize(300, 300);
         
         frameR.add(panelHouseCenter,BorderLayout.CENTER);
         
         
         frameR.add(panelHouseBottom,BorderLayout.SOUTH);
-        
+        panelHouseTop.add(lblHouseHeading);
+        panelHouseTop.add(lblFilter);
+        panelHouseTop.add(cboFilter);
         panelHouseBottom.add(btnHouseSignOut);
         panelHouseBottom.add(btnHouseAdd);
         panelHouseCenter.add(btnHCustomers);
@@ -634,7 +643,7 @@ public class HouseGUI implements ActionListener {
         
         tblHouseDisplay.setAutoCreateRowSorter(true);
         
-        panelHouseTop.add(lblHouseHeading);
+
         
         //
         btnHouseAdd.setPreferredSize(new Dimension(150, 50));
