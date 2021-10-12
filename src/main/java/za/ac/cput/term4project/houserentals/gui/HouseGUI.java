@@ -215,7 +215,7 @@ public class HouseGUI implements ActionListener {
         lblLoginLastname = new JLabel("Enter Last Name: ");
         txtLoginLastname = new JTextField(12);
         
-        btnLogin = new JButton("LOGIN");
+        btnLogin = new JButton("AGENT LOGIN");
         btnAdminLogin = new JButton("ADMIN LOGIN");
         btnLoginExit = new JButton("EXIT");
         
@@ -761,7 +761,7 @@ public class HouseGUI implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         //Login Button
-        if(e.getActionCommand().equals("LOGIN"))
+        if(e.getActionCommand().equals("AGENT LOGIN"))
         {
             LoginConfirm();
             
@@ -849,7 +849,7 @@ public class HouseGUI implements ActionListener {
                 frameLog.setVisible(true);
             } else 
                
-            out.writeObject("Login");
+            out.writeObject("Agent Login");
             out.flush();
 
             out.writeInt(ID);

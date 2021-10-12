@@ -169,7 +169,7 @@ public class Server {
                         out.writeObject("Data has not been added :(");
                 }
                                 
-                if(msg.equals("Login")){
+                if(msg.equals("Agent Login")){
                 
                     Integer id = (Integer) in.readInt();
                     String LastName =(String) in.readObject();
