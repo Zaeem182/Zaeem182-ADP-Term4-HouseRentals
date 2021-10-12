@@ -71,9 +71,162 @@ public class HousesDao {
         return houseArray;
     }
     
+    public ArrayList<House> getCboAll(){
+        String getAll_SQL = "SELECT DISTINCT location FROM house";
+        ArrayList<House> houseArray = new ArrayList<>();
+        
+        try{
+            PreparedStatement ps = this.con.prepareStatement(getAll_SQL);
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()){
+                
+                String location = rs.getString("location");
+                
+                
+                House house =  new House(location);
+                houseArray.add(house);
+            }
+            rs.close();
+        }
+        catch(SQLException ex){
+            System.out.println("SQLException: " + ex.getMessage());
+        }
+        return houseArray;
+    }
+    
     //Get true values when click on button
     public ArrayList<House> getTrueAll(){
         String getAll_SQL = "SELECT * FROM house Where isrented = true";
+        ArrayList<House> houseArray = new ArrayList<>();
+        
+        try{
+            PreparedStatement ps = this.con.prepareStatement(getAll_SQL);
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()){
+                int houseId = rs.getInt("id");
+                String numberOfRooms = rs.getString("noofrooms");
+                String location = rs.getString("location");
+                double price = rs.getDouble("price");
+                boolean isRented = rs.getBoolean("isrented");
+                
+                House house =  new House(houseId, numberOfRooms, location, price, isRented);
+                houseArray.add(house);
+            }
+            rs.close();
+        }
+        catch(SQLException ex){
+            System.out.println("SQLException: " + ex.getMessage());
+        }
+        return houseArray;
+    }
+    public ArrayList<House> getFalseAll(){
+        String getAll_SQL = "SELECT * FROM house Where isrented = false";
+        ArrayList<House> houseArray = new ArrayList<>();
+        
+        try{
+            PreparedStatement ps = this.con.prepareStatement(getAll_SQL);
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()){
+                int houseId = rs.getInt("id");
+                String numberOfRooms = rs.getString("noofrooms");
+                String location = rs.getString("location");
+                double price = rs.getDouble("price");
+                boolean isRented = rs.getBoolean("isrented");
+                
+                House house =  new House(houseId, numberOfRooms, location, price, isRented);
+                houseArray.add(house);
+            }
+            rs.close();
+        }
+        catch(SQLException ex){
+            System.out.println("SQLException: " + ex.getMessage());
+        }
+        return houseArray;
+    }
+    
+    public ArrayList<House> getCampsBayAll(){
+        String getAll_SQL = "SELECT * FROM house Where location = 'Camps Bay'";
+        ArrayList<House> houseArray = new ArrayList<>();
+        
+        try{
+            PreparedStatement ps = this.con.prepareStatement(getAll_SQL);
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()){
+                int houseId = rs.getInt("id");
+                String numberOfRooms = rs.getString("noofrooms");
+                String location = rs.getString("location");
+                double price = rs.getDouble("price");
+                boolean isRented = rs.getBoolean("isrented");
+                
+                House house =  new House(houseId, numberOfRooms, location, price, isRented);
+                houseArray.add(house);
+            }
+            rs.close();
+        }
+        catch(SQLException ex){
+            System.out.println("SQLException: " + ex.getMessage());
+        }
+        return houseArray;
+    }
+    
+    public ArrayList<House> getCliftonAll(){
+        String getAll_SQL = "SELECT * FROM house Where location = 'Clifton'";
+        ArrayList<House> houseArray = new ArrayList<>();
+        
+        try{
+            PreparedStatement ps = this.con.prepareStatement(getAll_SQL);
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()){
+                int houseId = rs.getInt("id");
+                String numberOfRooms = rs.getString("noofrooms");
+                String location = rs.getString("location");
+                double price = rs.getDouble("price");
+                boolean isRented = rs.getBoolean("isrented");
+                
+                House house =  new House(houseId, numberOfRooms, location, price, isRented);
+                houseArray.add(house);
+            }
+            rs.close();
+        }
+        catch(SQLException ex){
+            System.out.println("SQLException: " + ex.getMessage());
+        }
+        return houseArray;
+    }
+    
+    public ArrayList<House> getSeaPointAll(){
+        String getAll_SQL = "SELECT * FROM house Where location = 'Sea Point'";
+        ArrayList<House> houseArray = new ArrayList<>();
+        
+        try{
+            PreparedStatement ps = this.con.prepareStatement(getAll_SQL);
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()){
+                int houseId = rs.getInt("id");
+                String numberOfRooms = rs.getString("noofrooms");
+                String location = rs.getString("location");
+                double price = rs.getDouble("price");
+                boolean isRented = rs.getBoolean("isrented");
+                
+                House house =  new House(houseId, numberOfRooms, location, price, isRented);
+                houseArray.add(house);
+            }
+            rs.close();
+        }
+        catch(SQLException ex){
+            System.out.println("SQLException: " + ex.getMessage());
+        }
+        return houseArray;
+    }
+    
+    public ArrayList<House> getConstantiaAll(){
+        String getAll_SQL = "SELECT * FROM house Where location = 'Constantia'";
         ArrayList<House> houseArray = new ArrayList<>();
         
         try{

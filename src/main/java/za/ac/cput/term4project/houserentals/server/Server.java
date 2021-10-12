@@ -237,12 +237,35 @@ public class Server {
                     out.flush();
                 }
                 
+                if(msg.equals("refreshCboHouse")){
+                    ArrayList<House> houseList = new ArrayList<>();
+                    houseList = (ArrayList<House>) houseDao.getCboAll();
+                    
+                    out.writeObject(houseList);
+                    out.flush();
+                }
+                
+                if(msg.equals("Camps Bay")){
+                    ArrayList<House> houseList = new ArrayList<>();
+                    houseList = (ArrayList<House>) houseDao.getCampsBayAll();
+                    
+                    out.writeObject(houseList);
+                    out.flush();
+                }
+                
                 if(msg.equals("refreshRental")){
                     ArrayList<Rental> rentalList = new ArrayList<>();
                     rentalList = (ArrayList<Rental>) rentalDao.getAll();
                     
                     out.writeObject(rentalList);
                     out.flush();
+                }
+                
+                if(msg.equals("EXIT")){
+                    out.close();
+                    in.close();
+                    client.close();
+                    System.out.println("server closed");
                 }
             }
 

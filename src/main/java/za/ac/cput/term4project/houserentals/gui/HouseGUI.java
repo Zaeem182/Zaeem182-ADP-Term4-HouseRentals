@@ -8,6 +8,8 @@ package za.ac.cput.term4project.houserentals.gui;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -28,7 +30,7 @@ import za.ac.cput.term4project.houserentals.domain.Rental;
  * @author Zaeem Petersen (219010145)
  * @author Ali Mohamed - 219113505
  */
-public class HouseGUI implements ActionListener {
+public class HouseGUI implements ActionListener, ItemListener {
 
 
     //client socket
@@ -157,6 +159,8 @@ public class HouseGUI implements ActionListener {
     private DefaultTableModel tblEmployeeModel;
     private JTable tblEmployeeDisplay;
     
+    String filter;
+    
     public HouseGUI() {
         //Establish connection
         try {
@@ -235,6 +239,7 @@ public class HouseGUI implements ActionListener {
         
         lblFilter = new JLabel("Filter: ");
         cboFilter = new JComboBox();
+        cboFilter.addItem("Select a location to filter the list");
         
         btnHouseAdd = new JButton("Add House");
         btnHAdminAgent = new JButton("EMPLOYEES");
@@ -251,6 +256,8 @@ public class HouseGUI implements ActionListener {
         btnHRentals.addActionListener(this);
         btnHouseExit.addActionListener(this);
         btnHouseSignOut.addActionListener(this);
+        
+        cboFilter.addItemListener(this);
         
         tblHouseModel = new DefaultTableModel();
         tblHouseDisplay = new JTable(tblHouseModel);
@@ -379,6 +386,11 @@ public class HouseGUI implements ActionListener {
         frameC.setVisible(false);
         txtLoginId.setText("");
         txtLoginLastname.setText("");
+        
+        btnAdd.setEnabled(true);
+        btnEmployeeAdd.setEnabled(true);
+        btnHouseAdd.setEnabled(true);
+        btnRentalAdd.setEnabled(true);
     }
     public void setGUI() {
         
@@ -764,6 +776,7 @@ public class HouseGUI implements ActionListener {
         refreshEmployee();
         refreshHouse();
         refreshRental();
+        refreshCboHouse();
 
     }
     
@@ -787,9 +800,13 @@ public class HouseGUI implements ActionListener {
             
             //Close server
             try {
+                out.writeObject("EXIT");
+                out.flush();
+                
                 out.close();
                 in.close();
                 server.close();
+                System.out.println("client closed");
             } catch (IOException ex) {
                 System.out.println("IOException: " + ex.getMessage());
             }  
@@ -845,6 +862,34 @@ public class HouseGUI implements ActionListener {
 
         }
     }
+    
+    @Override
+    public void itemStateChanged(ItemEvent e) {
+        try{
+            if(e.getStateChange() == ItemEvent.SELECTED){
+                if(!cboFilter.getSelectedItem().equals("Select a location to filter the list")){
+                    if(e.getSource() == cboFilter){
+                        if (cboFilter.getSelectedItem().equals("Camps Bay")) {
+                            cboCampsBay();
+                        }
+                        if (cboFilter.getSelectedItem().equals("Clifton")) {
+                            
+                        }
+                        if (cboFilter.getSelectedItem().equals("Sea Point")) {
+                            
+                        }
+                        if (cboFilter.getSelectedItem().equals("Constantia")) {
+                            
+                        }
+                    }
+                }
+            }
+        } 
+        catch(Exception ex){
+            System.out.println("Exception: " + ex.getMessage());
+        }
+    }
+    
     public void LoginConfirm() {
 
         try {
@@ -871,10 +916,8 @@ public class HouseGUI implements ActionListener {
             JOptionPane.showMessageDialog(null, response);
             
             //disables buttons
-            btnAdminAgent.setEnabled(false);
-            btnHouses.setEnabled(false);
-            btnRHouses.setEnabled(false);
-            btnRAdminAgent.setEnabled(false);
+            btnEmployeeAdd.setEnabled(false);
+            btnHouseAdd.setEnabled(false);
             
             if (response.equals("Wrong credidentials! try again")) {
 
@@ -925,11 +968,8 @@ public class HouseGUI implements ActionListener {
             JOptionPane.showMessageDialog(null, response);
             
             //disables buttons
-            btnECustomers.setEnabled(false);
-            btnERentals.setEnabled(false);
-            btnHRentals.setEnabled(false);
-            btnHCustomers.setEnabled(false);
-            
+            btnAdd.setEnabled(false);
+            btnRentalAdd.setEnabled(false);          
             
             if (response.equals("Wrong credidentials! try again")) {
 
@@ -1299,6 +1339,27 @@ public class HouseGUI implements ActionListener {
         }
     }
     
+    public void refreshCboHouse(){
+        try{
+            //client side
+            out.writeObject("refreshCboHouse");
+            out.flush();
+            
+            //recieve from server
+            houseRefresh = (ArrayList) in.readObject();
+            
+            for (int i = 0; i < houseRefresh.size(); i++) {
+                String location = houseRefresh.get(i).getLocation();
+                cboFilter.addItem(location);
+            }
+            
+        }catch(IOException ex){
+            System.out.println("IOException: " + ex.getMessage());
+        }catch(ClassNotFoundException ex){
+            System.out.println("ClassNotFoundException: " + ex.getMessage());
+        }
+    }
+    
     public void refreshRental(){
         try{
             //client side
@@ -1330,9 +1391,42 @@ public class HouseGUI implements ActionListener {
             System.out.println("ClassNotFoundException: " + ex.getMessage());
         }
     }
+
+    public void cboCampsBay(){
+        try {
+            out.writeObject("Camps Bay");
+            out.flush();
+
+            //recieve from server
+            houseRefresh = (ArrayList) in.readObject();
+
+            tblHouseDisplay.setModel(tblHouseModel);
+            tblHouseModel = (DefaultTableModel) tblHouseDisplay.getModel();
+            tblHouseModel.setRowCount(0);
+
+            //add values from arraylist to gui JTable
+            for (int i = 0; i < houseRefresh.size(); i++) {
+                int id = houseRefresh.get(i).getId();
+                String noOfRooms = houseRefresh.get(i).getNumberOfRooms();
+                String location = houseRefresh.get(i).getLocation();
+                double price = houseRefresh.get(i).getPrice();
+                boolean isRented = houseRefresh.get(i).isIsRented();
+
+                Object[] houseData = {id, noOfRooms, location, price, isRented};
+                tblHouseModel.addRow(houseData);
+            }
+        } catch(IOException ex){
+            System.out.println("IOException: " + ex.getMessage());
+        } catch(ClassNotFoundException ex){
+            System.out.println("ClassNotFoundException: " + ex.getMessage());
+        }
+        
+    }
     
     public static void main(String[] args) {
         new HouseGUI().setGUI();
     }
+
+    
 
 }

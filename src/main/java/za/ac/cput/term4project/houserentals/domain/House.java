@@ -27,6 +27,14 @@ public class House implements Serializable{
         this.isRented = isRented;
     }
 
+    public House(String location) {
+        this.id = id;
+        this.numberOfRooms = numberOfRooms;
+        this.location = location;
+        this.price = price;
+        this.isRented = isRented;
+    } 
+
     public void setId(int id) {
         this.id = id;
     }
