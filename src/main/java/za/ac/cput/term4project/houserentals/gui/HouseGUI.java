@@ -52,7 +52,7 @@ public class HouseGUI implements ActionListener {
     private JButton btnCustomers;
     private JButton btnRentals;
     private JButton btnExit;
-    private JButton btnCustomerBack;
+    private JButton btnCustomerSignOut;
 
     //JTable
     private DefaultTableModel tblModel;
@@ -105,6 +105,7 @@ public class HouseGUI implements ActionListener {
     private JButton btnHCustomers;
     private JButton btnHRentals;
     private JButton btnHouseExit;
+    private JButton btnHouseSignOut;
     
     private DefaultTableModel tblHouseModel;
     private JTable tblHouseDisplay;
@@ -126,6 +127,7 @@ public class HouseGUI implements ActionListener {
     private JButton btnRCustomers;
     private JButton btnRRentals;
     private JButton btnRentalExit;
+    private JButton btnRentalSignOut;
     
     private DefaultTableModel tblRentalModel;
     private JTable tblRentalDisplay;
@@ -147,6 +149,7 @@ public class HouseGUI implements ActionListener {
     private JButton btnECustomers;
     private JButton btnERentals;
     private JButton btnEmployeeExit;
+    private JButton btnEmployeeSignOut;
     
     private DefaultTableModel tblEmployeeModel;
     private JTable tblEmployeeDisplay;
@@ -192,7 +195,7 @@ public class HouseGUI implements ActionListener {
         btnCustomers = new JButton("CUSTOMERS");
         btnRentals = new JButton("RENTALS");
         btnExit = new JButton("EXIT");
-        btnCustomerBack = new JButton("Back");
+        btnCustomerSignOut = new JButton("Sign Out");
 
 
         //Table
@@ -233,6 +236,7 @@ public class HouseGUI implements ActionListener {
         btnHCustomers = new JButton("CUSTOMERS");
         btnHRentals = new JButton("RENTALS");
         btnHouseExit = new JButton("EXIT");
+        btnHouseSignOut = new JButton("Sign Out");
         
         btnHouseAdd.addActionListener(this);
         btnHAdminAgent.addActionListener(this);
@@ -240,6 +244,7 @@ public class HouseGUI implements ActionListener {
         btnHCustomers.addActionListener(this);
         btnHRentals.addActionListener(this);
         btnHouseExit.addActionListener(this);
+        btnHouseSignOut.addActionListener(this);
         
         tblHouseModel = new DefaultTableModel();
         tblHouseDisplay = new JTable(tblHouseModel);
@@ -258,6 +263,7 @@ public class HouseGUI implements ActionListener {
         btnRCustomers = new JButton("CUSTOMERS");
         btnRRentals = new JButton("RENTALS");
         btnRentalExit = new JButton("EXIT");
+        btnRentalSignOut = new JButton("Sign Out");
         
         btnRentalAdd.addActionListener(this);
         btnRAdminAgent.addActionListener(this);
@@ -265,6 +271,7 @@ public class HouseGUI implements ActionListener {
         btnRCustomers.addActionListener(this);
         btnRRentals.addActionListener(this);
         btnRentalExit.addActionListener(this);
+        btnRentalSignOut.addActionListener(this);
         
         tblRentalModel = new DefaultTableModel();
         tblRentalDisplay = new JTable(tblRentalModel);
@@ -283,6 +290,7 @@ public class HouseGUI implements ActionListener {
         btnECustomers = new JButton("CUSTOMERS");
         btnERentals = new JButton("RENTALS");
         btnEmployeeExit = new JButton("EXIT");
+        btnEmployeeSignOut = new JButton("Sign Out");
         
         btnEmployeeAdd.addActionListener(this);
         btnEAdminAgent.addActionListener(this);
@@ -290,18 +298,20 @@ public class HouseGUI implements ActionListener {
         btnECustomers.addActionListener(this);
         btnERentals.addActionListener(this);
         btnEmployeeExit.addActionListener(this);
+        btnEmployeeSignOut.addActionListener(this);
         
         tblEmployeeModel = new DefaultTableModel();
         tblEmployeeDisplay = new JTable(tblEmployeeModel);
     }
+
+     public void setAdminLoginPage()
+    {
+        setEmployeePanels();
+    }
+     
     public void setLoginPage()
     {
-        frameC.setVisible(true);
-        frameH.setVisible(false);
-        frameE.setVisible(false);
-        frameR.setVisible(false);
-        
-        frameLog.setVisible(false);
+        setCustomerPanels();
     }
 
     public void setHousePanels()
@@ -392,7 +402,7 @@ public class HouseGUI implements ActionListener {
         btnCustomers.setPreferredSize(new Dimension(120, 40));
         btnRentals.setPreferredSize(new Dimension(120, 40));
         btnExit.setPreferredSize(new Dimension(150, 50));
-        btnCustomerBack.setPreferredSize(new Dimension(150, 50));
+        btnCustomerSignOut.setPreferredSize(new Dimension(150, 50));
 
         //Button Colours
         btnAdd.setBackground(new Color(102, 178, 255));
@@ -414,8 +424,8 @@ public class HouseGUI implements ActionListener {
         btnExit.setBackground(new Color(102, 178, 255));
         btnExit.setForeground(new Color(0, 0, 0));
 
-        btnCustomerBack.setBackground(new Color(102, 178, 255));
-        btnCustomerBack.setForeground(new Color(0, 0, 0));
+        btnCustomerSignOut.setBackground(new Color(102, 178, 255));
+        btnCustomerSignOut.setForeground(new Color(0, 0, 0));
 
         //Panels Colours
         panelTop.setBackground(new Color(233, 160, 124));
@@ -424,7 +434,7 @@ public class HouseGUI implements ActionListener {
         panelLeft.setBackground(new Color(233, 160, 124));
         
         //Customer Panel Buttons
-        panelBottom.add(btnCustomerBack);
+        panelBottom.add(btnCustomerSignOut);
         panelBottom.add(btnAdd);
         panelCenter.add(btnCustomers);
         panelCenter.add(btnAdminAgent);
@@ -439,7 +449,7 @@ public class HouseGUI implements ActionListener {
         btnCustomers.addActionListener(this);
         btnRentals.addActionListener(this);
         btnExit.addActionListener(this);
-        btnCustomerBack.addActionListener(this);
+        btnCustomerSignOut.addActionListener(this);
 
         //Add Table
         tblDisplay.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
@@ -531,6 +541,7 @@ public class HouseGUI implements ActionListener {
         frameH.add(panelEmployeeCenter,BorderLayout.CENTER);
         frameH.add(panelEmployeeBottom,BorderLayout.SOUTH);
         
+        panelEmployeeBottom.add(btnEmployeeSignOut);
         panelEmployeeBottom.add(btnEmployeeAdd);
         panelEmployeeCenter.add(btnECustomers);
         panelEmployeeCenter.add(btnEAdminAgent);
@@ -557,6 +568,7 @@ public class HouseGUI implements ActionListener {
         btnECustomers.setPreferredSize(new Dimension(120, 40));
         btnERentals.setPreferredSize(new Dimension(120, 40));
         btnEmployeeExit.setPreferredSize(new Dimension(150, 50));
+        btnEmployeeSignOut.setPreferredSize(new Dimension(150, 50));
         
         btnEmployeeAdd.setBackground(new Color(102, 178, 255));
         btnEmployeeAdd.setForeground(new Color(0, 0, 0));
@@ -575,6 +587,9 @@ public class HouseGUI implements ActionListener {
 
         btnEmployeeExit.setBackground(new Color(102, 178, 255));
         btnEmployeeExit.setForeground(new Color(0, 0, 0));
+        
+        btnEmployeeSignOut.setBackground(new Color(102, 178, 255));
+        btnEmployeeSignOut.setForeground(new Color(0, 0, 0));
         
         panelEmployeeTop.setBackground(new Color(233, 160, 124));
         panelEmployeeCenter.setBackground(new Color(233, 160, 124));
@@ -600,6 +615,7 @@ public class HouseGUI implements ActionListener {
         
         frameR.add(panelHouseBottom,BorderLayout.SOUTH);
         
+        panelHouseBottom.add(btnHouseSignOut);
         panelHouseBottom.add(btnHouseAdd);
         panelHouseCenter.add(btnHCustomers);
         panelHouseCenter.add(btnHAdminAgent);
@@ -627,6 +643,7 @@ public class HouseGUI implements ActionListener {
         btnHCustomers.setPreferredSize(new Dimension(120, 40));
         btnHRentals.setPreferredSize(new Dimension(120, 40));
         btnHouseExit.setPreferredSize(new Dimension(150, 50));
+        btnHouseSignOut.setPreferredSize(new Dimension(150, 50));
         
         btnHouseAdd.setBackground(new Color(102, 178, 255));
         btnHouseAdd.setForeground(new Color(0, 0, 0));
@@ -645,6 +662,9 @@ public class HouseGUI implements ActionListener {
 
         btnHouseExit.setBackground(new Color(102, 178, 255));
         btnHouseExit.setForeground(new Color(0, 0, 0));
+        
+        btnHouseSignOut.setBackground(new Color(102, 178, 255));
+        btnHouseSignOut.setForeground(new Color(0, 0, 0));
         
         panelHouseTop.setBackground(new Color(233, 160, 124));
         panelHouseCenter.setBackground(new Color(233, 160, 124));
@@ -670,6 +690,7 @@ public class HouseGUI implements ActionListener {
         
         frameE.add(panelRentalBottom,BorderLayout.SOUTH);
         
+        panelRentalBottom.add(btnRentalSignOut);
         panelRentalBottom.add(btnRentalAdd);
         panelRentalCenter.add(btnRCustomers);
         panelRentalCenter.add(btnRAdminAgent);
@@ -696,6 +717,7 @@ public class HouseGUI implements ActionListener {
         btnRCustomers.setPreferredSize(new Dimension(120, 40));
         btnRRentals.setPreferredSize(new Dimension(120, 40));
         btnRentalExit.setPreferredSize(new Dimension(150, 50));
+        btnRentalSignOut.setPreferredSize(new Dimension(150, 50));
         
         btnRentalAdd.setBackground(new Color(102, 178, 255));
         btnRentalAdd.setForeground(new Color(0, 0, 0));
@@ -714,6 +736,9 @@ public class HouseGUI implements ActionListener {
 
         btnRentalExit.setBackground(new Color(102, 178, 255));
         btnRentalExit.setForeground(new Color(0, 0, 0));
+        
+        btnRentalSignOut.setBackground(new Color(102, 178, 255));
+        btnRentalSignOut.setForeground(new Color(0, 0, 0));
         
         panelRentalTop.setBackground(new Color(233, 160, 124));
         panelRentalCenter.setBackground(new Color(233, 160, 124));
@@ -735,11 +760,13 @@ public class HouseGUI implements ActionListener {
     
     @Override
     public void actionPerformed(ActionEvent e) {
+        //Login Button
         if(e.getActionCommand().equals("LOGIN"))
         {
             LoginConfirm();
             
         }
+        //Admin Login Button
         if(e.getActionCommand().equals("ADMIN LOGIN"))
         {
             LoginAdminConfirm();
@@ -758,8 +785,8 @@ public class HouseGUI implements ActionListener {
                 System.out.println("IOException: " + ex.getMessage());
             }  
         }
-        //Back Button
-        if(e.getActionCommand().equals("Back")){
+        //Sign Out Button
+        if(e.getActionCommand().equals("Sign Out")){
             setBackToLogin();
         }
         //EMPLOYEES Button
@@ -834,6 +861,7 @@ public class HouseGUI implements ActionListener {
             String response = (String) in.readObject();
             JOptionPane.showMessageDialog(null, response);
             
+            //disables buttons
             btnAdminAgent.setEnabled(false);
             btnHouses.setEnabled(false);
             btnRHouses.setEnabled(false);
@@ -886,12 +914,21 @@ public class HouseGUI implements ActionListener {
 
             String response = (String) in.readObject();
             JOptionPane.showMessageDialog(null, response);
+            
+            //disables buttons
+            btnECustomers.setEnabled(false);
+            btnERentals.setEnabled(false);
+            btnHRentals.setEnabled(false);
+            btnHCustomers.setEnabled(false);
+            
+            
             if (response.equals("Wrong credidentials! try again")) {
 
                 frameLog.setVisible(true);
                 frameC.setVisible(false);
             } else {
-                setLoginPage();
+                setAdminLoginPage();
+
             }
 
         } catch (IOException ex) {
