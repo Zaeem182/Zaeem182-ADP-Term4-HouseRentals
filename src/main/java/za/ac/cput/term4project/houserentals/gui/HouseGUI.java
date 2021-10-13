@@ -282,6 +282,7 @@ public class HouseGUI implements ActionListener, ItemListener {
         btnHouseUpdate.addActionListener(this);
         
         cboFilter.addItemListener(this);
+        cboHouse.addItemListener(this);
         
         tblHouseModel = new DefaultTableModel();
         tblHouseDisplay = new JTable(tblHouseModel);
@@ -952,8 +953,9 @@ public class HouseGUI implements ActionListener, ItemListener {
     @Override
     public void itemStateChanged(ItemEvent e) {
         try{
+            
             if(e.getStateChange() == ItemEvent.SELECTED){
-                if(!cboFilter.getSelectedItem().equals("Select a location to filter the list")){
+                   if(!cboFilter.getSelectedItem().equals("Select a location to filter the list")){
 
                     if(e.getSource() == cboFilter){
                         
@@ -978,11 +980,26 @@ public class HouseGUI implements ActionListener, ItemListener {
                     }
                 }
             }
-        } 
+        }
+        
         catch(Exception ex){
             System.out.println("Exception: " + ex.getMessage());
         }
+//        if(e.getStateChange() == ItemEvent.SELECTED){
+//                
+//                if (!cboHouse.getSelectedItem().equals("a"))
+//                {
+//                    if(e.getSource() == cboHouse)
+//                    {
+//                        if(e.getStateChange() == ItemEvent.SELECTED)
+//                        {
+//                            isRented.setSelected((Boolean)cboHouse.getSelectedItem());
+//                        }
+//                    }
+//                }
+//        }
     }
+
     
     public void LoginConfirm() {
 
@@ -1337,17 +1354,20 @@ public class HouseGUI implements ActionListener, ItemListener {
     }
     /////////////////////////////////////
     JComboBox cboHouse = new JComboBox();
+    JCheckBox isRented = new JCheckBox();
+    
     /////////////////////////////////////
     public void clientUpdateHouseDetails()
     {
         
-        JCheckBox isRented = new JCheckBox();
+        
         
         Object[] addFields
                 ={
                     "Select Data to Edit: ",cboHouse,
                     "is Rented: ", isRented
                  };
+        cboHouse.addItem("a");
         cboHouseUpdateRefresh();
         int option;
         option = JOptionPane.showConfirmDialog(null, addFields, "Update details", JOptionPane.OK_CANCEL_OPTION);
@@ -1370,6 +1390,7 @@ public class HouseGUI implements ActionListener, ItemListener {
 
             for (int i = 0; i < houseRefresh.size(); i++) {
                 int id = houseRefresh.get(i).getId();
+                Boolean isRented = houseRefresh.get(i).isIsRented();
                 cboHouse.addItem(id);
             }
 
@@ -1378,6 +1399,10 @@ public class HouseGUI implements ActionListener, ItemListener {
         } catch (ClassNotFoundException ex) {
             System.out.println("ClassNotFoundException: " + ex.getMessage());
         }
+//            if(e. == cboHouse.getSelectedItem() )
+//            {
+//            isRented.setSelected((Boolean)cboHouse.getSelectedItem());
+//            }
       }
     public void refreshCustomer()
     {
