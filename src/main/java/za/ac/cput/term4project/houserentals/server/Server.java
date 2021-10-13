@@ -158,9 +158,11 @@ public class Server {
                     Date date = (Date) in.readObject();
                     int customerId = (int) in.readInt();
                     int houseId = (int) in.readInt();
+                    double commission = (double) in.readDouble();
                     
+                    commission = commission * 0.1;
                     //Dao
-                    Rental rental = new Rental(id, customerId, houseId, date);
+                    Rental rental = new Rental(id, customerId, houseId, date, commission);
                     
                     Rental rDaoAdd = rentalDao.add(rental);
                     
@@ -242,7 +244,23 @@ public class Server {
                     out.writeObject(houseList);
                     out.flush();
                 }
+                 
+                if(msg.equals("refreshRental")){
+                    ArrayList<Rental> rentalList = new ArrayList<>();
+                    rentalList = (ArrayList<Rental>) rentalDao.getAll();
+                    
+                    out.writeObject(rentalList);
+                    out.flush();
+                }
                 
+                if(msg.equals("refreshCommissionTotal")){
+                    System.out.println("yehavbgfklhgsbalkjgbsalkjb");
+                    ArrayList<Rental> rentalList = new ArrayList<>();
+                    rentalList = (ArrayList<Rental>) rentalDao.getCommissionAll();
+                    
+                    out.writeObject(rentalList);
+                    out.flush();
+                }
                 if(msg.equals("refreshCboHouseLocation")){
                     ArrayList<House> houseList = new ArrayList<>();
                     houseList = (ArrayList<House>) houseDao.getCboAll();
@@ -301,14 +319,7 @@ public class Server {
                     out.writeObject(houseList);
                     out.flush();
                 }
-                
-                if(msg.equals("refreshRental")){
-                    ArrayList<Rental> rentalList = new ArrayList<>();
-                    rentalList = (ArrayList<Rental>) rentalDao.getAll();
-                    
-                    out.writeObject(rentalList);
-                    out.flush();
-                }
+               
                 
                 if(msg.equals("Available")){
                     ArrayList<House> houseList = new ArrayList<>();

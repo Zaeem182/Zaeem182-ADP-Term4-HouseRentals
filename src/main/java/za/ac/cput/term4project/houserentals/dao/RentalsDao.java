@@ -27,7 +27,7 @@ public class RentalsDao {
     }
     
     public Rental add(Rental rental){
-        String insertSQL = "INSERT INTO rental VALUES (?, ?, ?, ?)";
+        String insertSQL = "INSERT INTO rental VALUES (?, ?, ?, ?, ?)";
         
         try{
             PreparedStatement ps = con.prepareStatement(insertSQL);
@@ -35,6 +35,7 @@ public class RentalsDao {
             ps.setDate(2, rental.getDate());
             ps.setInt(3, rental.getCustomerId());
             ps.setInt(4, rental.getHouseId());
+            ps.setDouble(5, rental.getCommission());
             
             ps.executeUpdate();
             ps.close();
@@ -58,8 +59,32 @@ public class RentalsDao {
                 Date date = rs.getDate("date");
                 int customerId = rs.getInt("customerid");
                 int houseId = rs.getInt("houseid");
+                double commission = rs.getDouble("commission");
                 
-                Rental rental =  new Rental(rentalId, customerId, houseId, date);
+                Rental rental =  new Rental(rentalId, customerId, houseId, date, commission);
+                rentalArray.add(rental);
+            }
+            rs.close();
+        }
+        catch(SQLException ex){
+            System.out.println("SQLException: " + ex.getMessage());
+        }
+        return rentalArray;
+    }
+    
+    public ArrayList<Rental> getCommissionAll(){
+        String getAll_SQL = "SELECT commission FROM rental";
+        ArrayList<Rental> rentalArray = new ArrayList<>();
+        
+        try{
+            PreparedStatement ps = this.con.prepareStatement(getAll_SQL);
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()){
+                
+                double commission = rs.getDouble("commission");
+                
+                Rental rental =  new Rental(commission);
                 rentalArray.add(rental);
             }
             rs.close();

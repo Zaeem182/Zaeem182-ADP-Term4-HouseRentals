@@ -63,6 +63,7 @@ public class HouseGUI implements ActionListener, ItemListener {
     //Fonts
     private Font Hft;
     private Font ft;
+    private Font ft1;
 
     //JFrame
     JFrame frameC = new JFrame();
@@ -128,8 +129,12 @@ public class HouseGUI implements ActionListener, ItemListener {
     private JPanel panelRentalTop;
     private JPanel panelRentalCenter;
     private JPanel panelRentalBottom;
+    private JPanel panelRentalRight;
+    
 
     private JLabel lblRentalHeading;
+    private JLabel lblSumOfCommission;
+    private JTextField txtSumOfCommission;
     
     private JButton btnRentalAdd;
     private JButton btnRAdminAgent;
@@ -183,7 +188,8 @@ public class HouseGUI implements ActionListener, ItemListener {
 
         //Fonts
         Hft = new Font("Verdana", Font.BOLD, 25);
-        ft = new Font("Verdana", Font.PLAIN, 20);
+        ft = new Font("Verdana", Font.PLAIN, 15);
+        ft1 = new Font("Verdana", Font.PLAIN, 20);
 
         //Top panel
         panelTop = new JPanel();
@@ -291,9 +297,13 @@ public class HouseGUI implements ActionListener, ItemListener {
         panelRentalTop = new JPanel();
         panelRentalCenter = new JPanel();
         panelRentalBottom = new JPanel();
+        panelRentalRight = new JPanel();
          
         lblRentalHeading = new JLabel("ZA RENTALS");
+        lblSumOfCommission = new JLabel("Total Commission: ");
         
+        txtSumOfCommission = new JTextField(10);
+                
         btnRentalAdd = new JButton("Add Rental");
         btnRAdminAgent = new JButton("EMPLOYEES");
         btnRHouses = new JButton("HOUSES");
@@ -660,7 +670,7 @@ public class HouseGUI implements ActionListener, ItemListener {
         tblHouseDisplay.setAutoCreateRowSorter(true);
         
         lblHouseHeading.setFont(Hft);
-        lblFilter.setFont(ft);
+        lblFilter.setFont(ft1);
         lblHouseHeading.setForeground(new Color(0, 0, 0));
         
         frameR.add(panelHouseTop,BorderLayout.NORTH);
@@ -759,12 +769,18 @@ public class HouseGUI implements ActionListener, ItemListener {
         //Table Sorter
         tblRentalDisplay.setAutoCreateRowSorter(true);
         
+        lblSumOfCommission.setFont(ft);
+        txtSumOfCommission.setFont(ft);
+        
         lblRentalHeading.setFont(Hft);
         lblRentalHeading.setForeground(new Color(0, 0, 0));
         
         frameE.add(panelRentalTop,BorderLayout.NORTH);
         panelRentalTop.setLayout(new GridLayout(1, 2));
         panelRentalTop.setSize(300, 300);
+        
+        frameE.add(panelRentalRight,BorderLayout.EAST);
+        panelRentalRight.setPreferredSize(new Dimension(170,300));
         
         frameE.add(panelRentalCenter,BorderLayout.CENTER);
         
@@ -777,12 +793,18 @@ public class HouseGUI implements ActionListener, ItemListener {
         panelRentalCenter.add(btnRHouses);
         panelRentalCenter.add(btnRRentals);
         panelRentalBottom.add(btnRentalExit);
+        panelRentalRight.add(lblSumOfCommission);
+        panelRentalRight.add(txtSumOfCommission);
+        
+        txtSumOfCommission.setEditable(false);
+        
         
         tblRentalDisplay.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         tblRentalModel.addColumn("ID");
         tblRentalModel.addColumn("Date");
         tblRentalModel.addColumn("CustomerID");
         tblRentalModel.addColumn("HouseID");
+        tblRentalModel.addColumn("Commission");
 
         panelRentalCenter.add(new JScrollPane(tblRentalDisplay));
 
@@ -821,6 +843,7 @@ public class HouseGUI implements ActionListener, ItemListener {
         panelRentalTop.setBackground(new Color(233, 160, 124));
         panelRentalCenter.setBackground(new Color(233, 160, 124));
         panelRentalBottom.setBackground(new Color(233, 160, 124));
+        panelRentalRight.setBackground(new Color(233, 160, 124));
         //
         
         frameE.setSize(850, 500);
@@ -894,6 +917,8 @@ public class HouseGUI implements ActionListener, ItemListener {
         if(e.getActionCommand().equals("RENTALS"))
         {
             setRentalPanels();
+            refreshRental();
+            refreshRentalCommission();
         }
         
         //Update Customer Button
@@ -945,6 +970,7 @@ public class HouseGUI implements ActionListener, ItemListener {
         if (e.getActionCommand().equals("Add Rental")) {
             clientAddRentalDetails();
             refreshRental();
+            refreshRentalCommission();
 
         }
     }
@@ -1016,6 +1042,7 @@ public class HouseGUI implements ActionListener, ItemListener {
             btnHouseAdd.setEnabled(false);
             btnEmployeeUpdate.setEnabled(false);
             btnHouseUpdate.setEnabled(false);
+            btnCustomerUpdate.setEnabled(true);
             
             if (response.equals("Wrong credidentials! try again")) {
 
@@ -1078,6 +1105,8 @@ public class HouseGUI implements ActionListener, ItemListener {
             btnAdd.setEnabled(false);
             btnRentalAdd.setEnabled(false);
             btnCustomerUpdate.setEnabled(false);
+            btnEmployeeUpdate.setEnabled(true);
+            btnHouseUpdate.setEnabled(true);
             
             if (response.equals("Wrong credidentials! try again")) {
 
@@ -1302,12 +1331,14 @@ public class HouseGUI implements ActionListener, ItemListener {
         Date date = new Date(millis);
         JTextField customerId = new JTextField();
         JTextField houseId = new JTextField();
+        JTextField commission = new JTextField();
 
         Object[] addFields
                 = {
                     "ID:", id,
                     "Customer ID:", customerId,
-                    "House ID:", houseId
+                    "House ID:", houseId,
+                    "Enter rent per month:", commission
                 };
 
         int option;
@@ -1336,6 +1367,9 @@ public class HouseGUI implements ActionListener, ItemListener {
 
                 out.writeInt(Integer.parseInt(houseId.getText()));
                 out.flush();
+                
+                out.writeDouble(Double.parseDouble(commission.getText()));
+                out.flush();
 
                 String response = (String) in.readObject();
                 JOptionPane.showMessageDialog(null, response);
@@ -1350,6 +1384,7 @@ public class HouseGUI implements ActionListener, ItemListener {
         }
     }
     
+
 
     //Arraylist for displaying database
       ArrayList<Customer> custRefresh = new ArrayList<>();
@@ -1494,16 +1529,50 @@ public class HouseGUI implements ActionListener, ItemListener {
                 Date date = rentalRefresh.get(i).getDate();
                 int customerId = rentalRefresh.get(i).getCustomerId();
                 int houseId = rentalRefresh.get(i).getHouseId();
+                double commission = rentalRefresh.get(i).getCommission();
 
-                Object[] rentalData = {id, date, customerId, houseId};
+                Object[] rentalData = {id, date, customerId, houseId, commission};
                 tblRentalModel.addRow(rentalData);
             }
+            
+            
         } catch (IOException ex) {
             System.out.println("IOException: " + ex.getMessage());
         } catch (ClassNotFoundException ex) {
             System.out.println("ClassNotFoundException: " + ex.getMessage());
         }
     }
+    
+    public void refreshRentalCommission(){
+         try {
+            //client side
+            out.writeObject("refreshCommissionTotal");
+            out.flush();
+
+            //recieve from server
+            rentalRefresh = (ArrayList) in.readObject();
+
+            double sum = 0;
+            
+            //add values from arraylist to gui JTable
+            for (int i = 0; i < rentalRefresh.size(); i++) {
+                
+                double commission = rentalRefresh.get(i).getCommission();
+                sum += commission;
+                Object[] rentalData = {sum};
+                String s;
+                s = String.valueOf(sum);
+                txtSumOfCommission.setText(s);
+            }
+            
+        } catch (IOException ex) {
+            System.out.println("IOException: " + ex.getMessage());
+        } catch (ClassNotFoundException ex) {
+            System.out.println("ClassNotFoundException: " + ex.getMessage());
+        }
+    }
+        
+    
 
     public void houseAvailable(){
        try {

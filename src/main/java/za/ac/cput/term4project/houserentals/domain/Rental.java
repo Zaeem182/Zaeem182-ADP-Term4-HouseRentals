@@ -17,14 +17,20 @@ public class Rental implements Serializable{
     
     private int rentId, customerId, houseId;
     private Date date;
+    private double commission;
 
-    public Rental(int rentId, int customerId, int houseId, Date date) {
+    public Rental(int rentId, int customerId, int houseId, Date date, double commission) {
         this.rentId = rentId;
         this.customerId = customerId;
         this.houseId = houseId;
         this.date = date;
+        this.commission = commission;
     }
 
+    public Rental(double commission)
+    {
+        this.commission = commission;
+    }
     public void setRentId(int rentId) {
         this.rentId = rentId;
     }
@@ -39,6 +45,14 @@ public class Rental implements Serializable{
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public double getCommission() {
+        return commission;
+    }
+
+    public void setCommission(double commission) {
+        this.commission = commission;
     }
 
     public int getRentId() {
@@ -59,7 +73,9 @@ public class Rental implements Serializable{
 
     @Override
     public String toString() {
-        return "Rental{" + "rentId=" + rentId + ", customerId=" + customerId + ", houseId=" + houseId + ", date=" + date + '}';
+        return "Rental{" + "rentId=" + rentId + ", customerId=" + customerId + ", houseId=" + houseId + ", date=" + date + ", commission=" + commission + '}';
     }
+
+    
     
 }
