@@ -254,7 +254,6 @@ public class Server {
                 }
                 
                 if(msg.equals("refreshCommissionTotal")){
-                    System.out.println("yehavbgfklhgsbalkjgbsalkjb");
                     ArrayList<Rental> rentalList = new ArrayList<>();
                     rentalList = (ArrayList<Rental>) rentalDao.getCommissionAll();
                     
