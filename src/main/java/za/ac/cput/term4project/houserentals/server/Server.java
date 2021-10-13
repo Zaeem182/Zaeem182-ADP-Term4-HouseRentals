@@ -236,9 +236,16 @@ public class Server {
                     out.flush();
                 }
                 
-                if(msg.equals("refreshCboHouse")){
+                if(msg.equals("refreshCboHouseLocation")){
                     ArrayList<House> houseList = new ArrayList<>();
                     houseList = (ArrayList<House>) houseDao.getCboAll();
+                    
+                    out.writeObject(houseList);
+                    out.flush();
+                }
+                if(msg.equals("refreshCboHouse")){
+                    ArrayList<House> houseList = new ArrayList<>();
+                    houseList = (ArrayList<House>) houseDao.getAll();
                     
                     out.writeObject(houseList);
                     out.flush();

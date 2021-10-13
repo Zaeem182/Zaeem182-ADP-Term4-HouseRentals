@@ -89,6 +89,7 @@ public class HouseGUI implements ActionListener, ItemListener {
     private JButton btnLogin;
     private JButton btnAdminLogin;
     private JButton btnLoginExit;
+    private JButton btnCustomerUpdate;
     
     /////////////////////////////////////////////////////
     //Jpanel for house table
@@ -114,6 +115,7 @@ public class HouseGUI implements ActionListener, ItemListener {
     private JButton btnHouseSignOut;
     private JButton btnAvailable;
     private JButton btnNotAvailable;
+    private JButton btnHouseUpdate;
     
     private DefaultTableModel tblHouseModel;
     private JTable tblHouseDisplay;
@@ -158,6 +160,7 @@ public class HouseGUI implements ActionListener, ItemListener {
     private JButton btnERentals;
     private JButton btnEmployeeExit;
     private JButton btnEmployeeSignOut;
+    private JButton btnEmployeeUpdate;
     
     private DefaultTableModel tblEmployeeModel;
     private JTable tblEmployeeDisplay;
@@ -206,8 +209,19 @@ public class HouseGUI implements ActionListener, ItemListener {
         btnRentals = new JButton("RENTALS");
         btnExit = new JButton("EXIT");
         btnCustomerSignOut = new JButton("Sign Out");
+        btnCustomerUpdate = new JButton("Update Customer");
 
 
+        //Add action listeners
+        btnAdd.addActionListener(this);
+        btnAdminAgent.addActionListener(this);
+        btnHouses.addActionListener(this);
+        btnCustomers.addActionListener(this);
+        btnRentals.addActionListener(this);
+        btnExit.addActionListener(this);
+        btnCustomerSignOut.addActionListener(this);
+        btnCustomerUpdate.addActionListener(this);
+        
         //Table
         tblModel = new DefaultTableModel();
         tblDisplay = new JTable(tblModel);
@@ -254,6 +268,7 @@ public class HouseGUI implements ActionListener, ItemListener {
         btnHouseSignOut = new JButton("Sign Out");
         btnAvailable = new JButton("Available");
         btnNotAvailable = new JButton("Not Available");
+        btnHouseUpdate = new JButton("Update House");
         
         btnHouseAdd.addActionListener(this);
         btnHAdminAgent.addActionListener(this);
@@ -264,6 +279,7 @@ public class HouseGUI implements ActionListener, ItemListener {
         btnHouseSignOut.addActionListener(this);
         btnAvailable.addActionListener(this);
         btnNotAvailable.addActionListener(this);
+        btnHouseUpdate.addActionListener(this);
         
         cboFilter.addItemListener(this);
         
@@ -312,6 +328,7 @@ public class HouseGUI implements ActionListener, ItemListener {
         btnERentals = new JButton("RENTALS");
         btnEmployeeExit = new JButton("EXIT");
         btnEmployeeSignOut = new JButton("Sign Out");
+        btnEmployeeUpdate = new JButton("Update Employee");
         
         btnEmployeeAdd.addActionListener(this);
         btnEAdminAgent.addActionListener(this);
@@ -320,6 +337,7 @@ public class HouseGUI implements ActionListener, ItemListener {
         btnERentals.addActionListener(this);
         btnEmployeeExit.addActionListener(this);
         btnEmployeeSignOut.addActionListener(this);
+        btnEmployeeUpdate.addActionListener(this);
         
         tblEmployeeModel = new DefaultTableModel();
         tblEmployeeDisplay = new JTable(tblEmployeeModel);
@@ -404,6 +422,10 @@ public class HouseGUI implements ActionListener, ItemListener {
     }
     public void setGUI() {
         
+        //Table Sorter 
+        tblDisplay.setAutoCreateRowSorter(true);
+
+                
         //Apply font change
         lblHeading.setFont(Hft);
         lblHeading.setForeground(new Color(0, 0, 0));
@@ -431,6 +453,7 @@ public class HouseGUI implements ActionListener, ItemListener {
         btnRentals.setPreferredSize(new Dimension(120, 40));
         btnExit.setPreferredSize(new Dimension(150, 50));
         btnCustomerSignOut.setPreferredSize(new Dimension(150, 50));
+        btnCustomerUpdate.setPreferredSize(new Dimension(150, 50));
 
         //Button Colours
         btnAdd.setBackground(new Color(102, 178, 255));
@@ -443,7 +466,7 @@ public class HouseGUI implements ActionListener, ItemListener {
         btnHouses.setForeground(new Color(0, 0, 0));
 
         btnCustomers.setBackground(Color.WHITE);
-//        btnCustomers.setBackground(new Color(102, 178, 255));
+        
         btnCustomers.setForeground(new Color(0, 0, 0));
 
         btnRentals.setBackground(new Color(102, 178, 255));
@@ -451,6 +474,9 @@ public class HouseGUI implements ActionListener, ItemListener {
 
         btnExit.setBackground(new Color(102, 178, 255));
         btnExit.setForeground(new Color(0, 0, 0));
+        
+        btnCustomerUpdate.setBackground(new Color(102, 178, 255));
+        btnCustomerUpdate.setForeground(new Color(0, 0, 0));
 
         btnCustomerSignOut.setBackground(new Color(102, 178, 255));
         btnCustomerSignOut.setForeground(new Color(0, 0, 0));
@@ -468,17 +494,9 @@ public class HouseGUI implements ActionListener, ItemListener {
         panelCenter.add(btnAdminAgent);
         panelCenter.add(btnHouses);
         panelCenter.add(btnRentals);
+        panelBottom.add(btnCustomerUpdate);
         panelBottom.add(btnExit);
         
-        //Add action listeners
-        btnAdd.addActionListener(this);
-        btnAdminAgent.addActionListener(this);
-        btnHouses.addActionListener(this);
-        btnCustomers.addActionListener(this);
-        btnRentals.addActionListener(this);
-        btnExit.addActionListener(this);
-        btnCustomerSignOut.addActionListener(this);
-
         //Add Table
         tblDisplay.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         tblModel.addColumn("ID");
@@ -489,8 +507,6 @@ public class HouseGUI implements ActionListener, ItemListener {
 
         panelCenter.add(new JScrollPane(tblDisplay));
         
-        tblDisplay.setAutoCreateRowSorter(true);
-
         //Show on form
         frameC.setSize(850, 500);
         frameC.setLocationRelativeTo(null);
@@ -559,6 +575,10 @@ public class HouseGUI implements ActionListener, ItemListener {
         
         ///////////////////////////////////////////////////////////////
         //Employee GUI
+        
+        //Table Sorter 
+        tblEmployeeDisplay.setAutoCreateRowSorter(true);
+        
         lblEmployeeHeading.setFont(Hft);
         lblEmployeeHeading.setForeground(new Color(0, 0, 0));
         
@@ -567,6 +587,7 @@ public class HouseGUI implements ActionListener, ItemListener {
         panelEmployeeTop.setSize(300, 300);
         
         frameH.add(panelEmployeeCenter,BorderLayout.CENTER);
+        
         frameH.add(panelEmployeeBottom,BorderLayout.SOUTH);
         
         panelEmployeeBottom.add(btnEmployeeSignOut);
@@ -575,6 +596,7 @@ public class HouseGUI implements ActionListener, ItemListener {
         panelEmployeeCenter.add(btnEAdminAgent);
         panelEmployeeCenter.add(btnEHouses);
         panelEmployeeCenter.add(btnERentals);
+        panelEmployeeBottom.add(btnEmployeeUpdate);
         panelEmployeeBottom.add(btnEmployeeExit);
         
         tblEmployeeDisplay.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
@@ -586,8 +608,6 @@ public class HouseGUI implements ActionListener, ItemListener {
 
         panelEmployeeCenter.add(new JScrollPane(tblEmployeeDisplay));
         
-        tblEmployeeDisplay.setAutoCreateRowSorter(true);
-        
         panelEmployeeTop.add(lblEmployeeHeading);
         
         btnEmployeeAdd.setPreferredSize(new Dimension(150, 50));
@@ -597,6 +617,7 @@ public class HouseGUI implements ActionListener, ItemListener {
         btnERentals.setPreferredSize(new Dimension(120, 40));
         btnEmployeeExit.setPreferredSize(new Dimension(150, 50));
         btnEmployeeSignOut.setPreferredSize(new Dimension(150, 50));
+        btnEmployeeUpdate.setPreferredSize(new Dimension(150, 50));
         
         btnEmployeeAdd.setBackground(new Color(102, 178, 255));
         btnEmployeeAdd.setForeground(new Color(0, 0, 0));
@@ -619,6 +640,9 @@ public class HouseGUI implements ActionListener, ItemListener {
         btnEmployeeSignOut.setBackground(new Color(102, 178, 255));
         btnEmployeeSignOut.setForeground(new Color(0, 0, 0));
         
+        btnEmployeeUpdate.setBackground(new Color(102, 178, 255));
+        btnEmployeeUpdate.setForeground(new Color(0, 0, 0));
+        
         panelEmployeeTop.setBackground(new Color(233, 160, 124));
         panelEmployeeCenter.setBackground(new Color(233, 160, 124));
         panelEmployeeBottom.setBackground(new Color(233, 160, 124));
@@ -631,6 +655,10 @@ public class HouseGUI implements ActionListener, ItemListener {
 
          ////////////////////////////////////////////////////////////////
         //House GUI
+        
+        //Table Sorter
+        tblHouseDisplay.setAutoCreateRowSorter(true);
+        
         lblHouseHeading.setFont(Hft);
         lblFilter.setFont(ft);
         lblHouseHeading.setForeground(new Color(0, 0, 0));
@@ -655,6 +683,7 @@ public class HouseGUI implements ActionListener, ItemListener {
         panelHouseCenter.add(btnHAdminAgent);
         panelHouseCenter.add(btnHHouses);
         panelHouseCenter.add(btnHRentals);
+        panelHouseBottom.add(btnHouseUpdate);
         panelHouseBottom.add(btnHouseExit);
         panelHouseLeft.add(btnAvailable);
         panelHouseLeft.add(btnNotAvailable);
@@ -669,10 +698,6 @@ public class HouseGUI implements ActionListener, ItemListener {
 
         panelHouseCenter.add(new JScrollPane(tblHouseDisplay));
         
-        tblHouseDisplay.setAutoCreateRowSorter(true);
-        
-
-        
         //
         btnHouseAdd.setPreferredSize(new Dimension(150, 50));
         btnHAdminAgent.setPreferredSize(new Dimension(120, 40));
@@ -683,7 +708,11 @@ public class HouseGUI implements ActionListener, ItemListener {
         btnHouseSignOut.setPreferredSize(new Dimension(150, 50));
         btnAvailable.setPreferredSize(new Dimension(115, 40));
         btnNotAvailable.setPreferredSize(new Dimension(115, 40));
+        btnHouseUpdate.setPreferredSize(new Dimension(150, 50));
 
+        
+        btnHouseUpdate.setBackground(new Color(102, 178, 255));
+        btnHouseUpdate.setForeground(new Color(0, 0, 0));
         
         btnAvailable.setBackground(new Color(102, 178, 255));
         btnAvailable.setForeground(new Color(0, 0, 0));
@@ -726,6 +755,10 @@ public class HouseGUI implements ActionListener, ItemListener {
         
         ///////////////////////////////////////////////////////////////
         //Rental GUI
+        
+        //Table Sorter
+        tblRentalDisplay.setAutoCreateRowSorter(true);
+        
         lblRentalHeading.setFont(Hft);
         lblRentalHeading.setForeground(new Color(0, 0, 0));
         
@@ -752,9 +785,7 @@ public class HouseGUI implements ActionListener, ItemListener {
         tblRentalModel.addColumn("HouseID");
 
         panelRentalCenter.add(new JScrollPane(tblRentalDisplay));
-        
-        tblRentalDisplay.setAutoCreateRowSorter(true);
-        
+
         panelRentalTop.add(lblRentalHeading);
         
                 //
@@ -863,6 +894,22 @@ public class HouseGUI implements ActionListener, ItemListener {
         if(e.getActionCommand().equals("RENTALS"))
         {
             setRentalPanels();
+        }
+        
+        //Update Customer Button
+        if (e.getActionCommand().equals("Update Customer")) {
+            clientUpdateCustomerDetails();
+            refreshCustomer();
+        }
+        //Update House Button
+        if (e.getActionCommand().equals("Update House")) {
+            clientUpdateHouseDetails();
+            refreshHouse();
+        }
+        //Update Employee Button
+        if (e.getActionCommand().equals("Update Employee")) {
+            clientUpdateEmployeeDetails();
+            refreshEmployee();
         }
         
         //ADD Customer Button
@@ -1279,12 +1326,59 @@ public class HouseGUI implements ActionListener, ItemListener {
             }
         }
     }
+    
+    public void clientUpdateCustomerDetails()
+    {
+    
+    }
+    public void clientUpdateEmployeeDetails()
+    {
+    
+    }
+    /////////////////////////////////////
+    JComboBox cboHouse = new JComboBox();
+    /////////////////////////////////////
+    public void clientUpdateHouseDetails()
+    {
+        
+        JCheckBox isRented = new JCheckBox();
+        
+        Object[] addFields
+                ={
+                    "Select Data to Edit: ",cboHouse,
+                    "is Rented: ", isRented
+                 };
+        cboHouseUpdateRefresh();
+        int option;
+        option = JOptionPane.showConfirmDialog(null, addFields, "Update details", JOptionPane.OK_CANCEL_OPTION);
+    }
     //Arraylist for displaying database
       ArrayList<Customer> custRefresh = new ArrayList<>();
       ArrayList<Employers> employeeRefresh = new ArrayList<>();
       ArrayList<House> houseRefresh = new ArrayList<>();
       ArrayList<Rental> rentalRefresh = new ArrayList<>();
       
+      public void cboHouseUpdateRefresh()
+      {
+            try {
+            //client side
+            out.writeObject("refreshCboHouse");
+            out.flush();
+
+            //recieve from server
+            houseRefresh = (ArrayList) in.readObject();
+
+            for (int i = 0; i < houseRefresh.size(); i++) {
+                int id = houseRefresh.get(i).getId();
+                cboHouse.addItem(id);
+            }
+
+        } catch (IOException ex) {
+            System.out.println("IOException: " + ex.getMessage());
+        } catch (ClassNotFoundException ex) {
+            System.out.println("ClassNotFoundException: " + ex.getMessage());
+        }
+      }
     public void refreshCustomer()
     {
         try
@@ -1385,7 +1479,7 @@ public class HouseGUI implements ActionListener, ItemListener {
     public void refreshCboHouse() {
         try {
             //client side
-            out.writeObject("refreshCboHouse");
+            out.writeObject("refreshCboHouseLocation");
             out.flush();
 
             //recieve from server
