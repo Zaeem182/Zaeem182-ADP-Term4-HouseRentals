@@ -282,7 +282,6 @@ public class HouseGUI implements ActionListener, ItemListener {
         btnHouseUpdate.addActionListener(this);
         
         cboFilter.addItemListener(this);
-        cboHouse.addItemListener(this);
         
         tblHouseModel = new DefaultTableModel();
         tblHouseDisplay = new JTable(tblHouseModel);
@@ -406,7 +405,7 @@ public class HouseGUI implements ActionListener, ItemListener {
         btnCustomers.setBackground(Color.WHITE);
     }
     
-    public void setBackToLogin(){
+    public void setSignOut(){
         frameLog.setVisible(true);
         frameH.setVisible(false);
         frameR.setVisible(false);
@@ -872,7 +871,7 @@ public class HouseGUI implements ActionListener, ItemListener {
         }
         //Sign Out Button
         if(e.getActionCommand().equals("Sign Out")){
-            setBackToLogin();
+            setSignOut();
         }
         //EMPLOYEES Button
         if (e.getActionCommand().equals("EMPLOYEES")) 
@@ -899,17 +898,17 @@ public class HouseGUI implements ActionListener, ItemListener {
         
         //Update Customer Button
         if (e.getActionCommand().equals("Update Customer")) {
-            clientUpdateCustomerDetails();
+            updateCustomer();
             refreshCustomer();
         }
         //Update House Button
         if (e.getActionCommand().equals("Update House")) {
-            clientUpdateHouseDetails();
+            updateHouse();
             refreshHouse();
         }
         //Update Employee Button
         if (e.getActionCommand().equals("Update Employee")) {
-            clientUpdateEmployeeDetails();
+            updateEmployee();
             refreshEmployee();
         }
         
@@ -985,21 +984,7 @@ public class HouseGUI implements ActionListener, ItemListener {
         catch(Exception ex){
             System.out.println("Exception: " + ex.getMessage());
         }
-//        if(e.getStateChange() == ItemEvent.SELECTED){
-//                
-//                if (!cboHouse.getSelectedItem().equals("a"))
-//                {
-//                    if(e.getSource() == cboHouse)
-//                    {
-//                        if(e.getStateChange() == ItemEvent.SELECTED)
-//                        {
-//                            isRented.setSelected((Boolean)cboHouse.getSelectedItem());
-//                        }
-//                    }
-//                }
-//        }
     }
-
     
     public void LoginConfirm() {
 
@@ -1029,11 +1014,21 @@ public class HouseGUI implements ActionListener, ItemListener {
             //disables buttons
             btnEmployeeAdd.setEnabled(false);
             btnHouseAdd.setEnabled(false);
+            btnEmployeeUpdate.setEnabled(false);
+            btnHouseUpdate.setEnabled(false);
             
             if (response.equals("Wrong credidentials! try again")) {
 
                 frameLog.setVisible(true);
                 frameC.setVisible(false);
+                
+                btnEmployeeAdd.setEnabled(true);
+                btnHouseAdd.setEnabled(true);
+                btnAdd.setEnabled(true);
+                btnRentalAdd.setEnabled(true);
+                btnEmployeeUpdate.setEnabled(true);
+                btnHouseUpdate.setEnabled(true);
+                btnCustomerUpdate.setEnabled(true);
             } else {
                 setLoginPage();
             }
@@ -1053,6 +1048,7 @@ public class HouseGUI implements ActionListener, ItemListener {
         }
 
     }
+    
     public void LoginAdminConfirm() {
 
         try {
@@ -1061,7 +1057,7 @@ public class HouseGUI implements ActionListener, ItemListener {
 
             if (txtLoginId.getText().equals("") || txtLoginLastname.getText().equals("")) {
                 JOptionPane.showMessageDialog(null, "Error, please fill in all text boxes!");
-
+                
                 frameC.setVisible(false);
                 frameLog.setVisible(true);
             } else 
@@ -1080,12 +1076,21 @@ public class HouseGUI implements ActionListener, ItemListener {
             
             //disables buttons
             btnAdd.setEnabled(false);
-            btnRentalAdd.setEnabled(false);          
+            btnRentalAdd.setEnabled(false);
+            btnCustomerUpdate.setEnabled(false);
             
             if (response.equals("Wrong credidentials! try again")) {
 
                 frameLog.setVisible(true);
                 frameC.setVisible(false);
+                
+                btnAdd.setEnabled(true);
+                btnRentalAdd.setEnabled(true);
+                btnEmployeeAdd.setEnabled(true);
+                btnHouseAdd.setEnabled(true);
+                btnEmployeeUpdate.setEnabled(true);
+                btnHouseUpdate.setEnabled(true);
+                btnCustomerUpdate.setEnabled(true);
             } else {
                 setAdminLoginPage();
 
@@ -1107,7 +1112,7 @@ public class HouseGUI implements ActionListener, ItemListener {
 
     }
 
-    public void clientAddEmployeeDetails() throws NumberFormatException, HeadlessException {
+    public void clientAddEmployeeDetails(){
         JTextField id = new JTextField();
         JTextField fName = new JTextField();
         JTextField lName = new JTextField();
@@ -1119,8 +1124,8 @@ public class HouseGUI implements ActionListener, ItemListener {
                     "ID:", id,
                     "First Name:", fName,
                     "Last Name:", lName,
-                    "Check if employer is a Admin", isAdmin,
-                    "Check if employer is active", isActive
+                    "Check the box if employer is a Admin", isAdmin,
+                    "Check the box if employer is active", isActive
                 };
         
         int option;
@@ -1131,7 +1136,7 @@ public class HouseGUI implements ActionListener, ItemListener {
             if (id.getText().isEmpty() || fName.getText().isEmpty() || lName.getText().isEmpty() ) {
                 JOptionPane.showMessageDialog(null, "Error, please fill in all text boxes!");
             }
-            if(option == JOptionPane.CANCEL_OPTION)
+            else if(option == JOptionPane.CANCEL_OPTION)
             {
                 
             }
@@ -1165,11 +1170,13 @@ public class HouseGUI implements ActionListener, ItemListener {
             System.out.println("IOExeption: " + ex.getMessage());
         } catch (ClassNotFoundException ex) {
             System.out.println("ClassNotFoundException: " + ex.getMessage());
+        } catch(NumberFormatException ex){
+            System.out.println("NumberFormatException: " + ex.getMessage());
         }
         }
     }
 
-    public void clientAddCustomerDetails() throws HeadlessException, NumberFormatException {
+    public void clientAddCustomerDetails(){
         JTextField id = new JTextField();
         JTextField fName = new JTextField();
         JTextField lName = new JTextField();
@@ -1193,7 +1200,7 @@ public class HouseGUI implements ActionListener, ItemListener {
             if (id.getText().isEmpty() || fName.getText().isEmpty() || lName.getText().isEmpty() || phoneNum.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Error, please fill in all text boxes!");
             }
-            if (option == JOptionPane.CANCEL_OPTION) {
+            else if (option == JOptionPane.CANCEL_OPTION) {
 
             } else
         try {
@@ -1253,7 +1260,7 @@ public class HouseGUI implements ActionListener, ItemListener {
             if (id.getText().isEmpty() || noOfRooms.getText().isEmpty() || location.getText().isEmpty() || price.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Error, please fill in all text boxes!");
             }
-            if(option == JOptionPane.CANCEL_OPTION)
+            else if(option == JOptionPane.CANCEL_OPTION)
             {
                 
             }
@@ -1289,34 +1296,31 @@ public class HouseGUI implements ActionListener, ItemListener {
         }
     }
     
-    public void clientAddRentalDetails()
-    {
+    public void clientAddRentalDetails(){
         JTextField id = new JTextField();
-            long millis = System.currentTimeMillis();
-            Date date = new Date(millis);
-            JTextField customerId = new JTextField();
-            JTextField houseId = new JTextField();
+        long millis = System.currentTimeMillis();
+        Date date = new Date(millis);
+        JTextField customerId = new JTextField();
+        JTextField houseId = new JTextField();
 
-            Object[] addFields
-                    = {
-                        "ID:", id,
-                        "Customer ID:", customerId,
-                        "House ID:", houseId
-                    };
+        Object[] addFields
+                = {
+                    "ID:", id,
+                    "Customer ID:", customerId,
+                    "House ID:", houseId
+                };
 
         int option;
         option = JOptionPane.showConfirmDialog(null, addFields, "Add details", JOptionPane.OK_CANCEL_OPTION);
 
         if (option == JOptionPane.OK_OPTION) {
 
-            if (id.getText().isEmpty() || customerId.getText().isEmpty() || houseId.getText().isEmpty() ) {
+            if (id.getText().isEmpty() || customerId.getText().isEmpty() || houseId.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Error, please fill in all text boxes!");
             }
-            if(option == JOptionPane.CANCEL_OPTION)
-            {
-                
-            }
-        else
+            else if (option == JOptionPane.CANCEL_OPTION) {
+
+            } else
 
             try {
                 out.writeObject("Add Rental");
@@ -1340,70 +1344,19 @@ public class HouseGUI implements ActionListener, ItemListener {
                 System.out.println("IOExeption: " + ex.getMessage());
             } catch (ClassNotFoundException ex) {
                 System.out.println("ClassNotFoundException: " + ex.getMessage());
+            } catch(NumberFormatException ex){
+                System.out.println("NumberFormatException: " + ex.getMessage());
             }
         }
     }
     
-    public void clientUpdateCustomerDetails()
-    {
-    
-    }
-    public void clientUpdateEmployeeDetails()
-    {
-    
-    }
-    /////////////////////////////////////
-    JComboBox cboHouse = new JComboBox();
-    JCheckBox isRented = new JCheckBox();
-    
-    /////////////////////////////////////
-    public void clientUpdateHouseDetails()
-    {
-        
-        
-        
-        Object[] addFields
-                ={
-                    "Select Data to Edit: ",cboHouse,
-                    "is Rented: ", isRented
-                 };
-        cboHouse.addItem("a");
-        cboHouseUpdateRefresh();
-        int option;
-        option = JOptionPane.showConfirmDialog(null, addFields, "Update details", JOptionPane.OK_CANCEL_OPTION);
-    }
+
     //Arraylist for displaying database
       ArrayList<Customer> custRefresh = new ArrayList<>();
       ArrayList<Employers> employeeRefresh = new ArrayList<>();
       ArrayList<House> houseRefresh = new ArrayList<>();
       ArrayList<Rental> rentalRefresh = new ArrayList<>();
       
-      public void cboHouseUpdateRefresh()
-      {
-            try {
-            //client side
-            out.writeObject("refreshCboHouse");
-            out.flush();
-
-            //recieve from server
-            houseRefresh = (ArrayList) in.readObject();
-
-            for (int i = 0; i < houseRefresh.size(); i++) {
-                int id = houseRefresh.get(i).getId();
-                Boolean isRented = houseRefresh.get(i).isIsRented();
-                cboHouse.addItem(id);
-            }
-
-        } catch (IOException ex) {
-            System.out.println("IOException: " + ex.getMessage());
-        } catch (ClassNotFoundException ex) {
-            System.out.println("ClassNotFoundException: " + ex.getMessage());
-        }
-//            if(e. == cboHouse.getSelectedItem() )
-//            {
-//            isRented.setSelected((Boolean)cboHouse.getSelectedItem());
-//            }
-      }
     public void refreshCustomer()
     {
         try
@@ -1552,8 +1505,7 @@ public class HouseGUI implements ActionListener, ItemListener {
         }
     }
 
-    public void houseAvailable()
-    {
+    public void houseAvailable(){
        try {
             //client side
             out.writeObject("Available");
@@ -1583,8 +1535,8 @@ public class HouseGUI implements ActionListener, ItemListener {
             System.out.println("ClassNotFoundException: " + ex.getMessage());
         } 
     }
-    public void houseNotAvailable()
-    {
+    
+    public void houseNotAvailable(){
          try {
             //client side
             out.writeObject("Not Available");
@@ -1614,6 +1566,7 @@ public class HouseGUI implements ActionListener, ItemListener {
             System.out.println("ClassNotFoundException: " + ex.getMessage());
         } 
     }
+    
     public void cboCampsBay() {
         try {
             out.writeObject("Camps Bay");
@@ -1798,6 +1751,138 @@ public class HouseGUI implements ActionListener, ItemListener {
             System.out.println("ClassNotFoundException: " + ex.getMessage());
         }
 
+    }
+    
+    public void updateCustomer(){
+        JTextField id = new JTextField();
+        JCheckBox canRent = new JCheckBox();
+
+        Object[] addFields
+                = {
+                    "ID:", id,
+                    "Can Rent:", canRent
+                };
+
+        int option;
+        option = JOptionPane.showConfirmDialog(null, addFields, "Update details", JOptionPane.OK_CANCEL_OPTION);
+
+        if (option == JOptionPane.OK_OPTION) {
+
+            if (id.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Error, please fill in all text boxes!");
+            } else if (option == JOptionPane.CANCEL_OPTION) {
+
+            } else
+                
+                try {
+                out.writeObject("Update Customer");
+                out.flush();
+
+                out.writeInt(Integer.parseInt(id.getText()));
+                out.flush();
+
+                out.writeBoolean(canRent.isSelected());
+                out.flush();
+
+                String response = (String) in.readObject();
+                JOptionPane.showMessageDialog(null, response);
+
+            } catch (IOException ex) {
+                System.out.println("IOException: " + ex.getMessage());
+            } catch (ClassNotFoundException ex) {
+                System.out.println("ClassNotFoundException: " + ex.getMessage());
+            } catch(NumberFormatException ex){
+                    System.out.println("NumberFormatException: " + ex.getMessage());
+            }
+        }
+    }
+    
+    public void updateEmployee(){
+        JTextField id = new JTextField();
+        JCheckBox isActive = new JCheckBox();
+
+        Object[] addFields
+                = {
+                    "ID:", id,
+                    "Check the box if employer is active:", isActive
+                };
+
+        int option;
+        option = JOptionPane.showConfirmDialog(null, addFields, "Update details", JOptionPane.OK_CANCEL_OPTION);
+
+        if (option == JOptionPane.OK_OPTION) {
+
+            if (id.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Error, please fill in all text boxes!");
+            } else if (option == JOptionPane.CANCEL_OPTION) {
+
+            } else
+                
+                try {
+                out.writeObject("Update Employee");
+                out.flush();
+
+                out.writeInt(Integer.parseInt(id.getText()));
+                out.flush();
+
+                out.writeBoolean(isActive.isSelected());
+                out.flush();
+
+                String response = (String) in.readObject();
+                JOptionPane.showMessageDialog(null, response);
+
+            } catch (IOException ex) {
+                System.out.println("IOException: " + ex.getMessage());
+            } catch (ClassNotFoundException ex) {
+                System.out.println("ClassNotFoundException: " + ex.getMessage());
+            } catch(NumberFormatException ex){
+                    System.out.println("NumberFormatException: " + ex.getMessage());
+            }
+        }
+    }
+    
+    public void updateHouse(){
+        JTextField id = new JTextField();
+        JCheckBox isRented = new JCheckBox();
+
+        Object[] addFields
+                = {
+                    "ID:", id,
+                    "Check the box if House is Rented:", isRented
+                };
+
+        int option;
+        option = JOptionPane.showConfirmDialog(null, addFields, "Update details", JOptionPane.OK_CANCEL_OPTION);
+
+        if (option == JOptionPane.OK_OPTION) {
+
+            if (id.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Error, please fill in all text boxes!");
+            } else if (option == JOptionPane.CANCEL_OPTION) {
+
+            } else
+                
+                try {
+                out.writeObject("Update House");
+                out.flush();
+
+                out.writeInt(Integer.parseInt(id.getText()));
+                out.flush();
+
+                out.writeBoolean(isRented.isSelected());
+                out.flush();
+
+                String response = (String) in.readObject();
+                JOptionPane.showMessageDialog(null, response);
+
+            } catch (IOException ex) {
+                System.out.println("IOException: " + ex.getMessage());
+            } catch (ClassNotFoundException ex) {
+                System.out.println("ClassNotFoundException: " + ex.getMessage());
+            } catch(NumberFormatException ex){
+                    System.out.println("NumberFormatException: " + ex.getMessage());
+            }
+        }
     }
 
     public static void main(String[] args) {

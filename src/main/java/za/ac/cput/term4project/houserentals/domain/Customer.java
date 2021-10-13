@@ -26,6 +26,11 @@ public class Customer implements Serializable{
         this.canRent = canRent;
     }
 
+    public Customer(int customerId, boolean canRent) {
+        this.customerId = customerId;
+        this.canRent = canRent;
+    }
+
     public void setCustomerId(int customerId) {
         this.customerId = customerId;
     }

@@ -89,6 +89,9 @@ public class Server {
             while (true) {
                 //communicate (if statements to add data)
                 String msg = (String) in.readObject();
+                
+                //////////////////////////ADD //////////////////////////////////
+                
                 if (msg.equals("Add Customer")) {
                     Integer id = (Integer) in.readInt();
                     String fName = (String) in.readObject();
@@ -168,6 +171,8 @@ public class Server {
                     else
                         out.writeObject("Data has not been added :(");
                 }
+                
+                /////////////////////////LOGINS/////////////////////////////
                                 
                 if(msg.equals("Agent Login")){
                 
@@ -210,6 +215,8 @@ public class Server {
                     
                     }
                 }
+                
+                ///////////////////////////REFRESH//////////////////////////
                 
                 if (msg.equals("refreshCustomer")){
                     ArrayList<Customer> customerList = new ArrayList<>();
@@ -317,6 +324,51 @@ public class Server {
                     
                     out.writeObject(houseList);
                     out.flush();
+                }
+                
+                ///////////////////////////UPDATE/////////////////////////////////
+                
+                if(msg.equals("Update Customer")){
+                    Integer id = (Integer) in.readInt();
+                    boolean canRent = (boolean) in.readBoolean();
+
+                    //DAO Part
+                    Customer customer = new Customer(id, canRent);
+                    Customer cDaoAdd = customerDao.update(customer);
+                    
+                    if (cDaoAdd.equals(customer)) {
+                        out.writeObject("Data has been updated!");
+                        out.flush();
+                        
+                    }
+                }
+                
+                if(msg.equals("Update Employee")){
+                    Integer id = (Integer) in.readInt();
+                    boolean isActive = (boolean) in.readBoolean();
+                    
+                    //Dao
+                    Employers employer = new Employers(id, isActive);
+                    Employers eDaoAdd = employerDao.update(employer);
+                    
+                    if(eDaoAdd.equals(employer)){
+                        out.writeObject("Data has been updated!");
+                        out.flush();
+                    }
+                }
+                
+                if(msg.equals("Update House")){
+                    Integer id = (Integer) in.readInt();
+                    boolean isRent = (boolean) in.readBoolean();
+                    
+                    //Dao
+                    House house = new House(id, isRent);
+                    House hDaoAdd = houseDao.update(house);
+                    
+                    if(hDaoAdd.equals(house)){
+                        out.writeObject("Data has been updated!");
+                        out.flush();
+                    }
                 }
                 
                 if(msg.equals("EXIT")){
